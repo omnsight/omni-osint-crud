@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: omni-osint-crud
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - arangodb
+      - redis
+    command: uvicorn omni_osint_crud.main:app --host 0.0.0.0 --port 8000 --reload
+
+  arangodb:
+    image: arangodb:3.11
+    container_name: osint-arangodb
+    environment:
+      - ARANGO_ROOT_PASSWORD=${ARANGODB_PASSWORD}
+    ports:
+      - "8529:8529"
+
+  redis:
+    image: redis:7-alpine
+    container_name: osint-redis
+    ports:
+      - "6379:6379"
