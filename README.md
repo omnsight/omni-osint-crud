@@ -41,5 +41,3 @@ Export the OpenAPI definition to `doc/openapi.json`:
 ```bash
 uv run python tools/export_openapi.py
 ```
-
-
