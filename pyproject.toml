@@ -15,15 +15,29 @@ dependencies = [
     "omni-python-library @ git+https://github.com/omnsight/omni-python-library",
 ]
 
-[tool.setuptools.packages.find]
-where = ["src"]
-
-[dependency-groups]
+[project.optional-dependencies]
 dev = [
     "black>=25.11.0",
+    "isort>=5.0.0",
+    "mypy>=1.0.0",
+    "pytest>=7.0.0",
 ]
 
 [tool.black]
-line-length = 88
+line-length = 120
 target-version = ['py39']
-include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+line_length = 120
+known_first_party = ["omni_osint_crud"]
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+check_untyped_defs = true
+
+[tool.setuptools.packages.find]
+where = ["src"]

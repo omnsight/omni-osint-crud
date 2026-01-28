@@ -1,23 +1,24 @@
-from fastapi import APIRouter, HTTPException, Body, Depends
 import logging
 from typing import Dict
+
+from fastapi import APIRouter, Body, Depends, HTTPException
 from omni_python_library.dal.osint_data_access_layer import OsintDataAccessLayer
-from omni_python_library.models.osint import (
-    Person,
-    Organization,
-    Event,
-    Website,
-    Source,
-    Relation,
-    PersonMainData,
-    OrganizationMainData,
-    EventMainData,
-    WebsiteMainData,
-    SourceMainData,
-    RelationMainData,
-)
-from omni_python_library.models.common import Permissive
 from omni_python_library.middleware.user_token import get_user_context
+from omni_python_library.models.common import Permissive
+from omni_python_library.models.osint import (
+    Event,
+    EventMainData,
+    Organization,
+    OrganizationMainData,
+    Person,
+    PersonMainData,
+    Relation,
+    RelationMainData,
+    Source,
+    SourceMainData,
+    Website,
+    WebsiteMainData,
+)
 
 router = APIRouter(prefix="/update", tags=["update"])
 logger = logging.getLogger(__name__)
@@ -31,9 +32,7 @@ def update_person(
     user_ctx: Dict = Depends(get_user_context),
 ):
     if not dal.can_write(id, user_ctx["user_id"], user_ctx["roles"]):
-        raise HTTPException(
-            status_code=403, detail="Insufficient permissions to update this resource"
-        )
+        raise HTTPException(status_code=403, detail="Insufficient permissions to update this resource")
     try:
         return dal.update_person(id, data)
     except Exception:
@@ -42,17 +41,13 @@ def update_person(
 
 
 @router.put("/person/{id}/permissions", response_model=Person)
-def update_person_permissions(
-    id: str, data: Permissive = Body(...), user_ctx: Dict = Depends(get_user_context)
-):
+def update_person_permissions(id: str, data: Permissive = Body(...), user_ctx: Dict = Depends(get_user_context)):
     if not dal.is_owner(id, user_ctx["user_id"]):
-        raise HTTPException(
-            status_code=403, detail="Only the owner can update permissions"
-        )
+        raise HTTPException(status_code=403, detail="Only the owner can update permissions")
     try:
         return dal.update_person(id, data)
     except Exception:
-        logger.exception(f"User {user_ctx['user_id']} failed to update person permissions for {id}")    
+        logger.exception(f"User {user_ctx['user_id']} failed to update person permissions for {id}")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
@@ -63,9 +58,7 @@ def update_organization(
     user_ctx: Dict = Depends(get_user_context),
 ):
     if not dal.can_write(id, user_ctx["user_id"], user_ctx["roles"]):
-        raise HTTPException(
-            status_code=403, detail="Insufficient permissions to update this resource"
-        )
+        raise HTTPException(status_code=403, detail="Insufficient permissions to update this resource")
     try:
         return dal.update_organization(id, data)
     except Exception:
@@ -74,13 +67,9 @@ def update_organization(
 
 
 @router.put("/organization/{id}/permissions", response_model=Organization)
-def update_organization_permissions(
-    id: str, data: Permissive = Body(...), user_ctx: Dict = Depends(get_user_context)
-):
+def update_organization_permissions(id: str, data: Permissive = Body(...), user_ctx: Dict = Depends(get_user_context)):
     if not dal.is_owner(id, user_ctx["user_id"]):
-        raise HTTPException(
-            status_code=403, detail="Only the owner can update permissions"
-        )
+        raise HTTPException(status_code=403, detail="Only the owner can update permissions")
     try:
         return dal.update_organization(id, data)
     except Exception:
@@ -89,13 +78,9 @@ def update_organization_permissions(
 
 
 @router.put("/event/{id}", response_model=Event)
-def update_event(
-    id: str, data: EventMainData = Body(...), user_ctx: Dict = Depends(get_user_context)
-):
+def update_event(id: str, data: EventMainData = Body(...), user_ctx: Dict = Depends(get_user_context)):
     if not dal.can_write(id, user_ctx["user_id"], user_ctx["roles"]):
-        raise HTTPException(
-            status_code=403, detail="Insufficient permissions to update this resource"
-        )
+        raise HTTPException(status_code=403, detail="Insufficient permissions to update this resource")
     try:
         return dal.update_event(id, data)
     except Exception:
@@ -104,13 +89,9 @@ def update_event(
 
 
 @router.put("/event/{id}/permissions", response_model=Event)
-def update_event_permissions(
-    id: str, data: Permissive = Body(...), user_ctx: Dict = Depends(get_user_context)
-):
+def update_event_permissions(id: str, data: Permissive = Body(...), user_ctx: Dict = Depends(get_user_context)):
     if not dal.is_owner(id, user_ctx["user_id"]):
-        raise HTTPException(
-            status_code=403, detail="Only the owner can update permissions"
-        )
+        raise HTTPException(status_code=403, detail="Only the owner can update permissions")
     try:
         return dal.update_event(id, data)
     except Exception:
@@ -125,9 +106,7 @@ def update_website(
     user_ctx: Dict = Depends(get_user_context),
 ):
     if not dal.can_write(id, user_ctx["user_id"], user_ctx["roles"]):
-        raise HTTPException(
-            status_code=403, detail="Insufficient permissions to update this resource"
-        )
+        raise HTTPException(status_code=403, detail="Insufficient permissions to update this resource")
     try:
         return dal.update_website(id, data)
     except Exception:
@@ -136,13 +115,9 @@ def update_website(
 
 
 @router.put("/website/{id}/permissions", response_model=Website)
-def update_website_permissions(
-    id: str, data: Permissive = Body(...), user_ctx: Dict = Depends(get_user_context)
-):
+def update_website_permissions(id: str, data: Permissive = Body(...), user_ctx: Dict = Depends(get_user_context)):
     if not dal.is_owner(id, user_ctx["user_id"]):
-        raise HTTPException(
-            status_code=403, detail="Only the owner can update permissions"
-        )
+        raise HTTPException(status_code=403, detail="Only the owner can update permissions")
     try:
         return dal.update_website(id, data)
     except Exception:
@@ -157,9 +132,7 @@ def update_source(
     user_ctx: Dict = Depends(get_user_context),
 ):
     if not dal.can_write(id, user_ctx["user_id"], user_ctx["roles"]):
-        raise HTTPException(
-            status_code=403, detail="Insufficient permissions to update this resource"
-        )
+        raise HTTPException(status_code=403, detail="Insufficient permissions to update this resource")
     try:
         return dal.update_source(id, data)
     except Exception:
@@ -168,13 +141,9 @@ def update_source(
 
 
 @router.put("/source/{id}/permissions", response_model=Source)
-def update_source_permissions(
-    id: str, data: Permissive = Body(...), user_ctx: Dict = Depends(get_user_context)
-):
+def update_source_permissions(id: str, data: Permissive = Body(...), user_ctx: Dict = Depends(get_user_context)):
     if not dal.is_owner(id, user_ctx["user_id"]):
-        raise HTTPException(
-            status_code=403, detail="Only the owner can update permissions"
-        )
+        raise HTTPException(status_code=403, detail="Only the owner can update permissions")
     try:
         return dal.update_source(id, data)
     except Exception:
@@ -189,9 +158,7 @@ def update_relation(
     user_ctx: Dict = Depends(get_user_context),
 ):
     if not dal.can_write(id, user_ctx["user_id"], user_ctx["roles"]):
-        raise HTTPException(
-            status_code=403, detail="Insufficient permissions to update this resource"
-        )
+        raise HTTPException(status_code=403, detail="Insufficient permissions to update this resource")
     try:
         return dal.update_relation(id, data)
     except Exception:
@@ -200,13 +167,9 @@ def update_relation(
 
 
 @router.put("/relation/{id}/permissions", response_model=Relation)
-def update_relation_permissions(
-    id: str, data: Permissive = Body(...), user_ctx: Dict = Depends(get_user_context)
-):
+def update_relation_permissions(id: str, data: Permissive = Body(...), user_ctx: Dict = Depends(get_user_context)):
     if not dal.is_owner(id, user_ctx["user_id"]):
-        raise HTTPException(
-            status_code=403, detail="Only the owner can update permissions"
-        )
+        raise HTTPException(status_code=403, detail="Only the owner can update permissions")
     try:
         return dal.update_relation(id, data)
     except Exception:

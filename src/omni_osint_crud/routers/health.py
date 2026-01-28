@@ -1,7 +1,7 @@
 from fastapi import APIRouter
-from pydantic import BaseModel
 from omni_python_library.clients.arangodb import ArangoDBClient
 from omni_python_library.clients.redis import RedisClient
+from pydantic import BaseModel
 
 router = APIRouter(tags=["health"])
 

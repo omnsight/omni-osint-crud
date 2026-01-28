@@ -21,7 +21,7 @@ This project is managed with [uv](https://github.com/astral-sh/uv).
 
 Install dependencies:
 ```bash
-uv sync
+uv sync --extra dev
 ```
 
 Upgrade dependencies:
@@ -40,4 +40,12 @@ uv run uvicorn omni_osint_crud.main:app --reload
 Export the OpenAPI definition to `doc/openapi.json`:
 ```bash
 uv run python tools/export_openapi.py
+```
+
+### Code Formatting
+
+Format the code using black:
+```bash
+uv run black .
+uv run isort .
 ```

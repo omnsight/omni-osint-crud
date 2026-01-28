@@ -1,23 +1,24 @@
-from fastapi import APIRouter, HTTPException, Depends
 import logging
+
+from fastapi import APIRouter, Depends, HTTPException
 from omni_python_library.dal.osint_data_access_layer import OsintDataAccessLayer
-from omni_python_library.models.osint import (
-    Person,
-    Organization,
-    Event,
-    Website,
-    Source,
-    Relation,
-    PersonMainData,
-    OrganizationMainData,
-    EventMainData,
-    WebsiteMainData,
-    SourceMainData,
-    RelationMainData,
-)
 from omni_python_library.middleware.user_token import (
     get_owner_from_token,
     validate_create_permission,
+)
+from omni_python_library.models.osint import (
+    Event,
+    EventMainData,
+    Organization,
+    OrganizationMainData,
+    Person,
+    PersonMainData,
+    Relation,
+    RelationMainData,
+    Source,
+    SourceMainData,
+    Website,
+    WebsiteMainData,
 )
 
 router = APIRouter(
@@ -39,9 +40,7 @@ def create_person(person: PersonMainData, owner: str = Depends(get_owner_from_to
 
 
 @router.post("/organization", response_model=Organization)
-def create_organization(
-    organization: OrganizationMainData, owner: str = Depends(get_owner_from_token)
-):
+def create_organization(organization: OrganizationMainData, owner: str = Depends(get_owner_from_token)):
     try:
         return dal.create_organization(organization, owner)
     except Exception:
@@ -59,9 +58,7 @@ def create_event(event: EventMainData, owner: str = Depends(get_owner_from_token
 
 
 @router.post("/website", response_model=Website)
-def create_website(
-    website: WebsiteMainData, owner: str = Depends(get_owner_from_token)
-):
+def create_website(website: WebsiteMainData, owner: str = Depends(get_owner_from_token)):
     try:
         return dal.create_website(website, owner)
     except Exception:
@@ -79,9 +76,7 @@ def create_source(source: SourceMainData, owner: str = Depends(get_owner_from_to
 
 
 @router.post("/relation", response_model=Relation)
-def create_relation(
-    relation: RelationMainData, owner: str = Depends(get_owner_from_token)
-):
+def create_relation(relation: RelationMainData, owner: str = Depends(get_owner_from_token)):
     try:
         return dal.create_relation(relation, owner)
     except Exception:
