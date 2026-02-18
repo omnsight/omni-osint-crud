@@ -1,26 +1,29 @@
+from unittest.mock import patch
 
 import jwt
 from fastapi.testclient import TestClient
-
 from omni_python_library import init_omni_library
 from omni_python_library.models.osint import WebsiteMainData
 from omni_python_library.utils.user import UserRole
-from omni_osint_crud.main import app
+
+from src.omni_osint_crud.main import app
 
 
 class TestWebsite:
     client: TestClient
+    no_roles_client: TestClient
 
     @classmethod
     def setup_class(cls):
         init_omni_library()
-        payload = {
-            "sub": "test-user-id-123",
-            "roles": [UserRole.ADMIN]
-        }
+        payload = {"sub": "test-user-id-123", "roles": [UserRole.ADMIN]}
         token = jwt.encode(payload, key=None, algorithm="none")
         cls.client = TestClient(app)
         cls.client.headers = {"Authorization": f"Bearer {token}"}
+        no_roles_payload = {"sub": "test-user-id-456", "roles": []}
+        no_roles_token = jwt.encode(no_roles_payload, key=None, algorithm="none")
+        cls.no_roles_client = TestClient(app)
+        cls.no_roles_client.headers = {"Authorization": f"Bearer {no_roles_token}"}
 
     def test_website_crud_cycle(self):
         # 1. Create Website
@@ -38,7 +41,7 @@ class TestWebsite:
         assert response.json() == created_website
 
         # 3. Update Website
-        update_data = WebsiteMainData(title="Test Website Updated", url="http://test-updated.com")  
+        update_data = WebsiteMainData(title="Test Website Updated", url="http://test-updated.com")
         response = self.client.put(f"/update/website/{website_id}", json=update_data.model_dump())
         assert response.status_code == 200
         updated_website = response.json()
@@ -52,15 +55,71 @@ class TestWebsite:
         response = self.client.get(f"/read/website/{website_id}")
         assert response.status_code == 404
 
+    def test_create_website_permission_denied(self):
+        create_data = WebsiteMainData(title="Test Website", url="http://test.com")
+        response = self.no_roles_client.post("/create/website", json=create_data.model_dump())
+        assert response.status_code == 403
+
     def test_read_website_not_found(self):
         response = self.client.get("/read/website/non-existent-id")
         assert response.status_code == 404
 
+    def test_read_website_bad_id(self):
+        response = self.client.get("/read/website/bad_collection/bad_key")
+        assert response.status_code == 404
+
+    def test_update_website_permission_denied(self):
+        create_data = WebsiteMainData(title="Test Website", url="http://test.com")
+        response = self.client.post("/create/website", json=create_data.model_dump())
+        assert response.status_code == 200
+        created_website = response.json()
+        website_id = created_website["_id"]
+
+        update_data = WebsiteMainData(title="Test Website Updated", url="http://test-updated.com")
+        response = self.no_roles_client.put(f"/update/website/{website_id}", json=update_data.model_dump())
+        assert response.status_code == 403
+
     def test_update_website_not_found(self):
-        update_data = WebsiteMainData(name="Jane Doe", url="http://jane.com")
+        update_data = WebsiteMainData(title="Jane Doe", url="http://jane.com")
         response = self.client.put("/update/website/non-existent-id", json=update_data.model_dump())
         assert response.status_code == 404
+
+    def test_delete_website_permission_denied(self):
+        create_data = WebsiteMainData(title="Test Website", url="http://test.com")
+        response = self.client.post("/create/website", json=create_data.model_dump())
+        assert response.status_code == 200
+        created_website = response.json()
+        website_id = created_website["_id"]
+
+        response = self.no_roles_client.delete(f"/delete/entity/{website_id}")
+        assert response.status_code == 403
 
     def test_delete_website_not_found(self):
         response = self.client.delete("/delete/entity/non-existent-id")
         assert response.status_code == 404
+
+    @patch("omni_osint_crud.routers.create.dal.create_website")
+    def test_create_website_internal_error(self, mock_create_website):
+        mock_create_website.side_effect = Exception("DB error")
+        create_data = WebsiteMainData(title="Test Website", url="http://test.com")
+        response = self.client.post("/create/website", json=create_data.model_dump())
+        assert response.status_code == 500
+
+    @patch("omni_osint_crud.routers.read.dal.get_website")
+    def test_read_website_internal_error(self, mock_get_website_by_id):
+        mock_get_website_by_id.side_effect = Exception("DB error")
+        response = self.client.get("/read/website/some-id")
+        assert response.status_code == 500
+
+    @patch("omni_osint_crud.routers.update.dal.update_website")
+    def test_update_website_internal_error(self, mock_update_website):
+        mock_update_website.side_effect = Exception("DB error")
+        update_data = WebsiteMainData(title="Test Website Updated", url="http://test-updated.com")
+        response = self.client.put("/update/website/some-id", json=update_data.model_dump())
+        assert response.status_code == 500
+
+    @patch("omni_osint_crud.routers.delete.dal.delete_entity")
+    def test_delete_website_internal_error(self, mock_delete_entity):
+        mock_delete_entity.side_effect = Exception("DB error")
+        response = self.client.delete("/delete/entity/some-id")
+        assert response.status_code == 500

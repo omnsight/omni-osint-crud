@@ -1,26 +1,32 @@
+from unittest.mock import patch
 
 import jwt
 from fastapi.testclient import TestClient
-
 from omni_python_library import init_omni_library
 from omni_python_library.models.osint import OrganizationMainData
 from omni_python_library.utils.user import UserRole
-from omni_osint_crud.main import app
+
+from src.omni_osint_crud.main import app
 
 
 class TestOrganization:
     client: TestClient
+    no_roles_client: TestClient
 
     @classmethod
     def setup_class(cls):
         init_omni_library()
-        payload = {
-            "sub": "test-user-id-123",
-            "roles": [UserRole.ADMIN]
-        }
+        # Client with admin roles
+        payload = {"sub": "test-user-id-123", "roles": [UserRole.ADMIN]}
         token = jwt.encode(payload, key=None, algorithm="none")
         cls.client = TestClient(app)
         cls.client.headers = {"Authorization": f"Bearer {token}"}
+
+        # Client with no roles
+        no_roles_payload = {"sub": "test-user-id-456", "roles": []}
+        no_roles_token = jwt.encode(no_roles_payload, key=None, algorithm="none")
+        cls.no_roles_client = TestClient(app)
+        cls.no_roles_client.headers = {"Authorization": f"Bearer {no_roles_token}"}
 
     def test_organization_crud_cycle(self):
         # 1. Create Organization
@@ -52,15 +58,71 @@ class TestOrganization:
         response = self.client.get(f"/read/organization/{organization_id}")
         assert response.status_code == 404
 
+    def test_create_organization_permission_denied(self):
+        create_data = OrganizationMainData(name="Test Corp")
+        response = self.no_roles_client.post("/create/organization", json=create_data.model_dump())
+        assert response.status_code == 403
+
     def test_read_organization_not_found(self):
         response = self.client.get("/read/organization/non-existent-id")
         assert response.status_code == 404
+
+    def test_read_organization_bad_id(self):
+        response = self.client.get("/read/organization/bad_collection/bad_key")
+        assert response.status_code == 404
+
+    def test_update_organization_permission_denied(self):
+        create_data = OrganizationMainData(name="Test Corp")
+        response = self.client.post("/create/organization", json=create_data.model_dump())
+        assert response.status_code == 200
+        created_organization = response.json()
+        organization_id = created_organization["_id"]
+
+        update_data = OrganizationMainData(name="Jane Doe")
+        response = self.no_roles_client.put(f"/update/organization/{organization_id}", json=update_data.model_dump())
+        assert response.status_code == 403
 
     def test_update_organization_not_found(self):
         update_data = OrganizationMainData(name="Jane Doe")
         response = self.client.put("/update/organization/non-existent-id", json=update_data.model_dump())
         assert response.status_code == 404
 
+    def test_delete_organization_permission_denied(self):
+        create_data = OrganizationMainData(name="Test Corp")
+        response = self.client.post("/create/organization", json=create_data.model_dump())
+        assert response.status_code == 200
+        created_organization = response.json()
+        organization_id = created_organization["_id"]
+
+        response = self.no_roles_client.delete(f"/delete/entity/{organization_id}")
+        assert response.status_code == 403
+
     def test_delete_organization_not_found(self):
         response = self.client.delete("/delete/entity/non-existent-id")
         assert response.status_code == 404
+
+    @patch("omni_osint_crud.routers.create.dal.create_organization")
+    def test_create_organization_internal_error(self, mock_create_organization):
+        mock_create_organization.side_effect = Exception("DB error")
+        create_data = OrganizationMainData(name="Test Corp")
+        response = self.client.post("/create/organization", json=create_data.model_dump())
+        assert response.status_code == 500
+
+    @patch("omni_osint_crud.routers.read.dal.get_organization")
+    def test_read_organization_internal_error(self, mock_read_organization):
+        mock_read_organization.side_effect = Exception("DB error")
+        response = self.client.get("/read/organization/some-id")
+        assert response.status_code == 500
+
+    @patch("omni_osint_crud.routers.update.dal.update_organization")
+    def test_update_organization_internal_error(self, mock_update_organization):
+        mock_update_organization.side_effect = Exception("DB error")
+        update_data = OrganizationMainData(name="Jane Doe")
+        response = self.client.put("/update/organization/some-id", json=update_data.model_dump())
+        assert response.status_code == 500
+
+    @patch("omni_osint_crud.routers.delete.dal.delete_entity")
+    def test_delete_organization_internal_error(self, mock_delete_entity):
+        mock_delete_entity.side_effect = Exception("DB error")
+        response = self.client.delete("/delete/entity/some-id")
+        assert response.status_code == 500
