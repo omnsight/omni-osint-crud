@@ -1,4 +1,5 @@
 # Omni OSINT Data Management API Backend
+[![codecov](https://codecov.io/github/omnsight/omni-osint-crud/graph/badge.svg?token=2LDW67VWXE)](https://codecov.io/github/omnsight/omni-osint-crud)
 
 ## Project Structure
 
@@ -35,7 +36,7 @@ uv run poe clean
 Run unit tests
 
 ```bash
-# .env is necessary for local testing
+# loading .env is necessary for local testing
 docker compose up -d --wait
 export $(cat .env | xargs) && uv run pytest
 docker compose down
