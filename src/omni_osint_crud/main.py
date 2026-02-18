@@ -3,7 +3,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from omni_python_library import init_omni_library
-from omni_python_library.clients.openai import OpenAIClient
+from omni_python_library.clients.openai_client import OpenAIClient
 
 from omni_osint_crud.routers import (
     create_router,

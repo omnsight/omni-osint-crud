@@ -1,7 +1,7 @@
 FROM python:3.11-slim-bookworm
 
 # Install uv
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
+RUN pip install uv
 
 WORKDIR /app
 
@@ -15,6 +15,7 @@ ENV UV_LINK_MODE=copy
 COPY pyproject.toml uv.lock ./
 
 # Install the project's dependencies using the lockfile and settings
+RUN apt-get update && apt-get install -y git
 RUN uv sync --frozen --no-install-project --no-dev
 
 # Copy the project source code
