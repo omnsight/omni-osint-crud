@@ -1,4 +1,4 @@
-# omni-osint-crud
+# Omni OSINT Data Management API Backend
 
 ## Project Structure
 
@@ -28,6 +28,17 @@ Upgrade dependencies:
 ```bash
 uv lock --upgrade
 uv sync --extra dev
+
+uv run poe clean
+```
+
+Run unit tests
+
+```bash
+# .env is necessary for local testing
+docker compose up -d --wait
+export $(cat .env | xargs) && uv run pytest
+docker compose down
 ```
 
 Run the application:

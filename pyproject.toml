@@ -7,11 +7,11 @@ name = "omni-osint-crud"
 version = "0.1.0"
 description = "Omni OSINT CRUD Service"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 dependencies = [
-    "fastapi>=0.100.0",
     "uvicorn>=0.22.0",
     "pydantic>=2.0.0",
+    "fastapi>=0.100.0",
     "omni-python-library @ git+https://github.com/omnsight/omni-python-library",
 ]
 
@@ -20,7 +20,11 @@ dev = [
     "black>=25.11.0",
     "isort>=5.0.0",
     "mypy>=1.0.0",
-    "pytest>=7.0.0",
+    "pytest>=9.0.2",
+    "pytest-cov>=5.0.0",
+    "pytest-asyncio",
+    "pytest-mock>=3.10.0",
+    "pyjwt>=2.8.0",
 ]
 
 [tool.black]
@@ -41,3 +45,13 @@ check_untyped_defs = true
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.coverage.run]
+source = ["src/omni_osint_crud"]
+
+[tool.pytest.ini_options]
+addopts = "--cov=src/omni_osint_crud --cov-branch --cov-report=xml"
+
+[tool.poe.tasks]
+clean = "scripts/cleanup.sh"
+
