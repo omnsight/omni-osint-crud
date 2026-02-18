@@ -16,6 +16,7 @@ from src.omni_osint_crud.main import app
 class TestRelation:
     client: TestClient
     no_roles_client: TestClient
+    user_client: TestClient
 
     @classmethod
     def setup_class(cls):
@@ -34,6 +35,12 @@ class TestRelation:
         no_roles_token = jwt.encode(no_roles_payload, key=None, algorithm="none")
         cls.no_roles_client = TestClient(app)
         cls.no_roles_client.headers = {"Authorization": f"Bearer {no_roles_token}"}
+
+        # Client with a user role but not admin
+        user_payload = {"sub": "test-user-id-789", "roles": [UserRole.USER]}
+        user_token = jwt.encode(user_payload, key=None, algorithm="none")
+        cls.user_client = TestClient(app)
+        cls.user_client.headers = {"Authorization": f"Bearer {user_token}"}
 
     def test_relation_crud_cycle(self):
         # 1. Create a Person and an Organization to connect
@@ -73,7 +80,7 @@ class TestRelation:
         assert updated_relation["type"] == "worked_at"
 
         # 5. Delete Relation
-        response = self.client.delete(f"/delete/entity/{relation_id}")
+        response = self.client.delete(f"/delete/relation/{relation_id}")
         assert response.status_code == 200
 
         # 6. Verify Deletion
@@ -144,11 +151,11 @@ class TestRelation:
         created_relation = response.json()
         relation_id = created_relation["_id"]
 
-        response = self.no_roles_client.delete(f"/delete/entity/{relation_id}")
+        response = self.no_roles_client.delete(f"/delete/relation/{relation_id}")
         assert response.status_code == 403
 
     def test_delete_relation_not_found(self):
-        response = self.client.delete("/delete/entity/non-existent-id")
+        response = self.client.delete("/delete/relation/non-existent-id")
         assert response.status_code == 404
 
     def test_create_relation_bad_parameters(self):
@@ -187,8 +194,48 @@ class TestRelation:
         response = self.client.put("/update/relation/some-id", json=update_data.model_dump())
         assert response.status_code == 500
 
-    @patch("omni_osint_crud.routers.delete.dal.delete_entity")
-    def test_delete_relation_internal_error(self, mock_delete_entity):
-        mock_delete_entity.side_effect = Exception("DB error")
-        response = self.client.delete("/delete/entity/some-id")
+    @patch("omni_osint_crud.routers.delete.dal.delete_relation")
+    def test_delete_relation_internal_error(self, mock_delete_relation):
+        mock_delete_relation.side_effect = Exception("DB error")
+        response = self.client.delete("/delete/relation/some-id")
+        assert response.status_code == 500
+
+    def test_update_relation_permissions_not_found(self):
+        update_data = {"owner": "new-owner"}
+        response = self.client.put("/update/relation/non-existent-id/permissions", json=update_data)
+        assert response.status_code == 404
+
+    def test_update_relation_permissions_permission_denied(self):
+        # 1. Create a relation with the admin client
+        person_data = PersonMainData(name="Test Person for Relation")
+        person_res = self.client.post("/create/person", json=person_data.model_dump())
+        person = person_res.json()
+        person_id = person["_id"]
+
+        org_data = OrganizationMainData(name="Test Org for Relation")
+        org_res = self.client.post("/create/organization", json=org_data.model_dump())
+        organization = org_res.json()
+        organization_id = organization["_id"]
+
+        create_data = RelationMainData(from_id=person_id, to_id=organization_id, type="works_at")
+        response = self.client.post("/create/relation", json=create_data.model_dump())
+        assert response.status_code == 200
+        created_relation = response.json()
+        relation_id = created_relation["_id"]
+
+        # 2. Grant the user_client read access
+        permission_data = {"read": ["test-user-id-789"]}
+        response = self.client.put(f"/update/relation/{relation_id}/permissions", json=permission_data)
+        assert response.status_code == 200
+
+        # 3. Attempt to update permissions with the user_client (non-owner)
+        update_data = {"owner": "new-owner"}
+        response = self.user_client.put(f"/update/relation/{relation_id}/permissions", json=update_data)
+        assert response.status_code == 403
+
+    @patch("omni_osint_crud.routers.update.dal.update_relation")
+    def test_update_relation_permissions_internal_error(self, mock_update_relation):
+        mock_update_relation.side_effect = Exception("DB error")
+        update_data = {"owner": "new-owner"}
+        response = self.client.put("/update/relation/some-id/permissions", json=update_data)
         assert response.status_code == 500

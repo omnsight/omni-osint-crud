@@ -28,6 +28,12 @@ class TestOrganization:
         cls.no_roles_client = TestClient(app)
         cls.no_roles_client.headers = {"Authorization": f"Bearer {no_roles_token}"}
 
+        # Client with a user role but not admin
+        user_payload = {"sub": "test-user-id-789", "roles": [UserRole.USER]}
+        user_token = jwt.encode(user_payload, key=None, algorithm="none")
+        cls.user_client = TestClient(app)
+        cls.user_client.headers = {"Authorization": f"Bearer {user_token}"}
+
     def test_organization_crud_cycle(self):
         # 1. Create Organization
         create_data = OrganizationMainData(name="Test Corp")
@@ -125,4 +131,34 @@ class TestOrganization:
     def test_delete_organization_internal_error(self, mock_delete_entity):
         mock_delete_entity.side_effect = Exception("DB error")
         response = self.client.delete("/delete/entity/some-id")
+        assert response.status_code == 500
+
+    def test_update_organization_permissions_not_found(self):
+        update_data = {"owner": "new-owner"}
+        response = self.client.put("/update/organization/non-existent-id/permissions", json=update_data)
+        assert response.status_code == 404
+
+    def test_update_organization_permissions_permission_denied(self):
+        # 1. Create an organization with the admin client
+        create_data = OrganizationMainData(name="Test Organization")
+        response = self.client.post("/create/organization", json=create_data.model_dump())
+        assert response.status_code == 200
+        created_organization = response.json()
+        organization_id = created_organization["_id"]
+
+        # 2. Grant the user_client read access
+        permission_data = {"read": ["test-user-id-789"]}
+        response = self.client.put(f"/update/organization/{organization_id}/permissions", json=permission_data)
+        assert response.status_code == 200
+
+        # 3. Attempt to update permissions with the user_client (non-owner)
+        update_data = {"owner": "new-owner"}
+        response = self.user_client.put(f"/update/organization/{organization_id}/permissions", json=update_data)
+        assert response.status_code == 403
+
+    @patch("omni_osint_crud.routers.update.dal.update_organization")
+    def test_update_organization_permissions_internal_error(self, mock_update_organization):
+        mock_update_organization.side_effect = Exception("DB error")
+        update_data = {"owner": "new-owner"}
+        response = self.client.put("/update/organization/some-id/permissions", json=update_data)
         assert response.status_code == 500

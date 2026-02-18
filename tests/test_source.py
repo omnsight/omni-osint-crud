@@ -12,6 +12,7 @@ from src.omni_osint_crud.main import app
 class TestSource:
     client: TestClient
     no_roles_client: TestClient
+    user_client: TestClient
 
     @classmethod
     def setup_class(cls):
@@ -27,6 +28,12 @@ class TestSource:
         no_roles_token = jwt.encode(no_roles_payload, key=None, algorithm="none")
         cls.no_roles_client = TestClient(app)
         cls.no_roles_client.headers = {"Authorization": f"Bearer {no_roles_token}"}
+
+        # Client with a user role but not admin
+        user_payload = {"sub": "test-user-id-789", "roles": [UserRole.USER]}
+        user_token = jwt.encode(user_payload, key=None, algorithm="none")
+        cls.user_client = TestClient(app)
+        cls.user_client.headers = {"Authorization": f"Bearer {user_token}"}
 
     def test_source_crud_cycle(self):
         # 1. Create Source
@@ -125,4 +132,34 @@ class TestSource:
     def test_delete_source_internal_error(self, mock_delete_entity):
         mock_delete_entity.side_effect = Exception("DB error")
         response = self.client.delete("/delete/entity/some-id")
+        assert response.status_code == 500
+
+    def test_update_source_permissions_not_found(self):
+        update_data = {"owner": "new-owner"}
+        response = self.client.put("/update/source/non-existent-id/permissions", json=update_data)
+        assert response.status_code == 404
+
+    def test_update_source_permissions_permission_denied(self):
+        # 1. Create a source with the admin client
+        create_data = SourceMainData(name="Test Source", url="http://example.com")
+        response = self.client.post("/create/source", json=create_data.model_dump())
+        assert response.status_code == 200
+        created_source = response.json()
+        source_id = created_source["_id"]
+
+        # 2. Grant the user_client read access
+        permission_data = {"read": ["test-user-id-789"]}
+        response = self.client.put(f"/update/source/{source_id}/permissions", json=permission_data)
+        assert response.status_code == 200
+
+        # 3. Attempt to update permissions with the user_client (non-owner)
+        update_data = {"owner": "new-owner"}
+        response = self.user_client.put(f"/update/source/{source_id}/permissions", json=update_data)
+        assert response.status_code == 403
+
+    @patch("omni_osint_crud.routers.update.dal.update_source")
+    def test_update_source_permissions_internal_error(self, mock_update_source):
+        mock_update_source.side_effect = Exception("DB error")
+        update_data = {"owner": "new-owner"}
+        response = self.client.put("/update/source/some-id/permissions", json=update_data)
         assert response.status_code == 500
