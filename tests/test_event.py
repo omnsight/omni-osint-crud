@@ -28,6 +28,12 @@ class TestEvent:
         cls.no_roles_client = TestClient(app)
         cls.no_roles_client.headers = {"Authorization": f"Bearer {no_roles_token}"}
 
+        # Client with a user role but not admin
+        user_payload = {"sub": "test-user-id-789", "roles": [UserRole.USER]}
+        user_token = jwt.encode(user_payload, key=None, algorithm="none")
+        cls.user_client = TestClient(app)
+        cls.user_client.headers = {"Authorization": f"Bearer {user_token}"}
+
     def test_event_crud_cycle(self):
         # 1. Create Event
         create_data = EventMainData(title="Test Event")
@@ -125,4 +131,34 @@ class TestEvent:
     def test_delete_event_internal_error(self, mock_delete_entity):
         mock_delete_entity.side_effect = Exception("DB error")
         response = self.client.delete("/delete/entity/some-id")
+        assert response.status_code == 500
+
+    def test_update_event_permissions_not_found(self):
+        update_data = {"owner": "new-owner"}
+        response = self.client.put("/update/event/non-existent-id/permissions", json=update_data)
+        assert response.status_code == 404
+
+    def test_update_event_permissions_permission_denied(self):
+        # 1. Create an event with the admin client
+        create_data = EventMainData(title="Test Event")
+        response = self.client.post("/create/event", json=create_data.model_dump())
+        assert response.status_code == 200
+        created_event = response.json()
+        event_id = created_event["_id"]
+
+        # 2. Grant the user_client read access
+        permission_data = {"read": ["test-user-id-789"]}
+        response = self.client.put(f"/update/event/{event_id}/permissions", json=permission_data)
+        assert response.status_code == 200
+
+        # 3. Attempt to update permissions with the user_client (non-owner)
+        update_data = {"owner": "new-owner"}
+        response = self.user_client.put(f"/update/event/{event_id}/permissions", json=update_data)
+        assert response.status_code == 403
+
+    @patch("omni_osint_crud.routers.update.dal.update_event")
+    def test_update_event_permissions_internal_error(self, mock_update_event):
+        mock_update_event.side_effect = Exception("DB error")
+        update_data = {"owner": "new-owner"}
+        response = self.client.put("/update/event/some-id/permissions", json=update_data)
         assert response.status_code == 500
