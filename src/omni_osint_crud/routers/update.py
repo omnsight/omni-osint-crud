@@ -112,7 +112,7 @@ def update_event_permissions(id: str, data: Permissive = Body(...), user_ctx: Di
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.put("/website/{id:path}", response_model=Website)   
+@router.put("/website/{id:path}", response_model=Website)
 def update_website(
     id: str,
     data: WebsiteMainData = Body(...),

@@ -1,11 +1,11 @@
+from unittest.mock import patch
 
 import jwt
 from fastapi.testclient import TestClient
-from unittest.mock import patch
-
 from omni_python_library import init_omni_library
 from omni_python_library.models.osint import WebsiteMainData
 from omni_python_library.utils.user import UserRole
+
 from src.omni_osint_crud.main import app
 
 
@@ -16,17 +16,11 @@ class TestWebsite:
     @classmethod
     def setup_class(cls):
         init_omni_library()
-        payload = {
-            "sub": "test-user-id-123",
-            "roles": [UserRole.ADMIN]
-        }
+        payload = {"sub": "test-user-id-123", "roles": [UserRole.ADMIN]}
         token = jwt.encode(payload, key=None, algorithm="none")
         cls.client = TestClient(app)
         cls.client.headers = {"Authorization": f"Bearer {token}"}
-        no_roles_payload = {
-            "sub": "test-user-id-456",
-            "roles": []
-        }
+        no_roles_payload = {"sub": "test-user-id-456", "roles": []}
         no_roles_token = jwt.encode(no_roles_payload, key=None, algorithm="none")
         cls.no_roles_client = TestClient(app)
         cls.no_roles_client.headers = {"Authorization": f"Bearer {no_roles_token}"}

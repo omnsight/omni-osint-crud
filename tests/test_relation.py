@@ -1,14 +1,15 @@
+from unittest.mock import patch
 
 import jwt
 from fastapi.testclient import TestClient
-from unittest.mock import patch
 from omni_python_library import init_omni_library
 from omni_python_library.models.osint import (
-    PersonMainData,
     OrganizationMainData,
+    PersonMainData,
     RelationMainData,
 )
 from omni_python_library.utils.user import UserRole
+
 from src.omni_osint_crud.main import app
 
 
@@ -29,10 +30,7 @@ class TestRelation:
         cls.client.headers = {"Authorization": f"Bearer {token}"}
 
         # Client with no roles
-        no_roles_payload = {
-            "sub": "test-user-id-456",
-            "roles": []
-        }
+        no_roles_payload = {"sub": "test-user-id-456", "roles": []}
         no_roles_token = jwt.encode(no_roles_payload, key=None, algorithm="none")
         cls.no_roles_client = TestClient(app)
         cls.no_roles_client.headers = {"Authorization": f"Bearer {no_roles_token}"}
@@ -46,17 +44,13 @@ class TestRelation:
         person_id = person["_id"]
 
         org_data = OrganizationMainData(name="Test Org for Relation")
-        org_res = self.client.post(
-            "/create/organization", json=org_data.model_dump()
-        )
+        org_res = self.client.post("/create/organization", json=org_data.model_dump())
         assert org_res.status_code == 200
         organization = org_res.json()
         organization_id = organization["_id"]
 
         # 2. Create Relation
-        create_data = RelationMainData(
-            from_id=person_id, to_id=organization_id, type="works_at"
-        )
+        create_data = RelationMainData(from_id=person_id, to_id=organization_id, type="works_at")
         response = self.client.post("/create/relation", json=create_data.model_dump())
         assert response.status_code == 200
         created_relation = response.json()
@@ -72,12 +66,8 @@ class TestRelation:
         assert response.json() == created_relation
 
         # 4. Update Relation
-        update_data = RelationMainData(
-            from_id=person_id, to_id=organization_id, type="worked_at"
-        )
-        response = self.client.put(
-            f"/update/relation/{relation_id}", json=update_data.model_dump()
-        )
+        update_data = RelationMainData(from_id=person_id, to_id=organization_id, type="worked_at")
+        response = self.client.put(f"/update/relation/{relation_id}", json=update_data.model_dump())
         assert response.status_code == 200
         updated_relation = response.json()
         assert updated_relation["type"] == "worked_at"
@@ -115,16 +105,12 @@ class TestRelation:
         person_id = person["_id"]
 
         org_data = OrganizationMainData(name="Test Org for Relation")
-        org_res = self.client.post(
-            "/create/organization", json=org_data.model_dump()
-        )
+        org_res = self.client.post("/create/organization", json=org_data.model_dump())
         assert org_res.status_code == 200
         organization = org_res.json()
         organization_id = organization["_id"]
 
-        create_data = RelationMainData(
-            from_id=person_id, to_id=organization_id, type="works_at"
-        )
+        create_data = RelationMainData(from_id=person_id, to_id=organization_id, type="works_at")
         response = self.client.post("/create/relation", json=create_data.model_dump())
         assert response.status_code == 200
         created_relation = response.json()
@@ -136,9 +122,7 @@ class TestRelation:
 
     def test_update_relation_not_found(self):
         update_data = RelationMainData(from_id="a", to_id="b", type="c")
-        response = self.client.put(
-            "/update/relation/non-existent-id", json=update_data.model_dump()
-        )
+        response = self.client.put("/update/relation/non-existent-id", json=update_data.model_dump())
         assert response.status_code == 404
 
     def test_delete_relation_permission_denied(self):
@@ -149,16 +133,12 @@ class TestRelation:
         person_id = person["_id"]
 
         org_data = OrganizationMainData(name="Test Org for Relation")
-        org_res = self.client.post(
-            "/create/organization", json=org_data.model_dump()
-        )
+        org_res = self.client.post("/create/organization", json=org_data.model_dump())
         assert org_res.status_code == 200
         organization = org_res.json()
         organization_id = organization["_id"]
 
-        create_data = RelationMainData(
-            from_id=person_id, to_id=organization_id, type="works_at"
-        )
+        create_data = RelationMainData(from_id=person_id, to_id=organization_id, type="works_at")
         response = self.client.post("/create/relation", json=create_data.model_dump())
         assert response.status_code == 200
         created_relation = response.json()
