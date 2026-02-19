@@ -10,7 +10,7 @@ from omni_python_library.models.osint import (
 )
 from omni_python_library.utils.user import UserRole
 
-from src.omni_osint_crud.main import app
+from omni_osint_crud.main import app
 
 
 class TestRelation:
@@ -57,7 +57,7 @@ class TestRelation:
         organization_id = organization["_id"]
 
         # 2. Create Relation
-        create_data = RelationMainData(from_id=person_id, to_id=organization_id, type="works_at")
+        create_data = RelationMainData(from_id=person_id, to_id=organization_id, name="works_at")
         response = self.client.post("/create/relation", json=create_data.model_dump())
         assert response.status_code == 200
         created_relation = response.json()
@@ -65,7 +65,7 @@ class TestRelation:
         assert relation_id
         assert created_relation["_from"] == person_id
         assert created_relation["_to"] == organization_id
-        assert created_relation["type"] == "works_at"
+        assert created_relation["name"] == "works_at"
 
         # 3. Read Relation
         response = self.client.get(f"/read/relation/{relation_id}")
@@ -73,11 +73,11 @@ class TestRelation:
         assert response.json() == created_relation
 
         # 4. Update Relation
-        update_data = RelationMainData(from_id=person_id, to_id=organization_id, type="worked_at")
+        update_data = RelationMainData(from_id=person_id, to_id=organization_id, name="worked_at")
         response = self.client.put(f"/update/relation/{relation_id}", json=update_data.model_dump())
         assert response.status_code == 200
         updated_relation = response.json()
-        assert updated_relation["type"] == "worked_at"
+        assert updated_relation["name"] == "worked_at"
 
         # 5. Delete Relation
         response = self.client.delete(f"/delete/relation/{relation_id}")
@@ -92,7 +92,7 @@ class TestRelation:
         self.client.delete(f"/delete/entity/{organization_id}")
 
     def test_create_relation_permission_denied(self):
-        create_data = RelationMainData(from_id="a", to_id="b", type="c")
+        create_data = RelationMainData(from_id="a", to_id="b", name="c")
         response = self.no_roles_client.post("/create/relation", json=create_data.model_dump())
         assert response.status_code == 403
 
@@ -117,20 +117,57 @@ class TestRelation:
         organization = org_res.json()
         organization_id = organization["_id"]
 
-        create_data = RelationMainData(from_id=person_id, to_id=organization_id, type="works_at")
+        create_data = RelationMainData(from_id=person_id, to_id=organization_id, name="works_at")
         response = self.client.post("/create/relation", json=create_data.model_dump())
         assert response.status_code == 200
         created_relation = response.json()
         relation_id = created_relation["_id"]
 
-        update_data = RelationMainData(from_id="a", to_id="b", type="c")
+        update_data = RelationMainData(from_id="a", to_id="b", name="c")
         response = self.no_roles_client.put(f"/update/relation/{relation_id}", json=update_data.model_dump())
         assert response.status_code == 403
 
     def test_update_relation_not_found(self):
-        update_data = RelationMainData(from_id="a", to_id="b", type="c")
+        update_data = RelationMainData(from_id="a", to_id="b", name="c")
         response = self.client.put("/update/relation/non-existent-id", json=update_data.model_dump())
         assert response.status_code == 404
+
+    def test_update_relation_invalid_name(self):
+        # 1. Create a Person and an Organization to connect
+        person_data = PersonMainData(name="Test Person for Relation")
+        person_res = self.client.post("/create/person", json=person_data.model_dump())
+        assert person_res.status_code == 200
+        person = person_res.json()
+        person_id = person["_id"]
+
+        org_data = OrganizationMainData(name="Test Org for Relation")
+        org_res = self.client.post("/create/organization", json=org_data.model_dump())
+        assert org_res.status_code == 200
+        organization = org_res.json()
+        organization_id = organization["_id"]
+
+        # 2. Create Relation
+        create_data = RelationMainData(from_id=person_id, to_id=organization_id, name="works_at")
+        response = self.client.post("/create/relation", json=create_data.model_dump())
+        assert response.status_code == 200
+        created_relation = response.json()
+        relation_id = created_relation["_id"]
+
+        # 3. Update with empty name
+        update_data = {"name": ""}
+        response = self.client.put(f"/update/relation/{relation_id}", json=update_data)
+        assert response.status_code == 400
+
+        # 4. Update with non-ASCII name
+        update_data = {"name": "relation-with-non-ascii-©"}
+        response = self.client.put(f"/update/relation/{relation_id}", json=update_data)
+        assert response.status_code == 400
+
+        # 5. Cleanup
+        self.client.delete(f"/delete/entity/{person_id}")
+        self.client.delete(f"/delete/entity/{organization_id}")
+        self.client.delete(f"/delete/relation/{relation_id}")
+
 
     def test_delete_relation_permission_denied(self):
         person_data = PersonMainData(name="Test Person for Relation")
@@ -145,7 +182,7 @@ class TestRelation:
         organization = org_res.json()
         organization_id = organization["_id"]
 
-        create_data = RelationMainData(from_id=person_id, to_id=organization_id, type="works_at")
+        create_data = RelationMainData(from_id=person_id, to_id=organization_id, name="works_at")
         response = self.client.post("/create/relation", json=create_data.model_dump())
         assert response.status_code == 200
         created_relation = response.json()
@@ -160,24 +197,41 @@ class TestRelation:
 
     def test_create_relation_bad_parameters(self):
         # Missing to_id
-        create_data = RelationMainData(from_id="some_id", type="works_at")
+        create_data = RelationMainData(from_id="some_id", name="works_at")
         response = self.client.post("/create/relation", json=create_data.model_dump())
         assert response.status_code == 400
 
         # Missing from_id
-        create_data = RelationMainData(to_id="some_id", type="works_at")
+        create_data = RelationMainData(to_id="some_id", name="works_at")
         response = self.client.post("/create/relation", json=create_data.model_dump())
         assert response.status_code == 400
 
         # Both missing
-        create_data = RelationMainData(type="works_at")
+        create_data = RelationMainData(name="works_at")
         response = self.client.post("/create/relation", json=create_data.model_dump())
         assert response.status_code == 400
+
+    def test_create_relation_invalid_name(self):
+        # Name is None
+        create_data = RelationMainData(from_id="a", to_id="b", name=None)
+        response = self.client.post("/create/relation", json=create_data.model_dump())
+        assert response.status_code == 400
+
+        # Name is empty
+        create_data = RelationMainData(from_id="a", to_id="b", name="")
+        response = self.client.post("/create/relation", json=create_data.model_dump())
+        assert response.status_code == 400
+
+        # Name is not ASCII
+        create_data = RelationMainData(from_id="a", to_id="b", name="relation-with-non-ascii-©")
+        response = self.client.post("/create/relation", json=create_data.model_dump())
+        assert response.status_code == 400
+
 
     @patch("omni_osint_crud.routers.create.dal.create_relation")
     def test_create_relation_internal_error(self, mock_create_relation):
         mock_create_relation.side_effect = Exception("DB error")
-        create_data = RelationMainData(from_id="a", to_id="b", type="c")
+        create_data = RelationMainData(from_id="a", to_id="b", name="c")
         response = self.client.post("/create/relation", json=create_data.model_dump())
         assert response.status_code == 500
 
@@ -190,7 +244,7 @@ class TestRelation:
     @patch("omni_osint_crud.routers.update.dal.update_relation")
     def test_update_relation_internal_error(self, mock_update_relation):
         mock_update_relation.side_effect = Exception("DB error")
-        update_data = RelationMainData(from_id="a", to_id="b", type="c")
+        update_data = RelationMainData(from_id="a", to_id="b", name="c")
         response = self.client.put("/update/relation/some-id", json=update_data.model_dump())
         assert response.status_code == 500
 
@@ -217,7 +271,7 @@ class TestRelation:
         organization = org_res.json()
         organization_id = organization["_id"]
 
-        create_data = RelationMainData(from_id=person_id, to_id=organization_id, type="works_at")
+        create_data = RelationMainData(from_id=person_id, to_id=organization_id, name="works_at")
         response = self.client.post("/create/relation", json=create_data.model_dump())
         assert response.status_code == 200
         created_relation = response.json()
