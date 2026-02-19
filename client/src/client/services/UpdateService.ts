@@ -20,35 +20,6 @@ import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class UpdateService {
     /**
-     * Update Person
-     * @param id
-     * @param requestBody
-     * @param authorization
-     * @returns Person Successful Response
-     * @throws ApiError
-     */
-    public static updatePersonUpdatePersonIdPut(
-        id: string,
-        requestBody: PersonMainData,
-        authorization?: (string | null),
-    ): CancelablePromise<Person> {
-        return __request(OpenAPI, {
-            method: 'PUT',
-            url: '/update/person/{id}',
-            path: {
-                'id': id,
-            },
-            headers: {
-                'authorization': authorization,
-            },
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                422: `Validation Error`,
-            },
-        });
-    }
-    /**
      * Update Person Permissions
      * @param id
      * @param requestBody
@@ -78,21 +49,21 @@ export class UpdateService {
         });
     }
     /**
-     * Update Organization
+     * Update Person
      * @param id
      * @param requestBody
      * @param authorization
-     * @returns Organization Successful Response
+     * @returns Person Successful Response
      * @throws ApiError
      */
-    public static updateOrganizationUpdateOrganizationIdPut(
+    public static updatePersonUpdatePersonIdPut(
         id: string,
-        requestBody: OrganizationMainData,
+        requestBody: PersonMainData,
         authorization?: (string | null),
-    ): CancelablePromise<Organization> {
+    ): CancelablePromise<Person> {
         return __request(OpenAPI, {
             method: 'PUT',
-            url: '/update/organization/{id}',
+            url: '/update/person/{id}',
             path: {
                 'id': id,
             },
@@ -136,21 +107,21 @@ export class UpdateService {
         });
     }
     /**
-     * Update Event
+     * Update Organization
      * @param id
      * @param requestBody
      * @param authorization
-     * @returns Event Successful Response
+     * @returns Organization Successful Response
      * @throws ApiError
      */
-    public static updateEventUpdateEventIdPut(
+    public static updateOrganizationUpdateOrganizationIdPut(
         id: string,
-        requestBody: EventMainData,
+        requestBody: OrganizationMainData,
         authorization?: (string | null),
-    ): CancelablePromise<Event> {
+    ): CancelablePromise<Organization> {
         return __request(OpenAPI, {
             method: 'PUT',
-            url: '/update/event/{id}',
+            url: '/update/organization/{id}',
             path: {
                 'id': id,
             },
@@ -194,21 +165,21 @@ export class UpdateService {
         });
     }
     /**
-     * Update Website
+     * Update Event
      * @param id
      * @param requestBody
      * @param authorization
-     * @returns Website Successful Response
+     * @returns Event Successful Response
      * @throws ApiError
      */
-    public static updateWebsiteUpdateWebsiteIdPut(
+    public static updateEventUpdateEventIdPut(
         id: string,
-        requestBody: WebsiteMainData,
+        requestBody: EventMainData,
         authorization?: (string | null),
-    ): CancelablePromise<Website> {
+    ): CancelablePromise<Event> {
         return __request(OpenAPI, {
             method: 'PUT',
-            url: '/update/website/{id}',
+            url: '/update/event/{id}',
             path: {
                 'id': id,
             },
@@ -252,21 +223,21 @@ export class UpdateService {
         });
     }
     /**
-     * Update Source
+     * Update Website
      * @param id
      * @param requestBody
      * @param authorization
-     * @returns Source Successful Response
+     * @returns Website Successful Response
      * @throws ApiError
      */
-    public static updateSourceUpdateSourceIdPut(
+    public static updateWebsiteUpdateWebsiteIdPut(
         id: string,
-        requestBody: SourceMainData,
+        requestBody: WebsiteMainData,
         authorization?: (string | null),
-    ): CancelablePromise<Source> {
+    ): CancelablePromise<Website> {
         return __request(OpenAPI, {
             method: 'PUT',
-            url: '/update/source/{id}',
+            url: '/update/website/{id}',
             path: {
                 'id': id,
             },
@@ -310,21 +281,21 @@ export class UpdateService {
         });
     }
     /**
-     * Update Relation
+     * Update Source
      * @param id
      * @param requestBody
      * @param authorization
-     * @returns Relation Successful Response
+     * @returns Source Successful Response
      * @throws ApiError
      */
-    public static updateRelationUpdateRelationIdPut(
+    public static updateSourceUpdateSourceIdPut(
         id: string,
-        requestBody: RelationMainData,
+        requestBody: SourceMainData,
         authorization?: (string | null),
-    ): CancelablePromise<Relation> {
+    ): CancelablePromise<Source> {
         return __request(OpenAPI, {
             method: 'PUT',
-            url: '/update/relation/{id}',
+            url: '/update/source/{id}',
             path: {
                 'id': id,
             },
@@ -354,6 +325,35 @@ export class UpdateService {
         return __request(OpenAPI, {
             method: 'PUT',
             url: '/update/relation/{id}/permissions',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'authorization': authorization,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Update Relation
+     * @param id
+     * @param requestBody
+     * @param authorization
+     * @returns Relation Successful Response
+     * @throws ApiError
+     */
+    public static updateRelationUpdateRelationIdPut(
+        id: string,
+        requestBody: RelationMainData,
+        authorization?: (string | null),
+    ): CancelablePromise<Relation> {
+        return __request(OpenAPI, {
+            method: 'PUT',
+            url: '/update/relation/{id}',
             path: {
                 'id': id,
             },

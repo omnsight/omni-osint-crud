@@ -8,7 +8,7 @@ export type OrganizationMainData = {
      */
     type?: (string | null);
     /**
-     * Name
+     * Name of the organization
      */
     name?: (string | null);
     /**

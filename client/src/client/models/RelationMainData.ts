@@ -4,7 +4,7 @@
 /* eslint-disable */
 export type RelationMainData = {
     /**
-     * Name of the relation
+     * Name of the relation used in database key (must be ascii letters)
      */
     name?: (string | null);
     /**
@@ -12,7 +12,7 @@ export type RelationMainData = {
      */
     confidence?: (number | null);
     /**
-     * Label
+     * Label name of the relation (can be any language) to display
      */
     label?: (string | null);
     /**

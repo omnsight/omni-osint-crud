@@ -16,11 +16,11 @@ export type Event = {
      */
     location?: (LocationData | null);
     /**
-     * Title
+     * Title of the event. Keep it short and clear.
      */
     title?: (string | null);
     /**
-     * Description
+     * Brief description of the event. Keep it short and clear.
      */
     description?: (string | null);
     /**

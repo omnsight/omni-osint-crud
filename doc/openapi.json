@@ -707,74 +707,6 @@
         }
       }
     },
-    "/update/person/{id}": {
-      "put": {
-        "tags": [
-          "update"
-        ],
-        "summary": "Update Person",
-        "operationId": "update_person_update_person__id__put",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Id"
-            }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PersonMainData"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Person"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/update/person/{id}/permissions": {
       "put": {
         "tags": [
@@ -843,13 +775,13 @@
         }
       }
     },
-    "/update/organization/{id}": {
+    "/update/person/{id}": {
       "put": {
         "tags": [
           "update"
         ],
-        "summary": "Update Organization",
-        "operationId": "update_organization_update_organization__id__put",
+        "summary": "Update Person",
+        "operationId": "update_person_update_person__id__put",
         "parameters": [
           {
             "name": "id",
@@ -882,7 +814,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/OrganizationMainData"
+                "$ref": "#/components/schemas/PersonMainData"
               }
             }
           }
@@ -893,7 +825,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Organization"
+                  "$ref": "#/components/schemas/Person"
                 }
               }
             }
@@ -979,13 +911,13 @@
         }
       }
     },
-    "/update/event/{id}": {
+    "/update/organization/{id}": {
       "put": {
         "tags": [
           "update"
         ],
-        "summary": "Update Event",
-        "operationId": "update_event_update_event__id__put",
+        "summary": "Update Organization",
+        "operationId": "update_organization_update_organization__id__put",
         "parameters": [
           {
             "name": "id",
@@ -1018,7 +950,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/EventMainData"
+                "$ref": "#/components/schemas/OrganizationMainData"
               }
             }
           }
@@ -1029,7 +961,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Event"
+                  "$ref": "#/components/schemas/Organization"
                 }
               }
             }
@@ -1115,13 +1047,13 @@
         }
       }
     },
-    "/update/website/{id}": {
+    "/update/event/{id}": {
       "put": {
         "tags": [
           "update"
         ],
-        "summary": "Update Website",
-        "operationId": "update_website_update_website__id__put",
+        "summary": "Update Event",
+        "operationId": "update_event_update_event__id__put",
         "parameters": [
           {
             "name": "id",
@@ -1154,7 +1086,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/WebsiteMainData"
+                "$ref": "#/components/schemas/EventMainData"
               }
             }
           }
@@ -1165,7 +1097,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Website"
+                  "$ref": "#/components/schemas/Event"
                 }
               }
             }
@@ -1251,13 +1183,13 @@
         }
       }
     },
-    "/update/source/{id}": {
+    "/update/website/{id}": {
       "put": {
         "tags": [
           "update"
         ],
-        "summary": "Update Source",
-        "operationId": "update_source_update_source__id__put",
+        "summary": "Update Website",
+        "operationId": "update_website_update_website__id__put",
         "parameters": [
           {
             "name": "id",
@@ -1290,7 +1222,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SourceMainData"
+                "$ref": "#/components/schemas/WebsiteMainData"
               }
             }
           }
@@ -1301,7 +1233,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Source"
+                  "$ref": "#/components/schemas/Website"
                 }
               }
             }
@@ -1387,13 +1319,13 @@
         }
       }
     },
-    "/update/relation/{id}": {
+    "/update/source/{id}": {
       "put": {
         "tags": [
           "update"
         ],
-        "summary": "Update Relation",
-        "operationId": "update_relation_update_relation__id__put",
+        "summary": "Update Source",
+        "operationId": "update_source_update_source__id__put",
         "parameters": [
           {
             "name": "id",
@@ -1426,7 +1358,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RelationMainData"
+                "$ref": "#/components/schemas/SourceMainData"
               }
             }
           }
@@ -1437,7 +1369,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Relation"
+                  "$ref": "#/components/schemas/Source"
                 }
               }
             }
@@ -1495,6 +1427,74 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/Permissive"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Relation"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/update/relation/{id}": {
+      "put": {
+        "tags": [
+          "update"
+        ],
+        "summary": "Update Relation",
+        "operationId": "update_relation_update_relation__id__put",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RelationMainData"
               }
             }
           }
@@ -1694,7 +1694,7 @@
               }
             ],
             "title": "Title",
-            "description": "Title"
+            "description": "Title of the event. Keep it short and clear."
           },
           "description": {
             "anyOf": [
@@ -1706,7 +1706,7 @@
               }
             ],
             "title": "Description",
-            "description": "Description"
+            "description": "Brief description of the event. Keep it short and clear."
           },
           "happened_at": {
             "anyOf": [
@@ -1857,7 +1857,7 @@
               }
             ],
             "title": "Title",
-            "description": "Title"
+            "description": "Title of the event. Keep it short and clear."
           },
           "description": {
             "anyOf": [
@@ -1869,7 +1869,7 @@
               }
             ],
             "title": "Description",
-            "description": "Description"
+            "description": "Brief description of the event. Keep it short and clear."
           },
           "happened_at": {
             "anyOf": [
@@ -2040,7 +2040,7 @@
               }
             ],
             "title": "Name",
-            "description": "Name"
+            "description": "Name of the organization"
           },
           "founded_at": {
             "anyOf": [
@@ -2192,7 +2192,7 @@
               }
             ],
             "title": "Name",
-            "description": "Name"
+            "description": "Name of the organization"
           },
           "founded_at": {
             "anyOf": [
@@ -2578,7 +2578,7 @@
               }
             ],
             "title": "Name",
-            "description": "Name of the relation"
+            "description": "Name of the relation used in database key (must be ascii letters)"
           },
           "confidence": {
             "anyOf": [
@@ -2602,7 +2602,7 @@
               }
             ],
             "title": "Label",
-            "description": "Label"
+            "description": "Label name of the relation (can be any language) to display"
           },
           "created_at": {
             "anyOf": [
@@ -2739,7 +2739,7 @@
               }
             ],
             "title": "Name",
-            "description": "Name of the relation"
+            "description": "Name of the relation used in database key (must be ascii letters)"
           },
           "confidence": {
             "anyOf": [
@@ -2763,7 +2763,7 @@
               }
             ],
             "title": "Label",
-            "description": "Label"
+            "description": "Label name of the relation (can be any language) to display"
           },
           "created_at": {
             "anyOf": [
@@ -2866,7 +2866,7 @@
               }
             ],
             "title": "Name",
-            "description": "Name"
+            "description": "Name of the source"
           },
           "title": {
             "anyOf": [
@@ -2878,7 +2878,7 @@
               }
             ],
             "title": "Title",
-            "description": "Title"
+            "description": "Title of the source. Keep it short and clear."
           },
           "description": {
             "anyOf": [
@@ -2890,7 +2890,7 @@
               }
             ],
             "title": "Description",
-            "description": "Description"
+            "description": "Brief description of the source. Keep it short and clear."
           },
           "reliability": {
             "anyOf": [
@@ -3054,7 +3054,7 @@
               }
             ],
             "title": "Name",
-            "description": "Name"
+            "description": "Name of the source"
           },
           "title": {
             "anyOf": [
@@ -3066,7 +3066,7 @@
               }
             ],
             "title": "Title",
-            "description": "Title"
+            "description": "Title of the source. Keep it short and clear."
           },
           "description": {
             "anyOf": [
@@ -3078,7 +3078,7 @@
               }
             ],
             "title": "Description",
-            "description": "Description"
+            "description": "Brief description of the source. Keep it short and clear."
           },
           "reliability": {
             "anyOf": [
@@ -3212,7 +3212,7 @@
               }
             ],
             "title": "Title",
-            "description": "Title"
+            "description": "Title of the website. Keep it short and clear."
           },
           "description": {
             "anyOf": [
@@ -3224,7 +3224,7 @@
               }
             ],
             "title": "Description",
-            "description": "Description"
+            "description": "Brief description of the website. Keep it short and clear."
           },
           "founded_at": {
             "anyOf": [
@@ -3376,7 +3376,7 @@
               }
             ],
             "title": "Title",
-            "description": "Title"
+            "description": "Title of the website. Keep it short and clear."
           },
           "description": {
             "anyOf": [
@@ -3388,7 +3388,7 @@
               }
             ],
             "title": "Description",
-            "description": "Description"
+            "description": "Brief description of the website. Keep it short and clear."
           },
           "founded_at": {
             "anyOf": [

@@ -11,7 +11,7 @@ export type Organization = {
      */
     type?: (string | null);
     /**
-     * Name
+     * Name of the organization
      */
     name?: (string | null);
     /**
