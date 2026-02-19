@@ -8,11 +8,11 @@ export type WebsiteMainData = {
      */
     url?: (string | null);
     /**
-     * Title
+     * Title of the website. Keep it short and clear.
      */
     title?: (string | null);
     /**
-     * Description
+     * Brief description of the website. Keep it short and clear.
      */
     description?: (string | null);
     /**

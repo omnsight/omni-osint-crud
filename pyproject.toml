@@ -51,7 +51,3 @@ source = ["src/omni_osint_crud"]
 
 [tool.pytest.ini_options]
 addopts = "--cov=src/omni_osint_crud --cov-branch --cov-report=xml"
-
-[tool.poe.tasks]
-clean = "scripts/cleanup.sh"
-

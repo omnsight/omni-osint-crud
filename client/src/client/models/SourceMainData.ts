@@ -12,15 +12,15 @@ export type SourceMainData = {
      */
     url?: (string | null);
     /**
-     * Name
+     * Name of the source
      */
     name?: (string | null);
     /**
-     * Title
+     * Title of the source. Keep it short and clear.
      */
     title?: (string | null);
     /**
-     * Description
+     * Brief description of the source. Keep it short and clear.
      */
     description?: (string | null);
     /**

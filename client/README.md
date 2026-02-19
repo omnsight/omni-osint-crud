@@ -14,29 +14,14 @@ npm install
 Here is a sample code snippet demonstrating how to use the client to invoke API calls.
 
 ```typescript
-import { OpenAPI, HealthService, ReadService } from './src/client';
+import { OpenAPI } from './src/client';
 
-// Configure the base URL of the API
+// Configure the base URL and a static token
 OpenAPI.BASE = 'http://localhost:8000';
+OpenAPI.TOKEN = 'your-static-jwt-token-here';
 
-async function main() {
-  try {
-    // 1. Check API Health
-    console.log('Checking API health...');
-    const health = await HealthService.healthCheckHealthGet();
-    console.log('Health check result:', health);
-
-    // 2. Read a Person (example)
-    // Replace 'some-id' with a valid ID
-    // const person = await ReadService.getPersonReadPersonIdGet('some-id');
-    // console.log('Person:', person);
-
-  } catch (error) {
-    console.error('Error invoking API:', error);
-  }
-}
-
-main();
+const health = await HealthService.healthCheckHealthGet();
+console.log('Health check result:', health);
 ```
 
 ## Re-generating the Client
