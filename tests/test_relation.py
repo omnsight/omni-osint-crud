@@ -168,7 +168,6 @@ class TestRelation:
         self.client.delete(f"/delete/entity/{organization_id}")
         self.client.delete(f"/delete/relation/{relation_id}")
 
-
     def test_delete_relation_permission_denied(self):
         person_data = PersonMainData(name="Test Person for Relation")
         person_res = self.client.post("/create/person", json=person_data.model_dump())
@@ -226,7 +225,6 @@ class TestRelation:
         create_data = RelationMainData(from_id="a", to_id="b", name="relation-with-non-ascii-©")
         response = self.client.post("/create/relation", json=create_data.model_dump())
         assert response.status_code == 400
-
 
     @patch("omni_osint_crud.routers.create.dal.create_relation")
     def test_create_relation_internal_error(self, mock_create_relation):
