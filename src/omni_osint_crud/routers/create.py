@@ -92,6 +92,10 @@ def create_source(source: SourceMainData, user_ctx: Dict = Depends(get_user_cont
 def create_relation(relation: RelationMainData, user_ctx: Dict = Depends(get_user_context)):
     if not relation.from_id or not relation.to_id:
         raise HTTPException(status_code=400, detail="Source and target document IDs are required")
+
+    if not relation.name or not relation.name.isascii():
+        raise HTTPException(status_code=400, detail="Relation name is required and must be non-empty ASCII")
+
     try:
         return dal.create_relation(relation, user_ctx["user_id"], user_ctx["roles"])
     except PermissionDeniedError:

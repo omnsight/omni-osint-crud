@@ -191,6 +191,9 @@ def update_relation(
     data: RelationMainData = Body(...),
     user_ctx: Dict = Depends(get_user_context),
 ):
+    if data.name is not None and (not data.name or not data.name.isascii()):
+        raise HTTPException(status_code=400, detail="Relation name cannot be empty and must be ASCII")
+
     try:
         return dal.update_relation(id, data, user_ctx["user_id"], user_ctx["roles"])
     except NotFoundError:

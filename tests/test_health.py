@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 
-from src.omni_osint_crud.main import app
+from omni_osint_crud.main import app
 
 
 class TestHealth:
