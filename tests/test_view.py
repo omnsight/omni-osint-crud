@@ -6,10 +6,11 @@ from omni_python_library import init_omni_library
 from omni_python_library.models import (
     OsintViewMainData,
     PersonMainData,
-    ViewMode,
     ViewConfig,
+    ViewMode,
 )
 from omni_python_library.utils.config import UserRole
+
 from omni_osint_crud.main import app
 
 
@@ -162,7 +163,9 @@ class TestView:
         view_id = response.json()["_id"]
 
         config_data = ViewConfig(name="test-config", entities=[], ui="Geovision", mode=ViewMode.DEFAULT)
-        response = self.no_roles_client.post(f"/update/view/{view_id}/configs", json=config_data.model_dump(exclude_unset=True))
+        response = self.no_roles_client.post(
+            f"/update/view/{view_id}/configs", json=config_data.model_dump(exclude_unset=True)
+        )
         assert response.status_code == 403
 
     def test_add_view_config_entity_not_exist(self):
@@ -172,7 +175,9 @@ class TestView:
         view_id = response.json()["_id"]
 
         config_data = ViewConfig(name="test-config", entities=["person/123"], ui="Geovision", mode=ViewMode.DEFAULT)
-        response = self.no_roles_client.post(f"/update/view/{view_id}/configs", json=config_data.model_dump(exclude_unset=True))
+        response = self.no_roles_client.post(
+            f"/update/view/{view_id}/configs", json=config_data.model_dump(exclude_unset=True)
+        )
         assert response.status_code == 404
 
     def test_connect_entity_to_view_permission_denied(self):
@@ -213,7 +218,9 @@ class TestView:
 
     def test_add_view_config_not_found(self):
         config_data = ViewConfig(name="test-config", entities=["person/123"], ui="Geovision", mode="default")
-        response = self.client.post("/update/view/non-existent-id/configs", json=config_data.model_dump(exclude_unset=True))
+        response = self.client.post(
+            "/update/view/non-existent-id/configs", json=config_data.model_dump(exclude_unset=True)
+        )
         assert response.status_code == 404
 
     def test_connect_entity_to_view_not_found(self):

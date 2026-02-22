@@ -85,7 +85,9 @@ class TestPerson:
         person_id = created_person["_id"]
 
         update_data = PersonMainData(name="Jane Doe")
-        response = self.no_roles_client.put(f"/update/person/{person_id}", json=update_data.model_dump(exclude_unset=True))
+        response = self.no_roles_client.put(
+            f"/update/person/{person_id}", json=update_data.model_dump(exclude_unset=True)
+        )
         assert response.status_code == 403
 
     def test_update_person_not_found(self):

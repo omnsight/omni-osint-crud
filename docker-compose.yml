@@ -4,12 +4,20 @@ services:
     container_name: omni-osint-crud
     env_file:
       - .env
+    environment:
+      - ARANGODB_HOST=http://arangodb:8529
+      - REDIS_HOST=redis
     ports:
       - "8000:8000"
     depends_on:
       - arangodb
       - redis
     command: uvicorn omni_osint_crud.main:app --host 0.0.0.0 --port 8000 --reload
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 3s
+      timeout: 9s
+      retries: 3
 
   arangodb:
     image: arangodb/arangodb:3.12

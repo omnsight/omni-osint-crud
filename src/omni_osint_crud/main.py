@@ -1,9 +1,7 @@
-import os
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from omni_python_library import init_omni_library
-from omni_python_library.clients.openai_client import OpenAIClient
 
 from omni_osint_crud.routers import (
     create_router,
@@ -17,11 +15,6 @@ from omni_osint_crud.routers import (
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     init_omni_library()
-    OpenAIClient().add_client(
-        model_use="embedding",
-        api_key=os.getenv("OPENAI_API_KEY"),
-        model=os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-3-small"),
-    )
     yield
 
 

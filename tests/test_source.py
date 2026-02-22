@@ -86,7 +86,9 @@ class TestSource:
         source_id = created_source["_id"]
 
         update_data = SourceMainData(name="Jane Doe", url="http://jane.com")
-        response = self.no_roles_client.put(f"/update/source/{source_id}", json=update_data.model_dump(exclude_unset=True))
+        response = self.no_roles_client.put(
+            f"/update/source/{source_id}", json=update_data.model_dump(exclude_unset=True)
+        )
         assert response.status_code == 403
 
     def test_update_source_not_found(self):

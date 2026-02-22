@@ -51,7 +51,9 @@ class TestOrganization:
 
         # 3. Update Organization
         update_data = OrganizationMainData(name="Test Corp Updated")
-        response = self.client.put(f"/update/organization/{organization_id}", json=update_data.model_dump(exclude_unset=True))
+        response = self.client.put(
+            f"/update/organization/{organization_id}", json=update_data.model_dump(exclude_unset=True)
+        )
         assert response.status_code == 200
         updated_organization = response.json()
         assert updated_organization["name"] == "Test Corp Updated"
@@ -85,12 +87,16 @@ class TestOrganization:
         organization_id = created_organization["_id"]
 
         update_data = OrganizationMainData(name="Jane Doe")
-        response = self.no_roles_client.put(f"/update/organization/{organization_id}", json=update_data.model_dump(exclude_unset=True))
+        response = self.no_roles_client.put(
+            f"/update/organization/{organization_id}", json=update_data.model_dump(exclude_unset=True)
+        )
         assert response.status_code == 403
 
     def test_update_organization_not_found(self):
         update_data = OrganizationMainData(name="Jane Doe")
-        response = self.client.put("/update/organization/non-existent-id", json=update_data.model_dump(exclude_unset=True))
+        response = self.client.put(
+            "/update/organization/non-existent-id", json=update_data.model_dump(exclude_unset=True)
+        )
         assert response.status_code == 404
 
     def test_delete_organization_permission_denied(self):

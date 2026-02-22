@@ -85,7 +85,9 @@ class TestEvent:
         event_id = created_event["_id"]
 
         update_data = EventMainData(title="Jane Doe")
-        response = self.no_roles_client.put(f"/update/event/{event_id}", json=update_data.model_dump(exclude_unset=True))
+        response = self.no_roles_client.put(
+            f"/update/event/{event_id}", json=update_data.model_dump(exclude_unset=True)
+        )
         assert response.status_code == 403
 
     def test_update_event_not_found(self):

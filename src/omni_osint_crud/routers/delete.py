@@ -12,7 +12,7 @@ dal = OsintDataAccessLayer()
 view_dal = ViewDataAccessLayer()
 
 
-@router.delete("/entity/{id:path}")
+@router.delete("/entity/{id:path}", operation_id="delete_entity")
 def delete_entity(id: str, user_ctx: Dict = Depends(get_user_context)):
     try:
         dal.delete_entity(id, user_ctx["user_id"], user_ctx["roles"])
@@ -28,7 +28,7 @@ def delete_entity(id: str, user_ctx: Dict = Depends(get_user_context)):
         raise HTTPException(status_code=500, detail="Internal service error")
 
 
-@router.delete("/relation/{id:path}")
+@router.delete("/relation/{id:path}", operation_id="delete_relation")
 def delete_relation(id: str, user_ctx: Dict = Depends(get_user_context)):
     try:
         dal.delete_relation(id, user_ctx["user_id"], user_ctx["roles"])
@@ -44,7 +44,7 @@ def delete_relation(id: str, user_ctx: Dict = Depends(get_user_context)):
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.delete("/view/{id:path}")
+@router.delete("/view/{id:path}", operation_id="delete_view")
 def delete_view(id: str, user_ctx: Dict = Depends(get_user_context)):
     try:
         view_dal.delete_view(id, user_ctx["user_id"], user_ctx["roles"])
