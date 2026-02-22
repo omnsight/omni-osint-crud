@@ -2,7 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type HealthCheck = {
-    status: string;
-};
-
+export enum ViewUI {
+    GEOVISION = 'Geovision',
+    SPARKLE = 'Sparkle',
+}

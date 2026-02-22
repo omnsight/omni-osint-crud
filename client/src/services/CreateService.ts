@@ -6,6 +6,8 @@ import type { Event } from '../models/Event';
 import type { EventMainData } from '../models/EventMainData';
 import type { Organization } from '../models/Organization';
 import type { OrganizationMainData } from '../models/OrganizationMainData';
+import type { OsintView } from '../models/OsintView';
+import type { OsintViewMainData } from '../models/OsintViewMainData';
 import type { Person } from '../models/Person';
 import type { PersonMainData } from '../models/PersonMainData';
 import type { Relation } from '../models/Relation';
@@ -25,13 +27,13 @@ export class CreateService {
      * @returns Person Successful Response
      * @throws ApiError
      */
-    public static createPersonCreatePersonPost(
+    public static createPerson(
         requestBody: PersonMainData,
         authorization?: (string | null),
     ): CancelablePromise<Person> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/create/person',
+            url: '/person',
             headers: {
                 'authorization': authorization,
             },
@@ -49,13 +51,13 @@ export class CreateService {
      * @returns Organization Successful Response
      * @throws ApiError
      */
-    public static createOrganizationCreateOrganizationPost(
+    public static createOrganization(
         requestBody: OrganizationMainData,
         authorization?: (string | null),
     ): CancelablePromise<Organization> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/create/organization',
+            url: '/organization',
             headers: {
                 'authorization': authorization,
             },
@@ -73,13 +75,13 @@ export class CreateService {
      * @returns Event Successful Response
      * @throws ApiError
      */
-    public static createEventCreateEventPost(
+    public static createEvent(
         requestBody: EventMainData,
         authorization?: (string | null),
     ): CancelablePromise<Event> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/create/event',
+            url: '/event',
             headers: {
                 'authorization': authorization,
             },
@@ -97,13 +99,13 @@ export class CreateService {
      * @returns Website Successful Response
      * @throws ApiError
      */
-    public static createWebsiteCreateWebsitePost(
+    public static createWebsite(
         requestBody: WebsiteMainData,
         authorization?: (string | null),
     ): CancelablePromise<Website> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/create/website',
+            url: '/website',
             headers: {
                 'authorization': authorization,
             },
@@ -121,13 +123,13 @@ export class CreateService {
      * @returns Source Successful Response
      * @throws ApiError
      */
-    public static createSourceCreateSourcePost(
+    public static createSource(
         requestBody: SourceMainData,
         authorization?: (string | null),
     ): CancelablePromise<Source> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/create/source',
+            url: '/source',
             headers: {
                 'authorization': authorization,
             },
@@ -145,13 +147,37 @@ export class CreateService {
      * @returns Relation Successful Response
      * @throws ApiError
      */
-    public static createRelationCreateRelationPost(
+    public static createRelation(
         requestBody: RelationMainData,
         authorization?: (string | null),
     ): CancelablePromise<Relation> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/create/relation',
+            url: '/relation',
+            headers: {
+                'authorization': authorization,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Create View
+     * @param requestBody
+     * @param authorization
+     * @returns OsintView Successful Response
+     * @throws ApiError
+     */
+    public static createView(
+        requestBody: OsintViewMainData,
+        authorization?: (string | null),
+    ): CancelablePromise<OsintView> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/view',
             headers: {
                 'authorization': authorization,
             },

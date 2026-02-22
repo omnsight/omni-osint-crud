@@ -7,6 +7,7 @@ export { CancelablePromise, CancelError } from './core/CancelablePromise';
 export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
+export type { EntityConnectionRequest } from './models/EntityConnectionRequest';
 export type { Event } from './models/Event';
 export type { EventMainData } from './models/EventMainData';
 export type { HealthCheck } from './models/HealthCheck';
@@ -14,6 +15,8 @@ export type { HTTPValidationError } from './models/HTTPValidationError';
 export type { LocationData } from './models/LocationData';
 export type { Organization } from './models/Organization';
 export type { OrganizationMainData } from './models/OrganizationMainData';
+export type { OsintView } from './models/OsintView';
+export type { OsintViewMainData } from './models/OsintViewMainData';
 export type { Permissive } from './models/Permissive';
 export type { Person } from './models/Person';
 export type { PersonMainData } from './models/PersonMainData';
@@ -22,6 +25,9 @@ export type { RelationMainData } from './models/RelationMainData';
 export type { Source } from './models/Source';
 export type { SourceMainData } from './models/SourceMainData';
 export type { ValidationError } from './models/ValidationError';
+export type { ViewConfig } from './models/ViewConfig';
+export { ViewMode } from './models/ViewMode';
+export { ViewUI } from './models/ViewUI';
 export type { Website } from './models/Website';
 export type { WebsiteMainData } from './models/WebsiteMainData';
 

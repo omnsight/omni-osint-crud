@@ -12,7 +12,7 @@ export class HealthService {
      * @returns HealthCheck Successful Response
      * @throws ApiError
      */
-    public static healthCheckHealthGet(): CancelablePromise<HealthCheck> {
+    public static healthCheck(): CancelablePromise<HealthCheck> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/health',

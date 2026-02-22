@@ -4,6 +4,7 @@
 /* eslint-disable */
 import type { Event } from '../models/Event';
 import type { Organization } from '../models/Organization';
+import type { OsintView } from '../models/OsintView';
 import type { Person } from '../models/Person';
 import type { Relation } from '../models/Relation';
 import type { Source } from '../models/Source';
@@ -19,13 +20,13 @@ export class ReadService {
      * @returns Person Successful Response
      * @throws ApiError
      */
-    public static getPersonReadPersonIdGet(
+    public static getPerson(
         id: string,
         authorization?: (string | null),
     ): CancelablePromise<Person> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/read/person/{id}',
+            url: '/person/{id}',
             path: {
                 'id': id,
             },
@@ -44,13 +45,13 @@ export class ReadService {
      * @returns Organization Successful Response
      * @throws ApiError
      */
-    public static getOrganizationReadOrganizationIdGet(
+    public static getOrganization(
         id: string,
         authorization?: (string | null),
     ): CancelablePromise<Organization> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/read/organization/{id}',
+            url: '/organization/{id}',
             path: {
                 'id': id,
             },
@@ -69,13 +70,13 @@ export class ReadService {
      * @returns Event Successful Response
      * @throws ApiError
      */
-    public static getEventReadEventIdGet(
+    public static getEvent(
         id: string,
         authorization?: (string | null),
     ): CancelablePromise<Event> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/read/event/{id}',
+            url: '/event/{id}',
             path: {
                 'id': id,
             },
@@ -94,13 +95,13 @@ export class ReadService {
      * @returns Website Successful Response
      * @throws ApiError
      */
-    public static getWebsiteReadWebsiteIdGet(
+    public static getWebsite(
         id: string,
         authorization?: (string | null),
     ): CancelablePromise<Website> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/read/website/{id}',
+            url: '/website/{id}',
             path: {
                 'id': id,
             },
@@ -119,13 +120,13 @@ export class ReadService {
      * @returns Source Successful Response
      * @throws ApiError
      */
-    public static getSourceReadSourceIdGet(
+    public static getSource(
         id: string,
         authorization?: (string | null),
     ): CancelablePromise<Source> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/read/source/{id}',
+            url: '/source/{id}',
             path: {
                 'id': id,
             },
@@ -144,18 +145,99 @@ export class ReadService {
      * @returns Relation Successful Response
      * @throws ApiError
      */
-    public static getRelationReadRelationIdGet(
+    public static getRelation(
         id: string,
         authorization?: (string | null),
     ): CancelablePromise<Relation> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/read/relation/{id}',
+            url: '/relation/{id}',
             path: {
                 'id': id,
             },
             headers: {
                 'authorization': authorization,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Get View Entities
+     * @param id
+     * @param authorization
+     * @returns any Successful Response
+     * @throws ApiError
+     */
+    public static getViewEntities(
+        id: string,
+        authorization?: (string | null),
+    ): CancelablePromise<Array<(Relation | Event | Source | Person | Organization | Website)>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/view/{id}/entities',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'authorization': authorization,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Get View
+     * @param id
+     * @param authorization
+     * @returns OsintView Successful Response
+     * @throws ApiError
+     */
+    public static getView(
+        id: string,
+        authorization?: (string | null),
+    ): CancelablePromise<OsintView> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/view/{id}',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'authorization': authorization,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Query Views
+     * @param text
+     * @param limit
+     * @param offset
+     * @param authorization
+     * @returns OsintView Successful Response
+     * @throws ApiError
+     */
+    public static queryViews(
+        text: string,
+        limit: number = 100,
+        offset?: number,
+        authorization?: (string | null),
+    ): CancelablePromise<Array<OsintView>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/views',
+            headers: {
+                'authorization': authorization,
+            },
+            query: {
+                'text': text,
+                'limit': limit,
+                'offset': offset,
             },
             errors: {
                 422: `Validation Error`,

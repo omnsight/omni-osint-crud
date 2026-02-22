@@ -7,19 +7,19 @@ import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class DeleteService {
     /**
-     * Delete Entity
+     * Delete Relation
      * @param id
      * @param authorization
      * @returns any Successful Response
      * @throws ApiError
      */
-    public static deleteEntityDeleteEntityIdDelete(
+    public static deleteRelation(
         id: string,
         authorization?: (string | null),
     ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'DELETE',
-            url: '/delete/entity/{id}',
+            url: '/relation/{id}',
             path: {
                 'id': id,
             },
@@ -32,19 +32,44 @@ export class DeleteService {
         });
     }
     /**
-     * Delete Relation
+     * Delete View
      * @param id
      * @param authorization
      * @returns any Successful Response
      * @throws ApiError
      */
-    public static deleteRelationDeleteRelationIdDelete(
+    public static deleteView(
         id: string,
         authorization?: (string | null),
     ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'DELETE',
-            url: '/delete/relation/{id}',
+            url: '/view/{id}',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'authorization': authorization,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Delete Entity
+     * @param id
+     * @param authorization
+     * @returns any Successful Response
+     * @throws ApiError
+     */
+    public static deleteEntity(
+        id: string,
+        authorization?: (string | null),
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/entity/{id}',
             path: {
                 'id': id,
             },

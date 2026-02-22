@@ -15,7 +15,7 @@ ENV UV_LINK_MODE=copy
 COPY pyproject.toml uv.lock ./
 
 # Install the project's dependencies using the lockfile and settings
-RUN apt-get update && apt-get install -y git
+RUN apt-get update && apt-get install -y git curl
 RUN uv sync --frozen --no-install-project --no-dev
 
 # Copy the project source code

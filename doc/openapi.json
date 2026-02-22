@@ -5,13 +5,13 @@
     "version": "0.1.0"
   },
   "paths": {
-    "/create/person": {
+    "/person": {
       "post": {
         "tags": [
           "create"
         ],
         "summary": "Create Person",
-        "operationId": "create_person_create_person_post",
+        "operationId": "create_person",
         "parameters": [
           {
             "name": "authorization",
@@ -64,13 +64,13 @@
         }
       }
     },
-    "/create/organization": {
+    "/organization": {
       "post": {
         "tags": [
           "create"
         ],
         "summary": "Create Organization",
-        "operationId": "create_organization_create_organization_post",
+        "operationId": "create_organization",
         "parameters": [
           {
             "name": "authorization",
@@ -123,13 +123,13 @@
         }
       }
     },
-    "/create/event": {
+    "/event": {
       "post": {
         "tags": [
           "create"
         ],
         "summary": "Create Event",
-        "operationId": "create_event_create_event_post",
+        "operationId": "create_event",
         "parameters": [
           {
             "name": "authorization",
@@ -182,13 +182,13 @@
         }
       }
     },
-    "/create/website": {
+    "/website": {
       "post": {
         "tags": [
           "create"
         ],
         "summary": "Create Website",
-        "operationId": "create_website_create_website_post",
+        "operationId": "create_website",
         "parameters": [
           {
             "name": "authorization",
@@ -241,13 +241,13 @@
         }
       }
     },
-    "/create/source": {
+    "/source": {
       "post": {
         "tags": [
           "create"
         ],
         "summary": "Create Source",
-        "operationId": "create_source_create_source_post",
+        "operationId": "create_source",
         "parameters": [
           {
             "name": "authorization",
@@ -300,13 +300,13 @@
         }
       }
     },
-    "/create/relation": {
+    "/relation": {
       "post": {
         "tags": [
           "create"
         ],
         "summary": "Create Relation",
-        "operationId": "create_relation_create_relation_post",
+        "operationId": "create_relation",
         "parameters": [
           {
             "name": "authorization",
@@ -359,371 +359,14 @@
         }
       }
     },
-    "/read/person/{id}": {
-      "get": {
+    "/view": {
+      "post": {
         "tags": [
-          "read"
+          "create"
         ],
-        "summary": "Get Person",
-        "operationId": "get_person_read_person__id__get",
+        "summary": "Create View",
+        "operationId": "create_view",
         "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Id"
-            }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Person"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/read/organization/{id}": {
-      "get": {
-        "tags": [
-          "read"
-        ],
-        "summary": "Get Organization",
-        "operationId": "get_organization_read_organization__id__get",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Id"
-            }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Organization"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/read/event/{id}": {
-      "get": {
-        "tags": [
-          "read"
-        ],
-        "summary": "Get Event",
-        "operationId": "get_event_read_event__id__get",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Id"
-            }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Event"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/read/website/{id}": {
-      "get": {
-        "tags": [
-          "read"
-        ],
-        "summary": "Get Website",
-        "operationId": "get_website_read_website__id__get",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Id"
-            }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Website"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/read/source/{id}": {
-      "get": {
-        "tags": [
-          "read"
-        ],
-        "summary": "Get Source",
-        "operationId": "get_source_read_source__id__get",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Id"
-            }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Source"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/read/relation/{id}": {
-      "get": {
-        "tags": [
-          "read"
-        ],
-        "summary": "Get Relation",
-        "operationId": "get_relation_read_relation__id__get",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Id"
-            }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Relation"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/update/person/{id}/permissions": {
-      "put": {
-        "tags": [
-          "update"
-        ],
-        "summary": "Update Person Permissions",
-        "operationId": "update_person_permissions_update_person__id__permissions_put",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Id"
-            }
-          },
           {
             "name": "authorization",
             "in": "header",
@@ -746,11 +389,69 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Permissive"
+                "$ref": "#/components/schemas/OsintViewMainData"
               }
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OsintView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/person/{id}": {
+      "get": {
+        "tags": [
+          "read"
+        ],
+        "summary": "Get Person",
+        "operationId": "get_person",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -773,15 +474,13 @@
             }
           }
         }
-      }
-    },
-    "/update/person/{id}": {
+      },
       "put": {
         "tags": [
           "update"
         ],
         "summary": "Update Person",
-        "operationId": "update_person_update_person__id__put",
+        "operationId": "update_person",
         "parameters": [
           {
             "name": "id",
@@ -843,13 +542,13 @@
         }
       }
     },
-    "/update/organization/{id}/permissions": {
-      "put": {
+    "/organization/{id}": {
+      "get": {
         "tags": [
-          "update"
+          "read"
         ],
-        "summary": "Update Organization Permissions",
-        "operationId": "update_organization_permissions_update_organization__id__permissions_put",
+        "summary": "Get Organization",
+        "operationId": "get_organization",
         "parameters": [
           {
             "name": "id",
@@ -877,16 +576,6 @@
             }
           }
         ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Permissive"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -909,15 +598,13 @@
             }
           }
         }
-      }
-    },
-    "/update/organization/{id}": {
+      },
       "put": {
         "tags": [
           "update"
         ],
         "summary": "Update Organization",
-        "operationId": "update_organization_update_organization__id__put",
+        "operationId": "update_organization",
         "parameters": [
           {
             "name": "id",
@@ -979,13 +666,13 @@
         }
       }
     },
-    "/update/event/{id}/permissions": {
-      "put": {
+    "/event/{id}": {
+      "get": {
         "tags": [
-          "update"
+          "read"
         ],
-        "summary": "Update Event Permissions",
-        "operationId": "update_event_permissions_update_event__id__permissions_put",
+        "summary": "Get Event",
+        "operationId": "get_event",
         "parameters": [
           {
             "name": "id",
@@ -1013,16 +700,6 @@
             }
           }
         ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Permissive"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -1045,15 +722,13 @@
             }
           }
         }
-      }
-    },
-    "/update/event/{id}": {
+      },
       "put": {
         "tags": [
           "update"
         ],
         "summary": "Update Event",
-        "operationId": "update_event_update_event__id__put",
+        "operationId": "update_event",
         "parameters": [
           {
             "name": "id",
@@ -1115,13 +790,13 @@
         }
       }
     },
-    "/update/website/{id}/permissions": {
-      "put": {
+    "/website/{id}": {
+      "get": {
         "tags": [
-          "update"
+          "read"
         ],
-        "summary": "Update Website Permissions",
-        "operationId": "update_website_permissions_update_website__id__permissions_put",
+        "summary": "Get Website",
+        "operationId": "get_website",
         "parameters": [
           {
             "name": "id",
@@ -1149,16 +824,6 @@
             }
           }
         ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Permissive"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -1181,15 +846,13 @@
             }
           }
         }
-      }
-    },
-    "/update/website/{id}": {
+      },
       "put": {
         "tags": [
           "update"
         ],
         "summary": "Update Website",
-        "operationId": "update_website_update_website__id__put",
+        "operationId": "update_website",
         "parameters": [
           {
             "name": "id",
@@ -1251,13 +914,13 @@
         }
       }
     },
-    "/update/source/{id}/permissions": {
-      "put": {
+    "/source/{id}": {
+      "get": {
         "tags": [
-          "update"
+          "read"
         ],
-        "summary": "Update Source Permissions",
-        "operationId": "update_source_permissions_update_source__id__permissions_put",
+        "summary": "Get Source",
+        "operationId": "get_source",
         "parameters": [
           {
             "name": "id",
@@ -1285,16 +948,6 @@
             }
           }
         ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Permissive"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -1317,15 +970,13 @@
             }
           }
         }
-      }
-    },
-    "/update/source/{id}": {
+      },
       "put": {
         "tags": [
           "update"
         ],
         "summary": "Update Source",
-        "operationId": "update_source_update_source__id__put",
+        "operationId": "update_source",
         "parameters": [
           {
             "name": "id",
@@ -1387,13 +1038,13 @@
         }
       }
     },
-    "/update/relation/{id}/permissions": {
-      "put": {
+    "/relation/{id}": {
+      "get": {
         "tags": [
-          "update"
+          "read"
         ],
-        "summary": "Update Relation Permissions",
-        "operationId": "update_relation_permissions_update_relation__id__permissions_put",
+        "summary": "Get Relation",
+        "operationId": "get_relation",
         "parameters": [
           {
             "name": "id",
@@ -1421,16 +1072,6 @@
             }
           }
         ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Permissive"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -1453,15 +1094,13 @@
             }
           }
         }
-      }
-    },
-    "/update/relation/{id}": {
+      },
       "put": {
         "tags": [
           "update"
         ],
         "summary": "Update Relation",
-        "operationId": "update_relation_update_relation__id__put",
+        "operationId": "update_relation",
         "parameters": [
           {
             "name": "id",
@@ -1521,15 +1160,13 @@
             }
           }
         }
-      }
-    },
-    "/delete/entity/{id}": {
+      },
       "delete": {
         "tags": [
           "delete"
         ],
-        "summary": "Delete Entity",
-        "operationId": "delete_entity_delete_entity__id__delete",
+        "summary": "Delete Relation",
+        "operationId": "delete_relation",
         "parameters": [
           {
             "name": "id",
@@ -1579,13 +1216,964 @@
         }
       }
     },
-    "/delete/relation/{id}": {
+    "/view/{id}/entities": {
+      "get": {
+        "tags": [
+          "read"
+        ],
+        "summary": "Get View Entities",
+        "operationId": "get_view_entities",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "$ref": "#/components/schemas/Relation"
+                      },
+                      {
+                        "$ref": "#/components/schemas/Event"
+                      },
+                      {
+                        "$ref": "#/components/schemas/Source"
+                      },
+                      {
+                        "$ref": "#/components/schemas/Person"
+                      },
+                      {
+                        "$ref": "#/components/schemas/Organization"
+                      },
+                      {
+                        "$ref": "#/components/schemas/Website"
+                      }
+                    ]
+                  },
+                  "title": "Response Get View Entities"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "update"
+        ],
+        "summary": "Connect Entity To View",
+        "operationId": "connect_entity_to_view",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EntityConnectionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OsintView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/view/{id}": {
+      "get": {
+        "tags": [
+          "read"
+        ],
+        "summary": "Get View",
+        "operationId": "get_view",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OsintView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "update"
+        ],
+        "summary": "Update View",
+        "operationId": "update_view",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OsintViewMainData"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OsintView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
       "delete": {
         "tags": [
           "delete"
         ],
-        "summary": "Delete Relation",
-        "operationId": "delete_relation_delete_relation__id__delete",
+        "summary": "Delete View",
+        "operationId": "delete_view",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/views": {
+      "get": {
+        "tags": [
+          "read"
+        ],
+        "summary": "Query Views",
+        "operationId": "query_views",
+        "parameters": [
+          {
+            "name": "text",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Text"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OsintView"
+                  },
+                  "title": "Response Query Views"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/person/{id}/permissions": {
+      "put": {
+        "tags": [
+          "update"
+        ],
+        "summary": "Update Person Permissions",
+        "operationId": "update_person_permissions",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Permissive"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Person"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/organization/{id}/permissions": {
+      "put": {
+        "tags": [
+          "update"
+        ],
+        "summary": "Update Organization Permissions",
+        "operationId": "update_organization_permissions",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Permissive"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/event/{id}/permissions": {
+      "put": {
+        "tags": [
+          "update"
+        ],
+        "summary": "Update Event Permissions",
+        "operationId": "update_event_permissions",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Permissive"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Event"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/website/{id}/permissions": {
+      "put": {
+        "tags": [
+          "update"
+        ],
+        "summary": "Update Website Permissions",
+        "operationId": "update_website_permissions",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Permissive"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Website"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/source/{id}/permissions": {
+      "put": {
+        "tags": [
+          "update"
+        ],
+        "summary": "Update Source Permissions",
+        "operationId": "update_source_permissions",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Permissive"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Source"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/relation/{id}/permissions": {
+      "put": {
+        "tags": [
+          "update"
+        ],
+        "summary": "Update Relation Permissions",
+        "operationId": "update_relation_permissions",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Permissive"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Relation"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/view/{id}/configs": {
+      "post": {
+        "tags": [
+          "update"
+        ],
+        "summary": "Add View Config",
+        "operationId": "add_view_config",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ViewConfig"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OsintView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/view/{id}/permissions": {
+      "put": {
+        "tags": [
+          "update"
+        ],
+        "summary": "Update View Permissions",
+        "operationId": "update_view_permissions",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Permissive"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OsintView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/entity/{id}": {
+      "delete": {
+        "tags": [
+          "delete"
+        ],
+        "summary": "Delete Entity",
+        "operationId": "delete_entity",
         "parameters": [
           {
             "name": "id",
@@ -1641,7 +2229,7 @@
           "health"
         ],
         "summary": "Health Check",
-        "operationId": "health_check_health_get",
+        "operationId": "health_check",
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -1659,6 +2247,20 @@
   },
   "components": {
     "schemas": {
+      "EntityConnectionRequest": {
+        "properties": {
+          "entity_id": {
+            "type": "string",
+            "title": "Entity Id",
+            "description": "The ID of the entity to connect to the view."
+          }
+        },
+        "type": "object",
+        "required": [
+          "entity_id"
+        ],
+        "title": "EntityConnectionRequest"
+      },
       "Event": {
         "properties": {
           "type": {
@@ -1944,7 +2546,8 @@
         "properties": {
           "status": {
             "type": "string",
-            "title": "Status"
+            "title": "Status",
+            "description": "The health status of the service."
           }
         },
         "type": "object",
@@ -2261,6 +2864,153 @@
         },
         "type": "object",
         "title": "OrganizationMainData"
+      },
+      "OsintView": {
+        "properties": {
+          "owner": {
+            "type": "string",
+            "title": "Owner",
+            "description": "Owner of the document"
+          },
+          "read": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Read",
+            "description": "Users/Roles with read access"
+          },
+          "write": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Write",
+            "description": "Users/Roles with write access"
+          },
+          "_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id",
+            "description": "ArangoDB document ID"
+          },
+          "_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Key",
+            "description": "ArangoDB document key"
+          },
+          "_rev": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rev",
+            "description": "ArangoDB document revision"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name",
+            "description": "Name of the view"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description",
+            "description": "Description of the view"
+          },
+          "configs": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/ViewConfig"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Configs",
+            "description": "List of view configurations"
+          }
+        },
+        "type": "object",
+        "title": "OsintView"
+      },
+      "OsintViewMainData": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name",
+            "description": "Name of the view"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description",
+            "description": "Description of the view"
+          },
+          "configs": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/ViewConfig"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Configs",
+            "description": "List of view configurations"
+          }
+        },
+        "type": "object",
+        "title": "OsintViewMainData"
       },
       "Permissive": {
         "properties": {
@@ -3187,6 +3937,50 @@
           "type"
         ],
         "title": "ValidationError"
+      },
+      "ViewConfig": {
+        "properties": {
+          "ui": {
+            "$ref": "#/components/schemas/ViewUI",
+            "description": "UI type for the view"
+          },
+          "mode": {
+            "$ref": "#/components/schemas/ViewMode",
+            "description": "Mode of the view"
+          },
+          "entities": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Entities",
+            "description": "List of entity ids this view config highlights. For example, compare mode will render these entities in parallel highlighting their differences."
+          }
+        },
+        "type": "object",
+        "required": [
+          "ui",
+          "mode",
+          "entities"
+        ],
+        "title": "ViewConfig"
+      },
+      "ViewMode": {
+        "type": "string",
+        "enum": [
+          "default",
+          "timeline",
+          "compare"
+        ],
+        "title": "ViewMode"
+      },
+      "ViewUI": {
+        "type": "string",
+        "enum": [
+          "Geovision",
+          "Sparkle"
+        ],
+        "title": "ViewUI"
       },
       "Website": {
         "properties": {
