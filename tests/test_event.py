@@ -96,14 +96,24 @@ class TestEvent:
         response = self.client.get("/event/bad_collection/bad_key")
         assert response.status_code == 404
 
-    def test_delete_event_permission_denied(self):
+    def test_read_event_permission_denied_mismatching_roles(self):
         create_data = EventMainData(title="Test Event")
         response = self.client.post("/event", json=create_data.model_dump(exclude_unset=True))
         assert response.status_code == 200
         created_event = response.json()
         event_id = created_event["_id"]
 
-        response = self.client.get(f"/event/{event_id}")
+        response = self.no_roles_client.get(f"/event/{event_id}")
+        assert response.status_code == 403
+
+    def test_read_event_permission_denied(self):
+        create_data = EventMainData(title="Test Event")
+        response = self.client.post("/event", json=create_data.model_dump(exclude_unset=True))
+        assert response.status_code == 200
+        created_event = response.json()
+        event_id = created_event["_id"]
+
+        response = self.user_client.get(f"/event/{event_id}")
         assert response.status_code == 403
 
     @patch("omni_osint_crud.routers.read.dal.get_event")

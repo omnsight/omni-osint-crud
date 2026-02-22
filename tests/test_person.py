@@ -96,14 +96,14 @@ class TestPerson:
         response = self.client.get("/person/bad_collection/bad_key")
         assert response.status_code == 404
 
-    def test_update_person_permission_denied(self):
+    def test_read_person_permission_denied(self):
         create_data = PersonMainData(name="John Doe")
         response = self.client.post("/person", json=create_data.model_dump(exclude_unset=True))
         assert response.status_code == 200
         created_person = response.json()
         person_id = created_person["_id"]
 
-        response = self.user_client.get(f"/person/{person_id}")
+        response = self.no_roles_client.get(f"/person/{person_id}")
         assert response.status_code == 403
 
     @patch("omni_osint_crud.routers.read.dal.get_person")

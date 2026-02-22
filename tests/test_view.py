@@ -163,16 +163,23 @@ class TestView:
 
     def test_get_view_entities_not_found(self):
         response = self.client.get("/view/non-existent-id/entities")
-        assert response.status_code == 200
-        assert response.json() == []
+        assert response.status_code == 404
 
-    def test_get_view_entities_permission_denied(self):
+    def test_get_view_entities_no_permission(self):
         create_data = OsintViewMainData(name="Test View", description="A test view", configs=[])
         response = self.client.post("/view", json=create_data.model_dump(exclude_unset=True))
         assert response.status_code == 200
         view_id = response.json()["_id"]
 
-        response = self.no_roles_client.get(f"/view/{view_id}")
+        person_data = PersonMainData(name="John Doe")
+        response = self.client.post("/person", json=person_data.model_dump(exclude_unset=True))
+        assert response.status_code == 200
+        person_id = response.json()["_id"]
+
+        response = self.client.post(f"/view/{view_id}/entities", json={"entity_id": person_id})
+        assert response.status_code == 200
+
+        response = self.no_roles_client.get(f"/view/{view_id}/entities")
         assert response.status_code == 403
 
     @patch("omni_osint_crud.routers.read.view_dal.get_entities")

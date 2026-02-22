@@ -27,7 +27,6 @@ from omni_python_library.utils.errors import PermissionDeniedError
 
 router = APIRouter(
     tags=["create"],
-    dependencies=[Depends(validate_create_permission)],
 )
 logger = logging.getLogger(__name__)
 dal = OsintDataAccessLayer()

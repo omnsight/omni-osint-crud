@@ -155,7 +155,7 @@ class TestRelation:
         response = self.client.get("/relation/bad_collection/bad_key")
         assert response.status_code == 404
 
-    def test_delete_relation_permission_denied(self):
+    def test_read_relation_permission_denied(self):
         person_data = PersonMainData(name="Test Person for Relation")
         person_res = self.client.post("/person", json=person_data.model_dump(exclude_unset=True))
         assert person_res.status_code == 200

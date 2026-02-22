@@ -96,14 +96,14 @@ class TestOrganization:
         response = self.client.get("/organization/bad_collection/bad_key")
         assert response.status_code == 404
 
-    def test_delete_organization_permission_denied(self):
+    def test_read_organization_permission_denied(self):
         create_data = OrganizationMainData(name="Test Corp")
         response = self.client.post("/organization", json=create_data.model_dump(exclude_unset=True))
         assert response.status_code == 200
         created_organization = response.json()
         organization_id = created_organization["_id"]
 
-        response = self.client.get(f"/organization/{organization_id}")
+        response = self.no_roles_client.get(f"/organization/{organization_id}")
         assert response.status_code == 403
 
     @patch("omni_osint_crud.routers.read.dal.get_organization")
