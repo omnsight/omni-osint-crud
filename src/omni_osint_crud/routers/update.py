@@ -25,7 +25,7 @@ from omni_python_library.models import (
 from omni_python_library.utils.errors import NotFoundError, PermissionDeniedError
 from pydantic import BaseModel, Field
 
-router = APIRouter(prefix="/update", tags=["update"])
+router = APIRouter(tags=["update"])
 logger = logging.getLogger(__name__)
 dal = OsintDataAccessLayer()
 view_dal = ViewDataAccessLayer()

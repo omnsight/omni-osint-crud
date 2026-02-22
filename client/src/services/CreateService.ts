@@ -33,7 +33,7 @@ export class CreateService {
     ): CancelablePromise<Person> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/create/person',
+            url: '/person',
             headers: {
                 'authorization': authorization,
             },
@@ -57,7 +57,7 @@ export class CreateService {
     ): CancelablePromise<Organization> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/create/organization',
+            url: '/organization',
             headers: {
                 'authorization': authorization,
             },
@@ -81,7 +81,7 @@ export class CreateService {
     ): CancelablePromise<Event> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/create/event',
+            url: '/event',
             headers: {
                 'authorization': authorization,
             },
@@ -105,7 +105,7 @@ export class CreateService {
     ): CancelablePromise<Website> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/create/website',
+            url: '/website',
             headers: {
                 'authorization': authorization,
             },
@@ -129,7 +129,7 @@ export class CreateService {
     ): CancelablePromise<Source> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/create/source',
+            url: '/source',
             headers: {
                 'authorization': authorization,
             },
@@ -153,7 +153,7 @@ export class CreateService {
     ): CancelablePromise<Relation> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/create/relation',
+            url: '/relation',
             headers: {
                 'authorization': authorization,
             },
@@ -177,7 +177,7 @@ export class CreateService {
     ): CancelablePromise<OsintView> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/create/view',
+            url: '/view',
             headers: {
                 'authorization': authorization,
             },

@@ -26,7 +26,7 @@ export class ReadService {
     ): CancelablePromise<Person> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/read/person/{id}',
+            url: '/person/{id}',
             path: {
                 'id': id,
             },
@@ -51,7 +51,7 @@ export class ReadService {
     ): CancelablePromise<Organization> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/read/organization/{id}',
+            url: '/organization/{id}',
             path: {
                 'id': id,
             },
@@ -76,7 +76,7 @@ export class ReadService {
     ): CancelablePromise<Event> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/read/event/{id}',
+            url: '/event/{id}',
             path: {
                 'id': id,
             },
@@ -101,7 +101,7 @@ export class ReadService {
     ): CancelablePromise<Website> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/read/website/{id}',
+            url: '/website/{id}',
             path: {
                 'id': id,
             },
@@ -126,7 +126,7 @@ export class ReadService {
     ): CancelablePromise<Source> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/read/source/{id}',
+            url: '/source/{id}',
             path: {
                 'id': id,
             },
@@ -151,7 +151,7 @@ export class ReadService {
     ): CancelablePromise<Relation> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/read/relation/{id}',
+            url: '/relation/{id}',
             path: {
                 'id': id,
             },
@@ -176,7 +176,7 @@ export class ReadService {
     ): CancelablePromise<Array<(Relation | Event | Source | Person | Organization | Website)>> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/read/view/{id}/entities',
+            url: '/view/{id}/entities',
             path: {
                 'id': id,
             },
@@ -201,7 +201,7 @@ export class ReadService {
     ): CancelablePromise<OsintView> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/read/view/{id}',
+            url: '/view/{id}',
             path: {
                 'id': id,
             },
@@ -230,7 +230,7 @@ export class ReadService {
     ): CancelablePromise<Array<OsintView>> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/read/views',
+            url: '/views',
             headers: {
                 'authorization': authorization,
             },

@@ -26,7 +26,6 @@ from omni_python_library.models import (
 from omni_python_library.utils.errors import PermissionDeniedError
 
 router = APIRouter(
-    prefix="/create",
     tags=["create"],
     dependencies=[Depends(validate_create_permission)],
 )

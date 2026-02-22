@@ -15,7 +15,7 @@ from omni_python_library.models import (
 )
 from omni_python_library.utils.errors import NotFoundError, PermissionDeniedError
 
-router = APIRouter(prefix="/read", tags=["read"])
+router = APIRouter(tags=["read"])
 logger = logging.getLogger(__name__)
 dal = OsintDataAccessLayer()
 view_dal = ViewDataAccessLayer()

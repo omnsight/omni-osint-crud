@@ -6,7 +6,7 @@ from omni_python_library.dal import OsintDataAccessLayer, ViewDataAccessLayer
 from omni_python_library.middleware import get_user_context
 from omni_python_library.utils.errors import NotFoundError, PermissionDeniedError
 
-router = APIRouter(prefix="/delete", tags=["delete"])
+router = APIRouter(tags=["delete"])
 logger = logging.getLogger(__name__)
 dal = OsintDataAccessLayer()
 view_dal = ViewDataAccessLayer()
