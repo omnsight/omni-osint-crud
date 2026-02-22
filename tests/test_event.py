@@ -4,7 +4,7 @@ import jwt
 from fastapi.testclient import TestClient
 from omni_python_library import init_omni_library
 from omni_python_library.models.osint import EventMainData
-from omni_python_library.utils.user import UserRole
+from omni_python_library.utils.config import UserRole
 
 from omni_osint_crud.main import app
 
@@ -37,7 +37,7 @@ class TestEvent:
     def test_event_crud_cycle(self):
         # 1. Create Event
         create_data = EventMainData(title="Test Event")
-        response = self.client.post("/create/event", json=create_data.model_dump())
+        response = self.client.post("/create/event", json=create_data.model_dump(exclude_unset=True))
         assert response.status_code == 200
         created_event = response.json()
         event_id = created_event["_id"]
@@ -51,7 +51,7 @@ class TestEvent:
 
         # 3. Update Event
         update_data = EventMainData(title="Test Event Updated")
-        response = self.client.put(f"/update/event/{event_id}", json=update_data.model_dump())
+        response = self.client.put(f"/update/event/{event_id}", json=update_data.model_dump(exclude_unset=True))
         assert response.status_code == 200
         updated_event = response.json()
         assert updated_event["title"] == "Test Event Updated"
@@ -66,7 +66,7 @@ class TestEvent:
 
     def test_create_event_permission_denied(self):
         create_data = EventMainData(title="Test Event")
-        response = self.no_roles_client.post("/create/event", json=create_data.model_dump())
+        response = self.no_roles_client.post("/create/event", json=create_data.model_dump(exclude_unset=True))
         assert response.status_code == 403
 
     def test_read_event_not_found(self):
@@ -79,23 +79,23 @@ class TestEvent:
 
     def test_update_event_permission_denied(self):
         create_data = EventMainData(title="Test Event")
-        response = self.client.post("/create/event", json=create_data.model_dump())
+        response = self.client.post("/create/event", json=create_data.model_dump(exclude_unset=True))
         assert response.status_code == 200
         created_event = response.json()
         event_id = created_event["_id"]
 
         update_data = EventMainData(title="Jane Doe")
-        response = self.no_roles_client.put(f"/update/event/{event_id}", json=update_data.model_dump())
+        response = self.no_roles_client.put(f"/update/event/{event_id}", json=update_data.model_dump(exclude_unset=True))
         assert response.status_code == 403
 
     def test_update_event_not_found(self):
         update_data = EventMainData(title="Jane Doe")
-        response = self.client.put("/update/event/non-existent-id", json=update_data.model_dump())
+        response = self.client.put("/update/event/non-existent-id", json=update_data.model_dump(exclude_unset=True))
         assert response.status_code == 404
 
     def test_delete_event_permission_denied(self):
         create_data = EventMainData(title="Test Event")
-        response = self.client.post("/create/event", json=create_data.model_dump())
+        response = self.client.post("/create/event", json=create_data.model_dump(exclude_unset=True))
         assert response.status_code == 200
         created_event = response.json()
         event_id = created_event["_id"]
@@ -111,7 +111,7 @@ class TestEvent:
     def test_create_event_internal_error(self, mock_create_event):
         mock_create_event.side_effect = Exception("DB error")
         create_data = EventMainData(title="Test Event")
-        response = self.client.post("/create/event", json=create_data.model_dump())
+        response = self.client.post("/create/event", json=create_data.model_dump(exclude_unset=True))
         assert response.status_code == 500
 
     @patch("omni_osint_crud.routers.read.dal.get_event")
@@ -124,7 +124,7 @@ class TestEvent:
     def test_update_event_internal_error(self, mock_update_event):
         mock_update_event.side_effect = Exception("DB error")
         update_data = EventMainData(title="Jane Doe")
-        response = self.client.put("/update/event/some-id", json=update_data.model_dump())
+        response = self.client.put("/update/event/some-id", json=update_data.model_dump(exclude_unset=True))
         assert response.status_code == 500
 
     @patch("omni_osint_crud.routers.delete.dal.delete_entity")
@@ -141,7 +141,7 @@ class TestEvent:
     def test_update_event_permissions_permission_denied(self):
         # 1. Create an event with the admin client
         create_data = EventMainData(title="Test Event")
-        response = self.client.post("/create/event", json=create_data.model_dump())
+        response = self.client.post("/create/event", json=create_data.model_dump(exclude_unset=True))
         assert response.status_code == 200
         created_event = response.json()
         event_id = created_event["_id"]

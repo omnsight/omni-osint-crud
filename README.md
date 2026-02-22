@@ -1,84 +1,113 @@
-# Omni OSINT Data Management API Backend
+## Omni OSINT CRUD
 [![codecov](https://codecov.io/github/omnsight/omni-osint-crud/graph/badge.svg?token=2LDW67VWXE)](https://codecov.io/github/omnsight/omni-osint-crud)
 
-## Overview
+A CRUD service for managing Open-Source Intelligence (OSINT) data, providing a RESTful API to handle entities like Persons, Organizations, and Events.
 
-This project provides a backend service for managing Open-Source Intelligence (OSINT) data. Built with Python and FastAPI, it offers a structured and efficient API for creating, reading, updating, and deleting OSINT entities. The service is designed to be a foundational component in a larger intelligence-gathering ecosystem, providing a reliable persistence layer for structured data.
+### 🚀 Features
 
-The API is defined using the OpenAPI standard, and the project includes tooling to automatically generate the `openapi.json` specification. This enables seamless integration with other services and facilitates the auto-generation of client libraries.
+- CRUD operations for OSINT entities (Person, Organization, Event, etc.).
+- Health check endpoint for monitoring service status.
+- Automatic API documentation via OpenAPI (Swagger).
+- Generated TypeScript client for seamless frontend integration.
 
-Key technologies used:
-- **FastAPI**: For building a high-performance, modern API.
-- **Pydantic**: For robust data validation and settings management.
-- **uv**: For fast and efficient Python package management.
+### 🛠 Tech Stack
 
-Client documentation is located at [client/README.md](client/README.md).
+- **Backend:** Python, FastAPI
+- **Database:** ArangoDB, Redis
+- **Frontend:** TypeScript
+- **Tooling:** uv, Docker, Pydantic
 
-## Project Structure
+## 📦 Getting Started
 
-High-level overview of the project folder structure:
+### Prerequisites
 
-- `client/`: TypeScript client library generated from the OpenAPI definition. Contains source code and build scripts.
-- `doc/`: Documentation artifacts, including `openapi.json` used for client generation.
-- `src/omni_osint_crud/`: Python source code for the backend application.
-    - `routers/`: API route definitions.
-    - `main.py`: Application entry point and configuration.
-- `tools/`: Utility scripts (e.g., for exporting OpenAPI specs).
-- `pyproject.toml` / `uv.lock`: Python dependency management and project configuration.
-- `docker-compose.yml` / `Dockerfile`: Containerization configuration.
+- Python 3.10+
+- Docker
+- uv
 
-## Local Development
+### Installation
 
-### Manage with uv
+Clone the repo:
 
-This project is managed with [uv](https://github.com/astral-sh/uv).
-
-Install dependencies:
 ```bash
-uv sync --extra dev
+git clone https://github.com/omnsight/omni-osint-crud.git
+cd omni-osint-crud
 ```
 
-Upgrade dependencies:
+Install Python dependencies:
+
 ```bash
 uv lock --upgrade
 uv sync --extra dev
-
-uv run poe clean
 ```
 
-Run unit tests
-
-```bash
-# loading .env is necessary for local testing
-docker compose up -d --wait
-export $(cat .env | xargs) && uv run pytest
-docker compose down
-```
-
-Run the application:
-```bash
-uv run uvicorn omni_osint_crud.main:app --reload
-```
-
-### Export OpenAPI Definition
-
-Export the OpenAPI definition to `doc/openapi.json`:
-```bash
-uv run python scripts/export_openapi.py
-```
-
-### Code Formatting
-
-Format the code using black:
-```bash
-uv run black .
-uv run isort .
-```
-
-### Generate Client
+Install client dependencies:
 
 ```bash
 cd client
-npm run generate
+npm install
 cd ..
 ```
+
+## ⚙️ Configuration
+
+Update configurations in [`.env`](.env)
+
+## 📖 Usage
+
+### Running the Service
+
+Start the backend services:
+
+```bash
+docker-compose up -d --build --wait
+```
+
+Stop the backend services when you're done:
+
+```bash
+docker-compose down
+```
+
+### Using the Client
+
+To use the client in your Node.js project, you can install it directly from GitHub. Add the following to your `package.json`:
+
+```json
+{
+  "dependencies": {
+    "omni-osint-crud": "github:omnsight/omni-osint-crud"
+  }
+}
+```
+
+After installation, you can use the client in your application as shown below:
+
+```typescript
+import { OpenAPI, HealthService, HealthCheck } from 'omni-osint-crud/client';
+
+// Configure the API client
+OpenAPI.BASE = 'http://localhost:8000'; // Adjust if your server runs on a different host/port
+// Configure authentication (e.g., with a bearer token)
+OpenAPI.TOKEN = 'your-bearer-token';
+
+async function main() {
+  try {
+    console.log('Performing health check...');
+    const healthStatus: HealthCheck = await HealthService.healthCheck();
+    console.log('Health Check Status:', healthStatus);
+  } catch (error) {
+    console.error('Error during health check:', error);
+  }
+}
+
+main();
+```
+
+## Local Development
+
+Refer to [DEVELOPMENT.md](DEVELOPMENT.md) for local development setup.
+
+## 📄 License
+
+Distributed under the Apache-2.0 License. See [LICENSE](./LICENSE) for more information.

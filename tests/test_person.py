@@ -4,7 +4,7 @@ import jwt
 from fastapi.testclient import TestClient
 from omni_python_library import init_omni_library
 from omni_python_library.models.osint import PersonMainData
-from omni_python_library.utils.user import UserRole
+from omni_python_library.utils.config import UserRole
 
 from omni_osint_crud.main import app
 
@@ -37,7 +37,7 @@ class TestPerson:
     def test_person_crud_cycle(self):
         # 1. Create Person
         create_data = PersonMainData(name="John Doe")
-        response = self.client.post("/create/person", json=create_data.model_dump())
+        response = self.client.post("/create/person", json=create_data.model_dump(exclude_unset=True))
         assert response.status_code == 200
         created_person = response.json()
         person_id = created_person["_id"]
@@ -51,7 +51,7 @@ class TestPerson:
 
         # 3. Update Person
         update_data = PersonMainData(name="John Doe Updated")
-        response = self.client.put(f"/update/person/{person_id}", json=update_data.model_dump())
+        response = self.client.put(f"/update/person/{person_id}", json=update_data.model_dump(exclude_unset=True))
         assert response.status_code == 200
         updated_person = response.json()
         assert updated_person["name"] == "John Doe Updated"
@@ -66,7 +66,7 @@ class TestPerson:
 
     def test_create_person_permission_denied(self):
         create_data = PersonMainData(name="John Doe")
-        response = self.no_roles_client.post("/create/person", json=create_data.model_dump())
+        response = self.no_roles_client.post("/create/person", json=create_data.model_dump(exclude_unset=True))
         assert response.status_code == 403
 
     def test_read_person_not_found(self):
@@ -79,23 +79,23 @@ class TestPerson:
 
     def test_update_person_permission_denied(self):
         create_data = PersonMainData(name="John Doe")
-        response = self.client.post("/create/person", json=create_data.model_dump())
+        response = self.client.post("/create/person", json=create_data.model_dump(exclude_unset=True))
         assert response.status_code == 200
         created_person = response.json()
         person_id = created_person["_id"]
 
         update_data = PersonMainData(name="Jane Doe")
-        response = self.no_roles_client.put(f"/update/person/{person_id}", json=update_data.model_dump())
+        response = self.no_roles_client.put(f"/update/person/{person_id}", json=update_data.model_dump(exclude_unset=True))
         assert response.status_code == 403
 
     def test_update_person_not_found(self):
         update_data = PersonMainData(name="Jane Doe")
-        response = self.client.put("/update/person/non-existent-id", json=update_data.model_dump())
+        response = self.client.put("/update/person/non-existent-id", json=update_data.model_dump(exclude_unset=True))
         assert response.status_code == 404
 
     def test_delete_person_permission_denied(self):
         create_data = PersonMainData(name="John Doe")
-        response = self.client.post("/create/person", json=create_data.model_dump())
+        response = self.client.post("/create/person", json=create_data.model_dump(exclude_unset=True))
         assert response.status_code == 200
         created_person = response.json()
         person_id = created_person["_id"]
@@ -111,7 +111,7 @@ class TestPerson:
     def test_create_person_internal_error(self, mock_create_person):
         mock_create_person.side_effect = Exception("DB error")
         create_data = PersonMainData(name="John Doe")
-        response = self.client.post("/create/person", json=create_data.model_dump())
+        response = self.client.post("/create/person", json=create_data.model_dump(exclude_unset=True))
         assert response.status_code == 500
 
     @patch("omni_osint_crud.routers.read.dal.get_person")
@@ -124,7 +124,7 @@ class TestPerson:
     def test_update_person_internal_error(self, mock_update_person):
         mock_update_person.side_effect = Exception("DB error")
         update_data = PersonMainData(name="Jane Doe")
-        response = self.client.put("/update/person/some-id", json=update_data.model_dump())
+        response = self.client.put("/update/person/some-id", json=update_data.model_dump(exclude_unset=True))
         assert response.status_code == 500
 
     @patch("omni_osint_crud.routers.delete.dal.delete_entity")
@@ -141,7 +141,7 @@ class TestPerson:
     def test_update_person_permissions_permission_denied(self):
         # 1. Create a person with the admin client
         create_data = PersonMainData(name="Test Person")
-        response = self.client.post("/create/person", json=create_data.model_dump())
+        response = self.client.post("/create/person", json=create_data.model_dump(exclude_unset=True))
         assert response.status_code == 200
         created_person = response.json()
         person_id = created_person["_id"]

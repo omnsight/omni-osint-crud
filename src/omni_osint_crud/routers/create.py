@@ -2,12 +2,12 @@ import logging
 from typing import Dict
 
 from fastapi import APIRouter, Depends, HTTPException
-from omni_python_library.dal.osint_data_access_layer import OsintDataAccessLayer
-from omni_python_library.middleware.user_token import (
+from omni_python_library.dal import OsintDataAccessLayer, ViewDataAccessLayer
+from omni_python_library.middleware import (
     get_user_context,
     validate_create_permission,
 )
-from omni_python_library.models.osint import (
+from omni_python_library.models import (
     Event,
     EventMainData,
     Organization,
@@ -20,8 +20,10 @@ from omni_python_library.models.osint import (
     SourceMainData,
     Website,
     WebsiteMainData,
+    OsintView,
+    OsintViewMainData,
 )
-from omni_python_library.utils import PermissionDeniedError
+from omni_python_library.utils.errors import PermissionDeniedError
 
 router = APIRouter(
     prefix="/create",
@@ -30,6 +32,7 @@ router = APIRouter(
 )
 logger = logging.getLogger(__name__)
 dal = OsintDataAccessLayer()
+view_dal = ViewDataAccessLayer()
 
 
 @router.post("/person", response_model=Person)
@@ -37,7 +40,7 @@ def create_person(person: PersonMainData, user_ctx: Dict = Depends(get_user_cont
     try:
         return dal.create_person(person, user_ctx["user_id"], user_ctx["roles"])
     except PermissionDeniedError:
-        logger.exception(f"User {user_ctx['user_id']} failed to create person {person}")
+        logger.exception(f"User {user_ctx['user_id']} failed to create person {person} due to insufficient permissions")
         raise HTTPException(status_code=403, detail="Only the owner can create this resource")
     except Exception:
         logger.exception(f"User {user_ctx['user_id']} failed to create person {person}")
@@ -49,6 +52,7 @@ def create_organization(organization: OrganizationMainData, user_ctx: Dict = Dep
     try:
         return dal.create_organization(organization, user_ctx["user_id"], user_ctx["roles"])
     except PermissionDeniedError:
+        logger.exception(f"User {user_ctx['user_id']} failed to create organization {organization} due to insufficient permissions")
         raise HTTPException(status_code=403, detail="Only the owner can create this resource")
     except Exception:
         logger.exception(f"User {user_ctx['user_id']} failed to create organization {organization}")
@@ -60,6 +64,7 @@ def create_event(event: EventMainData, user_ctx: Dict = Depends(get_user_context
     try:
         return dal.create_event(event, user_ctx["user_id"], user_ctx["roles"])
     except PermissionDeniedError:
+        logger.exception(f"User {user_ctx['user_id']} failed to create event {event} due to insufficient permissions")
         raise HTTPException(status_code=403, detail="Only the owner can create this resource")
     except Exception:
         logger.exception(f"User {user_ctx['user_id']} failed to create event {event}")
@@ -71,6 +76,7 @@ def create_website(website: WebsiteMainData, user_ctx: Dict = Depends(get_user_c
     try:
         return dal.create_website(website, user_ctx["user_id"], user_ctx["roles"])
     except PermissionDeniedError:
+        logger.exception(f"User {user_ctx['user_id']} failed to create website {website} due to insufficient permissions")
         raise HTTPException(status_code=403, detail="Only the owner can create this resource")
     except Exception:
         logger.exception(f"User {user_ctx['user_id']} failed to create website {website}")
@@ -82,6 +88,7 @@ def create_source(source: SourceMainData, user_ctx: Dict = Depends(get_user_cont
     try:
         return dal.create_source(source, user_ctx["user_id"], user_ctx["roles"])
     except PermissionDeniedError:
+        logger.exception(f"User {user_ctx['user_id']} failed to create source {source} due to insufficient permissions")
         raise HTTPException(status_code=403, detail="Only the owner can create this resource")
     except Exception:
         logger.exception(f"User {user_ctx['user_id']} failed to create source {source}")
@@ -99,7 +106,29 @@ def create_relation(relation: RelationMainData, user_ctx: Dict = Depends(get_use
     try:
         return dal.create_relation(relation, user_ctx["user_id"], user_ctx["roles"])
     except PermissionDeniedError:
+        logger.exception(f"User {user_ctx['user_id']} failed to create relation {relation} due to insufficient permissions")
         raise HTTPException(status_code=403, detail="Only the owner can create this resource")
     except Exception:
         logger.exception(f"User {user_ctx['user_id']} failed to create relation {relation}")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.post("/view", response_model=OsintView)
+def create_view(view: OsintViewMainData, user_ctx: Dict = Depends(get_user_context)):
+    if not view.name:
+        raise HTTPException(status_code=400, detail="View name is required")
+
+    if not view.description:
+        raise HTTPException(status_code=400, detail="View description is required")
+
+    if view.configs is None:
+        raise HTTPException(status_code=400, detail="View configs are required")
+
+    try:
+        return view_dal.create_view(view, user_ctx["user_id"], user_ctx["roles"])
+    except PermissionDeniedError:
+        logger.exception(f"User {user_ctx['user_id']} failed to create view {view} due to insufficient permissions")
+        raise HTTPException(status_code=403, detail="Only the owner can create this resource")
+    except Exception:
+        logger.exception(f"User {user_ctx['user_id']} failed to create view {view}")
         raise HTTPException(status_code=500, detail="Internal Server Error")

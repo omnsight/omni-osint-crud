@@ -4,7 +4,7 @@ import jwt
 from fastapi.testclient import TestClient
 from omni_python_library import init_omni_library
 from omni_python_library.models.osint import WebsiteMainData
-from omni_python_library.utils.user import UserRole
+from omni_python_library.utils.config import UserRole
 
 from omni_osint_crud.main import app
 
