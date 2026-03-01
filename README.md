@@ -71,7 +71,7 @@ docker-compose down
 
 ### Using the Client
 
-Refer to [client/README.md](client/README.md) for client setup and usage.
+Refer to [client/README.md](client/README.md) for [client](https://www.npmjs.com/package/omni-osint-crud-client) setup and usage.
 
 ## Local Development
 
