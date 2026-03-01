@@ -1,36 +1,74 @@
-# Client
+# Omni OSINT CRUD Client
 
 This directory contains the generated TypeScript client for the API.
 
-## Installation
+## Usage
 
+To use the client in your Node.js project, you can install it directly from GitHub. Add the following to your `package.json`:
+
+```json
+{
+  "dependencies": {
+    "omni-osint-crud-client": "latest"
+  }
+}
+```
+
+After installation, you can use the client in your application as shown below:
+
+```typescript
+import { OpenAPI, HealthService, HealthCheck } from 'omni-osint-crud/client';
+
+// Configure the API client
+OpenAPI.BASE = 'http://localhost:8000'; // Adjust if your server runs on a different host/port
+// Configure authentication (e.g., with a bearer token)
+OpenAPI.TOKEN = 'your-bearer-token';
+
+async function main() {
+  try {
+    console.log('Performing health check...');
+    const healthStatus: HealthCheck = await HealthService.healthCheck();
+    console.log('Health Check Status:', healthStatus);
+  } catch (error) {
+    console.error('Error during health check:', error);
+  }
+}
+
+main();
+```
+
+## 💻 Setup Client
+
+Located in `client/` directory.
+
+Install client dependencies:
 ```bash
-cd client
 npm install
 ```
 
-## Usage
-
-Here is a sample code snippet demonstrating how to use the client to invoke API calls.
-
-```typescript
-import { OpenAPI } from './src/client';
-
-// Configure the base URL and a static token
-OpenAPI.BASE = 'http://localhost:8000';
-OpenAPI.TOKEN = 'your-static-jwt-token-here';
-
-const health = await HealthService.healthCheckHealthGet();
-console.log('Health check result:', health);
-```
-
-## Re-generating the Client
-
-If the backend API changes, you can re-generate the client code:
-
-1.  Ensure the backend is running or you have the latest `doc/openapi.json`.
-2.  Run the generation script:
-
+Generate client:
 ```bash
 npm run generate
+```
+
+## 👨‍💻 Client Development
+
+Run unit tests:
+```bash
+docker compose up -d --wait
+cd client
+npm run test
+cd ..
+docker compose down
+```
+
+Build the client:
+```bash
+npm run build
+```
+
+Publish the client:
+```bash
+npm login
+npm publish
 ```

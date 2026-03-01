@@ -53,33 +53,3 @@ Export the OpenAPI definition to `doc/openapi.json`:
 ```bash
 uv run python scripts/export_openapi.py
 ```
-
-## 💻 Setup Client
-
-Located in `client/` directory.
-
-Install client dependencies:
-```bash
-npm install
-```
-
-Generate client:
-```bash
-npm run generate
-```
-
-## 👨‍💻 Client Development
-
-Run unit tests:
-```bash
-docker compose up -d --wait
-cd client
-npm run test
-cd ..
-docker compose down
-```
-
-Build the client:
-```bash
-npm run build
-```
