@@ -71,38 +71,7 @@ docker-compose down
 
 ### Using the Client
 
-To use the client in your Node.js project, you can install it directly from GitHub. Add the following to your `package.json`:
-
-```json
-{
-  "dependencies": {
-    "omni-osint-crud": "github:omnsight/omni-osint-crud"
-  }
-}
-```
-
-After installation, you can use the client in your application as shown below:
-
-```typescript
-import { OpenAPI, HealthService, HealthCheck } from 'omni-osint-crud/client';
-
-// Configure the API client
-OpenAPI.BASE = 'http://localhost:8000'; // Adjust if your server runs on a different host/port
-// Configure authentication (e.g., with a bearer token)
-OpenAPI.TOKEN = 'your-bearer-token';
-
-async function main() {
-  try {
-    console.log('Performing health check...');
-    const healthStatus: HealthCheck = await HealthService.healthCheck();
-    console.log('Health Check Status:', healthStatus);
-  } catch (error) {
-    console.error('Error during health check:', error);
-  }
-}
-
-main();
-```
+Refer to [client/README.md](client/README.md) for client setup and usage.
 
 ## Local Development
 
