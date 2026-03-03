@@ -28,10 +28,6 @@ export type Event = {
      */
     happened_at?: (number | null);
     /**
-     * Update timestamp
-     */
-    updated_at?: (number | null);
-    /**
      * Tags
      */
     tags?: (Array<string> | null);
@@ -63,5 +59,13 @@ export type Event = {
      * ArangoDB document revision
      */
     _rev?: (string | null);
+    /**
+     * Data creation timestamp
+     */
+    created_at?: (number | null);
+    /**
+     * Data update timestamp
+     */
+    updated_at?: (number | null);
 };
 

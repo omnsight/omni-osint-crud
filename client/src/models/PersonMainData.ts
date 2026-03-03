@@ -16,13 +16,9 @@ export type PersonMainData = {
      */
     nationality?: (string | null);
     /**
-     * Birth date timestamp
+     * Person's birth date (timestamp)
      */
     birth_date?: (number | null);
-    /**
-     * Update timestamp
-     */
-    updated_at?: (number | null);
     /**
      * Tags
      */

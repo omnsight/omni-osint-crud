@@ -16,15 +16,15 @@ export type WebsiteMainData = {
      */
     description?: (string | null);
     /**
-     * Founded timestamp
+     * When website is founded (timestamp)
      */
     founded_at?: (number | null);
     /**
-     * Discovered timestamp
+     * When website is discovered (timestamp)
      */
     discovered_at?: (number | null);
     /**
-     * Last visited timestamp
+     * When website is last visited (timestamp)
      */
     last_visited?: (number | null);
     /**
