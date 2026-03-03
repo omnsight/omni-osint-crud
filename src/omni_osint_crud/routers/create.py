@@ -3,10 +3,7 @@ from typing import Dict
 
 from fastapi import APIRouter, Depends, HTTPException
 from omni_python_library.dal import OsintDataAccessLayer, ViewDataAccessLayer
-from omni_python_library.middleware import (
-    get_user_context,
-    validate_create_permission,
-)
+from omni_python_library.middleware import get_user_context
 from omni_python_library.models import (
     Event,
     EventMainData,
