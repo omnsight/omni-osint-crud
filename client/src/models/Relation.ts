@@ -19,14 +19,6 @@ export type Relation = {
      */
     label?: (string | null);
     /**
-     * Creation timestamp
-     */
-    created_at?: (number | null);
-    /**
-     * Update timestamp
-     */
-    updated_at?: (number | null);
-    /**
      * Additional attributes
      */
     attributes?: (Record<string, any> | null);
@@ -62,5 +54,13 @@ export type Relation = {
      * ArangoDB document revision
      */
     _rev?: (string | null);
+    /**
+     * Data creation timestamp
+     */
+    created_at?: (number | null);
+    /**
+     * Data update timestamp
+     */
+    updated_at?: (number | null);
 };
 

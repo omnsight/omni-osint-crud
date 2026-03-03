@@ -12,15 +12,15 @@ export type OrganizationMainData = {
      */
     name?: (string | null);
     /**
-     * Founded timestamp
+     * When organization is founded (timestamp)
      */
     founded_at?: (number | null);
     /**
-     * Discovered timestamp
+     * When organization is discovered (timestamp)
      */
     discovered_at?: (number | null);
     /**
-     * Last visited timestamp
+     * When organization is last visited (timestamp)
      */
     last_visited?: (number | null);
     /**

@@ -16,14 +16,6 @@ export type RelationMainData = {
      */
     label?: (string | null);
     /**
-     * Creation timestamp
-     */
-    created_at?: (number | null);
-    /**
-     * Update timestamp
-     */
-    updated_at?: (number | null);
-    /**
      * Additional attributes
      */
     attributes?: (Record<string, any> | null);

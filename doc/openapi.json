@@ -2223,7 +2223,7 @@
         }
       }
     },
-    "/health": {
+    "/health/osint/crud": {
       "get": {
         "tags": [
           "health"
@@ -2322,18 +2322,6 @@
             "title": "Happened At",
             "description": "Timestamp when the event happened"
           },
-          "updated_at": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Updated At",
-            "description": "Update timestamp"
-          },
           "tags": {
             "anyOf": [
               {
@@ -2418,6 +2406,30 @@
             ],
             "title": "Rev",
             "description": "ArangoDB document revision"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At",
+            "description": "Data creation timestamp"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At",
+            "description": "Data update timestamp"
           }
         },
         "type": "object",
@@ -2484,18 +2496,6 @@
             ],
             "title": "Happened At",
             "description": "Timestamp when the event happened"
-          },
-          "updated_at": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Updated At",
-            "description": "Update timestamp"
           },
           "tags": {
             "anyOf": [
@@ -2655,7 +2655,7 @@
               }
             ],
             "title": "Founded At",
-            "description": "Founded timestamp"
+            "description": "When organization is founded (timestamp)"
           },
           "discovered_at": {
             "anyOf": [
@@ -2667,7 +2667,7 @@
               }
             ],
             "title": "Discovered At",
-            "description": "Discovered timestamp"
+            "description": "When organization is discovered (timestamp)"
           },
           "last_visited": {
             "anyOf": [
@@ -2679,7 +2679,7 @@
               }
             ],
             "title": "Last Visited",
-            "description": "Last visited timestamp"
+            "description": "When organization is last visited (timestamp)"
           },
           "tags": {
             "anyOf": [
@@ -2765,6 +2765,30 @@
             ],
             "title": "Rev",
             "description": "ArangoDB document revision"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At",
+            "description": "Data creation timestamp"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At",
+            "description": "Data update timestamp"
           }
         },
         "type": "object",
@@ -2807,7 +2831,7 @@
               }
             ],
             "title": "Founded At",
-            "description": "Founded timestamp"
+            "description": "When organization is founded (timestamp)"
           },
           "discovered_at": {
             "anyOf": [
@@ -2819,7 +2843,7 @@
               }
             ],
             "title": "Discovered At",
-            "description": "Discovered timestamp"
+            "description": "When organization is discovered (timestamp)"
           },
           "last_visited": {
             "anyOf": [
@@ -2831,7 +2855,7 @@
               }
             ],
             "title": "Last Visited",
-            "description": "Last visited timestamp"
+            "description": "When organization is last visited (timestamp)"
           },
           "tags": {
             "anyOf": [
@@ -2923,6 +2947,30 @@
             ],
             "title": "Rev",
             "description": "ArangoDB document revision"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At",
+            "description": "Data creation timestamp"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At",
+            "description": "Data update timestamp"
           },
           "name": {
             "anyOf": [
@@ -3088,19 +3136,7 @@
               }
             ],
             "title": "Birth Date",
-            "description": "Birth date timestamp"
-          },
-          "updated_at": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Updated At",
-            "description": "Update timestamp"
+            "description": "Person's birth date (timestamp)"
           },
           "tags": {
             "anyOf": [
@@ -3201,6 +3237,30 @@
             ],
             "title": "Rev",
             "description": "ArangoDB document revision"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At",
+            "description": "Data creation timestamp"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At",
+            "description": "Data update timestamp"
           }
         },
         "type": "object",
@@ -3255,19 +3315,7 @@
               }
             ],
             "title": "Birth Date",
-            "description": "Birth date timestamp"
-          },
-          "updated_at": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Updated At",
-            "description": "Update timestamp"
+            "description": "Person's birth date (timestamp)"
           },
           "tags": {
             "anyOf": [
@@ -3353,30 +3401,6 @@
             ],
             "title": "Label",
             "description": "Label name of the relation (can be any language) to display"
-          },
-          "created_at": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Created At",
-            "description": "Creation timestamp"
-          },
-          "updated_at": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Updated At",
-            "description": "Update timestamp"
           },
           "attributes": {
             "anyOf": [
@@ -3471,6 +3495,30 @@
             ],
             "title": "Rev",
             "description": "ArangoDB document revision"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At",
+            "description": "Data creation timestamp"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At",
+            "description": "Data update timestamp"
           }
         },
         "type": "object",
@@ -3514,30 +3562,6 @@
             ],
             "title": "Label",
             "description": "Label name of the relation (can be any language) to display"
-          },
-          "created_at": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Created At",
-            "description": "Creation timestamp"
-          },
-          "updated_at": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Updated At",
-            "description": "Update timestamp"
           },
           "attributes": {
             "anyOf": [
@@ -3654,30 +3678,6 @@
             "title": "Reliability",
             "description": "Reliability score"
           },
-          "created_at": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Created At",
-            "description": "Creation timestamp"
-          },
-          "updated_at": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Updated At",
-            "description": "Update timestamp"
-          },
           "tags": {
             "anyOf": [
               {
@@ -3762,6 +3762,30 @@
             ],
             "title": "Rev",
             "description": "ArangoDB document revision"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At",
+            "description": "Data creation timestamp"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At",
+            "description": "Data update timestamp"
           }
         },
         "type": "object",
@@ -3841,30 +3865,6 @@
             ],
             "title": "Reliability",
             "description": "Reliability score"
-          },
-          "created_at": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Created At",
-            "description": "Creation timestamp"
-          },
-          "updated_at": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Updated At",
-            "description": "Update timestamp"
           },
           "tags": {
             "anyOf": [
@@ -4030,7 +4030,7 @@
               }
             ],
             "title": "Founded At",
-            "description": "Founded timestamp"
+            "description": "When website is founded (timestamp)"
           },
           "discovered_at": {
             "anyOf": [
@@ -4042,7 +4042,7 @@
               }
             ],
             "title": "Discovered At",
-            "description": "Discovered timestamp"
+            "description": "When website is discovered (timestamp)"
           },
           "last_visited": {
             "anyOf": [
@@ -4054,7 +4054,7 @@
               }
             ],
             "title": "Last Visited",
-            "description": "Last visited timestamp"
+            "description": "When website is last visited (timestamp)"
           },
           "tags": {
             "anyOf": [
@@ -4140,6 +4140,30 @@
             ],
             "title": "Rev",
             "description": "ArangoDB document revision"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At",
+            "description": "Data creation timestamp"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At",
+            "description": "Data update timestamp"
           }
         },
         "type": "object",
@@ -4194,7 +4218,7 @@
               }
             ],
             "title": "Founded At",
-            "description": "Founded timestamp"
+            "description": "When website is founded (timestamp)"
           },
           "discovered_at": {
             "anyOf": [
@@ -4206,7 +4230,7 @@
               }
             ],
             "title": "Discovered At",
-            "description": "Discovered timestamp"
+            "description": "When website is discovered (timestamp)"
           },
           "last_visited": {
             "anyOf": [
@@ -4218,7 +4242,7 @@
               }
             ],
             "title": "Last Visited",
-            "description": "Last visited timestamp"
+            "description": "When website is last visited (timestamp)"
           },
           "tags": {
             "anyOf": [

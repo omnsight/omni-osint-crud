@@ -28,14 +28,6 @@ export type SourceMainData = {
      */
     reliability?: (number | null);
     /**
-     * Creation timestamp
-     */
-    created_at?: (number | null);
-    /**
-     * Update timestamp
-     */
-    updated_at?: (number | null);
-    /**
      * Tags
      */
     tags?: (Array<string> | null);

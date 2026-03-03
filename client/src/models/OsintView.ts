@@ -29,6 +29,14 @@ export type OsintView = {
      */
     _rev?: (string | null);
     /**
+     * Data creation timestamp
+     */
+    created_at?: (number | null);
+    /**
+     * Data update timestamp
+     */
+    updated_at?: (number | null);
+    /**
      * Name of the view
      */
     name?: (string | null);

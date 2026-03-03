@@ -15,7 +15,7 @@ export class HealthService {
     public static healthCheck(): CancelablePromise<HealthCheck> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/health',
+            url: '/health/osint/crud',
         });
     }
 }

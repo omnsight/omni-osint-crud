@@ -25,10 +25,6 @@ export type EventMainData = {
      */
     happened_at?: (number | null);
     /**
-     * Update timestamp
-     */
-    updated_at?: (number | null);
-    /**
      * Tags
      */
     tags?: (Array<string> | null);
