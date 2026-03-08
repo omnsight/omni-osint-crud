@@ -1,6 +1,6 @@
 # Omni OSINT CRUD Client
 
-This directory contains the generated TypeScript client for the API.
+This directory contains the generated [TypeScript client](https://www.npmjs.com/package/omni-osint-crud-client) for the Omni Osint CRUD API.
 
 ## Usage
 
