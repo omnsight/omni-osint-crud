@@ -436,6 +436,16 @@
             }
           },
           {
+            "name": "include_pending",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Include Pending"
+            }
+          },
+          {
             "name": "authorization",
             "in": "header",
             "required": false,
@@ -557,6 +567,16 @@
             "schema": {
               "type": "string",
               "title": "Id"
+            }
+          },
+          {
+            "name": "include_pending",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Include Pending"
             }
           },
           {
@@ -684,6 +704,16 @@
             }
           },
           {
+            "name": "include_pending",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Include Pending"
+            }
+          },
+          {
             "name": "authorization",
             "in": "header",
             "required": false,
@@ -805,6 +835,16 @@
             "schema": {
               "type": "string",
               "title": "Id"
+            }
+          },
+          {
+            "name": "include_pending",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Include Pending"
             }
           },
           {
@@ -932,6 +972,16 @@
             }
           },
           {
+            "name": "include_pending",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Include Pending"
+            }
+          },
+          {
             "name": "authorization",
             "in": "header",
             "required": false,
@@ -1053,6 +1103,16 @@
             "schema": {
               "type": "string",
               "title": "Id"
+            }
+          },
+          {
+            "name": "include_pending",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Include Pending"
             }
           },
           {

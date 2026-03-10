@@ -16,12 +16,14 @@ export class ReadService {
     /**
      * Get Person
      * @param id
+     * @param includePending
      * @param authorization
      * @returns Person Successful Response
      * @throws ApiError
      */
     public static getPerson(
         id: string,
+        includePending: boolean = false,
         authorization?: (string | null),
     ): CancelablePromise<Person> {
         return __request(OpenAPI, {
@@ -33,6 +35,9 @@ export class ReadService {
             headers: {
                 'authorization': authorization,
             },
+            query: {
+                'include_pending': includePending,
+            },
             errors: {
                 422: `Validation Error`,
             },
@@ -41,12 +46,14 @@ export class ReadService {
     /**
      * Get Organization
      * @param id
+     * @param includePending
      * @param authorization
      * @returns Organization Successful Response
      * @throws ApiError
      */
     public static getOrganization(
         id: string,
+        includePending: boolean = false,
         authorization?: (string | null),
     ): CancelablePromise<Organization> {
         return __request(OpenAPI, {
@@ -58,6 +65,9 @@ export class ReadService {
             headers: {
                 'authorization': authorization,
             },
+            query: {
+                'include_pending': includePending,
+            },
             errors: {
                 422: `Validation Error`,
             },
@@ -66,12 +76,14 @@ export class ReadService {
     /**
      * Get Event
      * @param id
+     * @param includePending
      * @param authorization
      * @returns Event Successful Response
      * @throws ApiError
      */
     public static getEvent(
         id: string,
+        includePending: boolean = false,
         authorization?: (string | null),
     ): CancelablePromise<Event> {
         return __request(OpenAPI, {
@@ -83,6 +95,9 @@ export class ReadService {
             headers: {
                 'authorization': authorization,
             },
+            query: {
+                'include_pending': includePending,
+            },
             errors: {
                 422: `Validation Error`,
             },
@@ -91,12 +106,14 @@ export class ReadService {
     /**
      * Get Website
      * @param id
+     * @param includePending
      * @param authorization
      * @returns Website Successful Response
      * @throws ApiError
      */
     public static getWebsite(
         id: string,
+        includePending: boolean = false,
         authorization?: (string | null),
     ): CancelablePromise<Website> {
         return __request(OpenAPI, {
@@ -108,6 +125,9 @@ export class ReadService {
             headers: {
                 'authorization': authorization,
             },
+            query: {
+                'include_pending': includePending,
+            },
             errors: {
                 422: `Validation Error`,
             },
@@ -116,12 +136,14 @@ export class ReadService {
     /**
      * Get Source
      * @param id
+     * @param includePending
      * @param authorization
      * @returns Source Successful Response
      * @throws ApiError
      */
     public static getSource(
         id: string,
+        includePending: boolean = false,
         authorization?: (string | null),
     ): CancelablePromise<Source> {
         return __request(OpenAPI, {
@@ -133,6 +155,9 @@ export class ReadService {
             headers: {
                 'authorization': authorization,
             },
+            query: {
+                'include_pending': includePending,
+            },
             errors: {
                 422: `Validation Error`,
             },
@@ -141,12 +166,14 @@ export class ReadService {
     /**
      * Get Relation
      * @param id
+     * @param includePending
      * @param authorization
      * @returns Relation Successful Response
      * @throws ApiError
      */
     public static getRelation(
         id: string,
+        includePending: boolean = false,
         authorization?: (string | null),
     ): CancelablePromise<Relation> {
         return __request(OpenAPI, {
@@ -157,6 +184,9 @@ export class ReadService {
             },
             headers: {
                 'authorization': authorization,
+            },
+            query: {
+                'include_pending': includePending,
             },
             errors: {
                 422: `Validation Error`,
