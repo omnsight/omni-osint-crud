@@ -31,9 +31,9 @@ view_dal = ViewDataAccessLayer()
 
 
 @router.post("/person", response_model=Person, operation_id="create_person")
-def create_person(person: PersonMainData, user_ctx: Dict = Depends(get_user_context)):
+def create_person(person: PersonMainData, include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)):
     try:
-        return dal.create_person(person, user_ctx["user_id"], user_ctx["roles"])
+        return dal.create_person(person, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except PermissionDeniedError:
         logger.exception(f"User {user_ctx['user_id']} failed to create person {person} due to insufficient permissions")
         raise HTTPException(status_code=403, detail="Only the owner can create this resource")
@@ -43,9 +43,11 @@ def create_person(person: PersonMainData, user_ctx: Dict = Depends(get_user_cont
 
 
 @router.post("/organization", response_model=Organization, operation_id="create_organization")
-def create_organization(organization: OrganizationMainData, user_ctx: Dict = Depends(get_user_context)):
+def create_organization(
+    organization: OrganizationMainData, include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)
+):
     try:
-        return dal.create_organization(organization, user_ctx["user_id"], user_ctx["roles"])
+        return dal.create_organization(organization, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except PermissionDeniedError:
         logger.exception(
             f"User {user_ctx['user_id']} failed to create organization {organization} due to insufficient permissions"
@@ -57,9 +59,9 @@ def create_organization(organization: OrganizationMainData, user_ctx: Dict = Dep
 
 
 @router.post("/event", response_model=Event, operation_id="create_event")
-def create_event(event: EventMainData, user_ctx: Dict = Depends(get_user_context)):
+def create_event(event: EventMainData, include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)):
     try:
-        return dal.create_event(event, user_ctx["user_id"], user_ctx["roles"])
+        return dal.create_event(event, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except PermissionDeniedError:
         logger.exception(f"User {user_ctx['user_id']} failed to create event {event} due to insufficient permissions")
         raise HTTPException(status_code=403, detail="Only the owner can create this resource")
@@ -69,9 +71,9 @@ def create_event(event: EventMainData, user_ctx: Dict = Depends(get_user_context
 
 
 @router.post("/website", response_model=Website, operation_id="create_website")
-def create_website(website: WebsiteMainData, user_ctx: Dict = Depends(get_user_context)):
+def create_website(website: WebsiteMainData, include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)):
     try:
-        return dal.create_website(website, user_ctx["user_id"], user_ctx["roles"])
+        return dal.create_website(website, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except PermissionDeniedError:
         logger.exception(
             f"User {user_ctx['user_id']} failed to create website {website} due to insufficient permissions"
@@ -83,9 +85,9 @@ def create_website(website: WebsiteMainData, user_ctx: Dict = Depends(get_user_c
 
 
 @router.post("/source", response_model=Source, operation_id="create_source")
-def create_source(source: SourceMainData, user_ctx: Dict = Depends(get_user_context)):
+def create_source(source: SourceMainData, include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)):
     try:
-        return dal.create_source(source, user_ctx["user_id"], user_ctx["roles"])
+        return dal.create_source(source, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except PermissionDeniedError:
         logger.exception(f"User {user_ctx['user_id']} failed to create source {source} due to insufficient permissions")
         raise HTTPException(status_code=403, detail="Only the owner can create this resource")
@@ -95,7 +97,9 @@ def create_source(source: SourceMainData, user_ctx: Dict = Depends(get_user_cont
 
 
 @router.post("/relation", response_model=Relation, operation_id="create_relation")
-def create_relation(relation: RelationMainData, user_ctx: Dict = Depends(get_user_context)):
+def create_relation(
+    relation: RelationMainData, include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)
+):
     if not relation.from_id or not relation.to_id:
         raise HTTPException(status_code=400, detail="Source and target document IDs are required")
 
@@ -103,7 +107,7 @@ def create_relation(relation: RelationMainData, user_ctx: Dict = Depends(get_use
         raise HTTPException(status_code=400, detail="Relation name is required and must be non-empty ASCII")
 
     try:
-        return dal.create_relation(relation, user_ctx["user_id"], user_ctx["roles"])
+        return dal.create_relation(relation, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except PermissionDeniedError:
         logger.exception(
             f"User {user_ctx['user_id']} failed to create relation {relation} due to insufficient permissions"

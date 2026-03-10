@@ -14,6 +14,16 @@
         "operationId": "create_person",
         "parameters": [
           {
+            "name": "include_pending",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Include Pending"
+            }
+          },
+          {
             "name": "authorization",
             "in": "header",
             "required": false,
@@ -72,6 +82,16 @@
         "summary": "Create Organization",
         "operationId": "create_organization",
         "parameters": [
+          {
+            "name": "include_pending",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Include Pending"
+            }
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -132,6 +152,16 @@
         "operationId": "create_event",
         "parameters": [
           {
+            "name": "include_pending",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Include Pending"
+            }
+          },
+          {
             "name": "authorization",
             "in": "header",
             "required": false,
@@ -190,6 +220,16 @@
         "summary": "Create Website",
         "operationId": "create_website",
         "parameters": [
+          {
+            "name": "include_pending",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Include Pending"
+            }
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -250,6 +290,16 @@
         "operationId": "create_source",
         "parameters": [
           {
+            "name": "include_pending",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Include Pending"
+            }
+          },
+          {
             "name": "authorization",
             "in": "header",
             "required": false,
@@ -308,6 +358,16 @@
         "summary": "Create Relation",
         "operationId": "create_relation",
         "parameters": [
+          {
+            "name": "include_pending",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Include Pending"
+            }
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -502,6 +562,16 @@
             }
           },
           {
+            "name": "include_pending",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Include Pending"
+            }
+          },
+          {
             "name": "authorization",
             "in": "header",
             "required": false,
@@ -633,6 +703,16 @@
             "schema": {
               "type": "string",
               "title": "Id"
+            }
+          },
+          {
+            "name": "include_pending",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Include Pending"
             }
           },
           {
@@ -770,6 +850,16 @@
             }
           },
           {
+            "name": "include_pending",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Include Pending"
+            }
+          },
+          {
             "name": "authorization",
             "in": "header",
             "required": false,
@@ -901,6 +991,16 @@
             "schema": {
               "type": "string",
               "title": "Id"
+            }
+          },
+          {
+            "name": "include_pending",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Include Pending"
             }
           },
           {
@@ -1038,6 +1138,16 @@
             }
           },
           {
+            "name": "include_pending",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Include Pending"
+            }
+          },
+          {
             "name": "authorization",
             "in": "header",
             "required": false,
@@ -1169,6 +1279,16 @@
             "schema": {
               "type": "string",
               "title": "Id"
+            }
+          },
+          {
+            "name": "include_pending",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Include Pending"
             }
           },
           {

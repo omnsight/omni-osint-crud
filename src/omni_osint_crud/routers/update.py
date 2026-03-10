@@ -56,10 +56,11 @@ def update_person_permissions(id: str, data: Permissive = Body(...), user_ctx: D
 def update_person(
     id: str,
     data: PersonMainData = Body(...),
+    include_pending: bool = False,
     user_ctx: Dict = Depends(get_user_context),
 ):
     try:
-        return dal.update_person(id, data, user_ctx["user_id"], user_ctx["roles"])
+        return dal.update_person(id, data, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except NotFoundError:
         logger.exception(f"User {user_ctx['user_id']} failed to update person {id} due to not found")
         raise HTTPException(status_code=404, detail="Resource not found")
@@ -96,10 +97,11 @@ def update_organization_permissions(id: str, data: Permissive = Body(...), user_
 def update_organization(
     id: str,
     data: OrganizationMainData = Body(...),
+    include_pending: bool = False,
     user_ctx: Dict = Depends(get_user_context),
 ):
     try:
-        return dal.update_organization(id, data, user_ctx["user_id"], user_ctx["roles"])
+        return dal.update_organization(id, data, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except NotFoundError:
         logger.exception(f"User {user_ctx['user_id']} failed to update organization {id} due to not found")
         raise HTTPException(status_code=404, detail="Resource not found")
@@ -133,9 +135,11 @@ def update_event_permissions(id: str, data: Permissive = Body(...), user_ctx: Di
 
 
 @router.put("/event/{id:path}", response_model=Event, operation_id="update_event")
-def update_event(id: str, data: EventMainData = Body(...), user_ctx: Dict = Depends(get_user_context)):
+def update_event(
+    id: str, data: EventMainData = Body(...), include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)
+):
     try:
-        return dal.update_event(id, data, user_ctx["user_id"], user_ctx["roles"])
+        return dal.update_event(id, data, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except NotFoundError:
         logger.exception(f"User {user_ctx['user_id']} failed to update event {id} due to not found")
         raise HTTPException(status_code=404, detail="Resource not found")
@@ -170,10 +174,11 @@ def update_website_permissions(id: str, data: Permissive = Body(...), user_ctx: 
 def update_website(
     id: str,
     data: WebsiteMainData = Body(...),
+    include_pending: bool = False,
     user_ctx: Dict = Depends(get_user_context),
 ):
     try:
-        return dal.update_website(id, data, user_ctx["user_id"], user_ctx["roles"])
+        return dal.update_website(id, data, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except NotFoundError:
         logger.exception(f"User {user_ctx['user_id']} failed to update website {id} due to not found")
         raise HTTPException(status_code=404, detail="Resource not found")
@@ -208,10 +213,11 @@ def update_source_permissions(id: str, data: Permissive = Body(...), user_ctx: D
 def update_source(
     id: str,
     data: SourceMainData = Body(...),
+    include_pending: bool = False,
     user_ctx: Dict = Depends(get_user_context),
 ):
     try:
-        return dal.update_source(id, data, user_ctx["user_id"], user_ctx["roles"])
+        return dal.update_source(id, data, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except NotFoundError:
         logger.exception(f"User {user_ctx['user_id']} failed to update source {id} due to not found")
         raise HTTPException(status_code=404, detail="Resource not found")
@@ -246,13 +252,14 @@ def update_relation_permissions(id: str, data: Permissive = Body(...), user_ctx:
 def update_relation(
     id: str,
     data: RelationMainData = Body(...),
+    include_pending: bool = False,
     user_ctx: Dict = Depends(get_user_context),
 ):
     if data.name is not None and (not data.name or not data.name.isascii()):
         raise HTTPException(status_code=400, detail="Relation name cannot be empty and must be ASCII")
 
     try:
-        return dal.update_relation(id, data, user_ctx["user_id"], user_ctx["roles"])
+        return dal.update_relation(id, data, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except NotFoundError:
         logger.exception(f"User {user_ctx['user_id']} failed to update relation {id} due to not found")
         raise HTTPException(status_code=404, detail="Resource not found")
