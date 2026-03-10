@@ -17,7 +17,7 @@ To use the client in your Node.js project, you can install it directly from GitH
 After installation, you can use the client in your application as shown below:
 
 ```typescript
-import { OpenAPI, HealthService, HealthCheck } from 'omni-osint-crud/client';
+import { OpenAPI, HealthService, HealthCheck } from 'omni-osint-crud-client';
 
 // Configure the API client
 OpenAPI.BASE = 'http://localhost:8000'; // Adjust if your server runs on a different host/port

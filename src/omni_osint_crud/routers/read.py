@@ -22,9 +22,9 @@ view_dal = ViewDataAccessLayer()
 
 
 @router.get("/person/{id:path}", response_model=Person, operation_id="get_person")
-def get_person(id: str, user_ctx: Dict = Depends(get_user_context)):
+def get_person(id: str, include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)):
     try:
-        result = dal.get_person(id, user_ctx["user_id"], user_ctx["roles"])
+        result = dal.get_person(id, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except NotFoundError:
         logger.exception(f"User {user_ctx['user_id']} failed to read person {id} as it was not found")
         raise HTTPException(status_code=404, detail="Resource not found")
@@ -41,9 +41,9 @@ def get_person(id: str, user_ctx: Dict = Depends(get_user_context)):
 
 
 @router.get("/organization/{id:path}", response_model=Organization, operation_id="get_organization")
-def get_organization(id: str, user_ctx: Dict = Depends(get_user_context)):
+def get_organization(id: str, include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)):
     try:
-        result = dal.get_organization(id, user_ctx["user_id"], user_ctx["roles"])
+        result = dal.get_organization(id, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except NotFoundError:
         logger.exception(f"User {user_ctx['user_id']} failed to read organization {id} as it was not found")
         raise HTTPException(status_code=404, detail="Resource not found")
@@ -60,9 +60,9 @@ def get_organization(id: str, user_ctx: Dict = Depends(get_user_context)):
 
 
 @router.get("/event/{id:path}", response_model=Event, operation_id="get_event")
-def get_event(id: str, user_ctx: Dict = Depends(get_user_context)):
+def get_event(id: str, include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)):
     try:
-        result = dal.get_event(id, user_ctx["user_id"], user_ctx["roles"])
+        result = dal.get_event(id, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except NotFoundError:
         logger.exception(f"User {user_ctx['user_id']} failed to read event {id} as it was not found")
         raise HTTPException(status_code=404, detail="Resource not found")
@@ -79,9 +79,9 @@ def get_event(id: str, user_ctx: Dict = Depends(get_user_context)):
 
 
 @router.get("/website/{id:path}", response_model=Website, operation_id="get_website")
-def get_website(id: str, user_ctx: Dict = Depends(get_user_context)):
+def get_website(id: str, include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)):
     try:
-        result = dal.get_website(id, user_ctx["user_id"], user_ctx["roles"])
+        result = dal.get_website(id, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except NotFoundError:
         logger.exception(f"User {user_ctx['user_id']} failed to read website {id} as it was not found")
         raise HTTPException(status_code=404, detail="Resource not found")
@@ -98,9 +98,9 @@ def get_website(id: str, user_ctx: Dict = Depends(get_user_context)):
 
 
 @router.get("/source/{id:path}", response_model=Source, operation_id="get_source")
-def get_source(id: str, user_ctx: Dict = Depends(get_user_context)):
+def get_source(id: str, include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)):
     try:
-        result = dal.get_source(id, user_ctx["user_id"], user_ctx["roles"])
+        result = dal.get_source(id, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except NotFoundError:
         logger.exception(f"User {user_ctx['user_id']} failed to read source {id} as it was not found")
         raise HTTPException(status_code=404, detail="Resource not found")
@@ -117,9 +117,9 @@ def get_source(id: str, user_ctx: Dict = Depends(get_user_context)):
 
 
 @router.get("/relation/{id:path}", response_model=Relation, operation_id="get_relation")
-def get_relation(id: str, user_ctx: Dict = Depends(get_user_context)):
+def get_relation(id: str, include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)):
     try:
-        result = dal.get_relation(id, user_ctx["user_id"], user_ctx["roles"])
+        result = dal.get_relation(id, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except NotFoundError:
         logger.exception(f"User {user_ctx['user_id']} failed to read relation {id} as it was not found")
         raise HTTPException(status_code=404, detail="Resource not found")

@@ -27,6 +27,7 @@ export class UpdateService {
      * Update Person
      * @param id
      * @param requestBody
+     * @param includePending
      * @param authorization
      * @returns Person Successful Response
      * @throws ApiError
@@ -34,6 +35,7 @@ export class UpdateService {
     public static updatePerson(
         id: string,
         requestBody: PersonMainData,
+        includePending: boolean = false,
         authorization?: (string | null),
     ): CancelablePromise<Person> {
         return __request(OpenAPI, {
@@ -44,6 +46,9 @@ export class UpdateService {
             },
             headers: {
                 'authorization': authorization,
+            },
+            query: {
+                'include_pending': includePending,
             },
             body: requestBody,
             mediaType: 'application/json',
@@ -56,6 +61,7 @@ export class UpdateService {
      * Update Organization
      * @param id
      * @param requestBody
+     * @param includePending
      * @param authorization
      * @returns Organization Successful Response
      * @throws ApiError
@@ -63,6 +69,7 @@ export class UpdateService {
     public static updateOrganization(
         id: string,
         requestBody: OrganizationMainData,
+        includePending: boolean = false,
         authorization?: (string | null),
     ): CancelablePromise<Organization> {
         return __request(OpenAPI, {
@@ -73,6 +80,9 @@ export class UpdateService {
             },
             headers: {
                 'authorization': authorization,
+            },
+            query: {
+                'include_pending': includePending,
             },
             body: requestBody,
             mediaType: 'application/json',
@@ -85,6 +95,7 @@ export class UpdateService {
      * Update Event
      * @param id
      * @param requestBody
+     * @param includePending
      * @param authorization
      * @returns Event Successful Response
      * @throws ApiError
@@ -92,6 +103,7 @@ export class UpdateService {
     public static updateEvent(
         id: string,
         requestBody: EventMainData,
+        includePending: boolean = false,
         authorization?: (string | null),
     ): CancelablePromise<Event> {
         return __request(OpenAPI, {
@@ -102,6 +114,9 @@ export class UpdateService {
             },
             headers: {
                 'authorization': authorization,
+            },
+            query: {
+                'include_pending': includePending,
             },
             body: requestBody,
             mediaType: 'application/json',
@@ -114,6 +129,7 @@ export class UpdateService {
      * Update Website
      * @param id
      * @param requestBody
+     * @param includePending
      * @param authorization
      * @returns Website Successful Response
      * @throws ApiError
@@ -121,6 +137,7 @@ export class UpdateService {
     public static updateWebsite(
         id: string,
         requestBody: WebsiteMainData,
+        includePending: boolean = false,
         authorization?: (string | null),
     ): CancelablePromise<Website> {
         return __request(OpenAPI, {
@@ -131,6 +148,9 @@ export class UpdateService {
             },
             headers: {
                 'authorization': authorization,
+            },
+            query: {
+                'include_pending': includePending,
             },
             body: requestBody,
             mediaType: 'application/json',
@@ -143,6 +163,7 @@ export class UpdateService {
      * Update Source
      * @param id
      * @param requestBody
+     * @param includePending
      * @param authorization
      * @returns Source Successful Response
      * @throws ApiError
@@ -150,6 +171,7 @@ export class UpdateService {
     public static updateSource(
         id: string,
         requestBody: SourceMainData,
+        includePending: boolean = false,
         authorization?: (string | null),
     ): CancelablePromise<Source> {
         return __request(OpenAPI, {
@@ -160,6 +182,9 @@ export class UpdateService {
             },
             headers: {
                 'authorization': authorization,
+            },
+            query: {
+                'include_pending': includePending,
             },
             body: requestBody,
             mediaType: 'application/json',
@@ -172,6 +197,7 @@ export class UpdateService {
      * Update Relation
      * @param id
      * @param requestBody
+     * @param includePending
      * @param authorization
      * @returns Relation Successful Response
      * @throws ApiError
@@ -179,6 +205,7 @@ export class UpdateService {
     public static updateRelation(
         id: string,
         requestBody: RelationMainData,
+        includePending: boolean = false,
         authorization?: (string | null),
     ): CancelablePromise<Relation> {
         return __request(OpenAPI, {
@@ -189,6 +216,9 @@ export class UpdateService {
             },
             headers: {
                 'authorization': authorization,
+            },
+            query: {
+                'include_pending': includePending,
             },
             body: requestBody,
             mediaType: 'application/json',
