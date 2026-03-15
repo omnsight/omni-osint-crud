@@ -6,8 +6,6 @@ from omni_python_library import init_omni_library
 from omni_python_library.models import (
     OsintViewMainData,
     PersonMainData,
-    ViewConfig,
-    ViewMode,
 )
 from omni_python_library.utils.config import UserRole
 
@@ -46,7 +44,21 @@ class TestView:
 
     def test_view_crud_cycle(self):
         # Create View
-        create_data = OsintViewMainData(name="Test View", description="A test view", configs=[])
+        create_data = OsintViewMainData(
+            name="Test View",
+            description="A test view",
+            analysis=[
+                {
+                    "type": "paragraph",
+                    "content": [
+                        {
+                            "type": "text",
+                            "text": "Hello world!",
+                        }
+                    ],
+                }
+            ],
+        )
         response = self.client.post("/view", json=create_data.model_dump(exclude_unset=True))
         assert response.status_code == 200
         created_view = response.json()
@@ -58,7 +70,7 @@ class TestView:
         response = self.client.get(f"/view/{view_id}")
         assert response.status_code == 200
         assert response.json() == created_view
-        assert response.json()["configs"] == []
+        assert len(response.json()["analysis"]) == 1
 
         # Update View
         update_data = OsintViewMainData(name="Test View Updated")
@@ -66,19 +78,13 @@ class TestView:
         assert response.status_code == 200
         updated_view = response.json()
         assert updated_view["name"] == "Test View Updated"
-        assert response.json()["configs"] == []
+        assert len(response.json()["analysis"]) == 1
 
         # Connect entity to view
         person_data = PersonMainData(name="John Doe")
         response = self.client.post("/person", json=person_data.model_dump(exclude_unset=True))
         assert response.status_code == 200
         person_id = response.json()["_id"]
-
-        # Add View Config
-        config_data = ViewConfig(name="test-config", entities=[person_id], ui="Geovision", mode=ViewMode.DEFAULT)
-        response = self.client.post(f"/view/{view_id}/configs", json=config_data.model_dump(exclude_unset=True))
-        assert response.status_code == 200
-        assert len(response.json()["configs"]) == 1
 
         response = self.client.post(f"/view/{view_id}/entities", json={"entity_id": person_id})
         assert response.status_code == 200
@@ -108,29 +114,29 @@ class TestView:
     # Test create_view
 
     def test_create_view_missing_name(self):
-        create_data = OsintViewMainData(description="A test view", configs=[])
+        create_data = OsintViewMainData(description="A test view", analysis=[])
         response = self.client.post("/view", json=create_data.model_dump(exclude_unset=True))
         assert response.status_code == 400
 
     def test_create_view_missing_description(self):
-        create_data = OsintViewMainData(name="Test View", configs=[])
+        create_data = OsintViewMainData(name="Test View", analysis=[])
         response = self.client.post("/view", json=create_data.model_dump(exclude_unset=True))
         assert response.status_code == 400
 
-    def test_create_view_missing_configs(self):
+    def test_create_view_missing_analysis(self):
         create_data = OsintViewMainData(name="Test View", description="A test view")
         response = self.client.post("/view", json=create_data.model_dump(exclude_unset=True))
         assert response.status_code == 400
 
     def test_create_view_permission_denied(self):
-        create_data = OsintViewMainData(name="Test View", description="A test view", configs=[])
+        create_data = OsintViewMainData(name="Test View", description="A test view", analysis=[])
         response = self.no_roles_client.post("/view", json=create_data.model_dump(exclude_unset=True))
         assert response.status_code == 403
 
     @patch("omni_osint_crud.routers.create.view_dal.create_view")
     def test_create_view_internal_error(self, mock_create_view):
         mock_create_view.side_effect = Exception("DB error")
-        create_data = OsintViewMainData(name="Test View", description="A test view", configs=[])
+        create_data = OsintViewMainData(name="Test View", description="A test view", analysis=[])
         response = self.client.post("/view", json=create_data.model_dump(exclude_unset=True))
         assert response.status_code == 500
 
@@ -145,7 +151,7 @@ class TestView:
         assert response.status_code == 404
 
     def test_read_view_permission_denied(self):
-        create_data = OsintViewMainData(name="Test View", description="A test view", configs=[])
+        create_data = OsintViewMainData(name="Test View", description="A test view", analysis=[])
         response = self.client.post("/view", json=create_data.model_dump(exclude_unset=True))
         assert response.status_code == 200
         view_id = response.json()["_id"]
@@ -166,7 +172,7 @@ class TestView:
         assert response.status_code == 404
 
     def test_get_view_entities_no_permission(self):
-        create_data = OsintViewMainData(name="Test View", description="A test view", configs=[])
+        create_data = OsintViewMainData(name="Test View", description="A test view", analysis=[])
         response = self.client.post("/view", json=create_data.model_dump(exclude_unset=True))
         assert response.status_code == 200
         view_id = response.json()["_id"]
@@ -208,7 +214,7 @@ class TestView:
         assert response.status_code == 404
 
     def test_update_view_permission_denied(self):
-        create_data = OsintViewMainData(name="Test View", description="A test view", configs=[])
+        create_data = OsintViewMainData(name="Test View", description="A test view", analysis=[])
         response = self.client.post("/view", json=create_data.model_dump(exclude_unset=True))
         assert response.status_code == 200
         created_view = response.json()
@@ -234,7 +240,7 @@ class TestView:
 
     def test_update_view_permissions_permission_denied(self):
         # 1. Create a view with the admin client
-        create_data = OsintViewMainData(name="Test View", description="A test view", configs=[])
+        create_data = OsintViewMainData(name="Test View", description="A test view", analysis=[])
         response = self.client.post("/view", json=create_data.model_dump(exclude_unset=True))
         assert response.status_code == 200
         created_view = response.json()
@@ -257,44 +263,6 @@ class TestView:
         response = self.client.put("/view/some-id/permissions", json=update_data)
         assert response.status_code == 500
 
-    # Test add_view_config
-
-    def test_add_view_config_entity_not_found(self):
-        create_data = OsintViewMainData(name="Test View", description="A test view", configs=[])
-        response = self.client.post("/view", json=create_data.model_dump(exclude_unset=True))
-        assert response.status_code == 200
-        view_id = response.json()["_id"]
-
-        config_data = ViewConfig(name="test-config", entities=["person/123"], ui="Geovision", mode=ViewMode.DEFAULT)
-        response = self.no_roles_client.post(
-            f"/view/{view_id}/configs", json=config_data.model_dump(exclude_unset=True)
-        )
-        assert response.status_code == 404
-
-    def test_add_view_config_not_found(self):
-        config_data = ViewConfig(name="test-config", entities=["person/123"], ui="Geovision", mode="default")
-        response = self.client.post("/view/non-existent-id/configs", json=config_data.model_dump(exclude_unset=True))
-        assert response.status_code == 404
-
-    def test_add_view_config_permission_denied(self):
-        create_data = OsintViewMainData(name="Test View", description="A test view", configs=[])
-        response = self.client.post("/view", json=create_data.model_dump(exclude_unset=True))
-        assert response.status_code == 200
-        view_id = response.json()["_id"]
-
-        config_data = ViewConfig(name="test-config", entities=[], ui="Geovision", mode=ViewMode.DEFAULT)
-        response = self.no_roles_client.post(
-            f"/view/{view_id}/configs", json=config_data.model_dump(exclude_unset=True)
-        )
-        assert response.status_code == 403
-
-    @patch("omni_osint_crud.routers.update.view_dal.add_view_config")
-    def test_add_view_config_internal_error(self, mock_add_view_config):
-        mock_add_view_config.side_effect = Exception("DB error")
-        config_data = ViewConfig(name="test-config", entities=["person/123"], ui="Geovision", mode="default")
-        response = self.client.post("/view/some-id/configs", json=config_data.model_dump(exclude_unset=True))
-        assert response.status_code == 500
-
     # Test connect_entity_to_view
 
     def test_connect_entity_to_view_not_found(self):
@@ -302,7 +270,7 @@ class TestView:
         assert response.status_code == 404
 
     def test_connect_entity_to_view_permission_denied(self):
-        create_data = OsintViewMainData(name="Test View", description="A test view", configs=[])
+        create_data = OsintViewMainData(name="Test View", description="A test view", analysis=[])
         response = self.client.post("/view", json=create_data.model_dump(exclude_unset=True))
         assert response.status_code == 200
         view_id = response.json()["_id"]
@@ -332,7 +300,7 @@ class TestView:
         assert response.status_code == 404
 
     def test_delete_view_permission_denied(self):
-        create_data = OsintViewMainData(name="Test View", description="A test view", configs=[])
+        create_data = OsintViewMainData(name="Test View", description="A test view", analysis=[])
         response = self.client.post("/view", json=create_data.model_dump(exclude_unset=True))
         assert response.status_code == 200
         created_view = response.json()

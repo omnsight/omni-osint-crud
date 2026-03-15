@@ -126,8 +126,8 @@ def create_view(view: OsintViewMainData, user_ctx: Dict = Depends(get_user_conte
     if not view.description:
         raise HTTPException(status_code=400, detail="View description is required")
 
-    if view.configs is None:
-        raise HTTPException(status_code=400, detail="View configs are required")
+    if view.analysis is None:
+        raise HTTPException(status_code=400, detail="View analysis report is required")
 
     try:
         return view_dal.create_view(view, user_ctx["user_id"], user_ctx["roles"])

@@ -25,9 +25,6 @@ export type { RelationMainData } from './models/RelationMainData';
 export type { Source } from './models/Source';
 export type { SourceMainData } from './models/SourceMainData';
 export type { ValidationError } from './models/ValidationError';
-export type { ViewConfig } from './models/ViewConfig';
-export { ViewMode } from './models/ViewMode';
-export { ViewUI } from './models/ViewUI';
 export type { Website } from './models/Website';
 export type { WebsiteMainData } from './models/WebsiteMainData';
 

@@ -18,7 +18,6 @@ from omni_python_library.models import (
     RelationMainData,
     Source,
     SourceMainData,
-    ViewConfig,
     Website,
     WebsiteMainData,
 )
@@ -268,23 +267,6 @@ def update_relation(
         raise HTTPException(status_code=403, detail="Insufficient permissions to access this resource")
     except Exception:
         logger.exception(f"User {user_ctx['user_id']} failed to update relation {id} with data {data}")
-        raise HTTPException(status_code=500, detail="Internal Server Error")
-
-
-@router.post("/view/{id:path}/configs", response_model=OsintView, operation_id="add_view_config")
-def add_view_config(id: str, config: ViewConfig = Body(...), user_ctx: Dict = Depends(get_user_context)):
-    try:
-        return view_dal.add_view_config(id, config, owner=user_ctx["user_id"], roles=user_ctx["roles"])
-    except NotFoundError:
-        logger.exception(f"User {user_ctx['user_id']} failed to add config to view {id} due to not found")
-        raise HTTPException(status_code=404, detail="Resource not found")
-    except PermissionDeniedError:
-        logger.exception(
-            f"User {user_ctx['user_id']} failed to add config to view {id} due to insufficient permissions"
-        )
-        raise HTTPException(status_code=403, detail="Insufficient permissions to access this resource")
-    except Exception:
-        logger.exception(f"User {user_ctx['user_id']} failed to add config to view {id}")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
