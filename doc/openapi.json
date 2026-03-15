@@ -2211,74 +2211,6 @@
         }
       }
     },
-    "/view/{id}/configs": {
-      "post": {
-        "tags": [
-          "update"
-        ],
-        "summary": "Add View Config",
-        "operationId": "add_view_config",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Id"
-            }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ViewConfig"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/OsintView"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/view/{id}/permissions": {
       "put": {
         "tags": [
@@ -3176,11 +3108,12 @@
             "title": "Description",
             "description": "Description of the view"
           },
-          "configs": {
+          "analysis": {
             "anyOf": [
               {
                 "items": {
-                  "$ref": "#/components/schemas/ViewConfig"
+                  "additionalProperties": true,
+                  "type": "object"
                 },
                 "type": "array"
               },
@@ -3188,8 +3121,8 @@
                 "type": "null"
               }
             ],
-            "title": "Configs",
-            "description": "List of view configurations"
+            "title": "Analysis",
+            "description": "Json based analysis report doc"
           }
         },
         "type": "object",
@@ -3221,11 +3154,12 @@
             "title": "Description",
             "description": "Description of the view"
           },
-          "configs": {
+          "analysis": {
             "anyOf": [
               {
                 "items": {
-                  "$ref": "#/components/schemas/ViewConfig"
+                  "additionalProperties": true,
+                  "type": "object"
                 },
                 "type": "array"
               },
@@ -3233,8 +3167,8 @@
                 "type": "null"
               }
             ],
-            "title": "Configs",
-            "description": "List of view configurations"
+            "title": "Analysis",
+            "description": "Json based analysis report doc"
           }
         },
         "type": "object",
@@ -4117,50 +4051,6 @@
           "type"
         ],
         "title": "ValidationError"
-      },
-      "ViewConfig": {
-        "properties": {
-          "ui": {
-            "$ref": "#/components/schemas/ViewUI",
-            "description": "UI type for the view"
-          },
-          "mode": {
-            "$ref": "#/components/schemas/ViewMode",
-            "description": "Mode of the view"
-          },
-          "entities": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Entities",
-            "description": "List of entity ids this view config highlights. For example, compare mode will render these entities in parallel highlighting their differences."
-          }
-        },
-        "type": "object",
-        "required": [
-          "ui",
-          "mode",
-          "entities"
-        ],
-        "title": "ViewConfig"
-      },
-      "ViewMode": {
-        "type": "string",
-        "enum": [
-          "default",
-          "timeline",
-          "compare"
-        ],
-        "title": "ViewMode"
-      },
-      "ViewUI": {
-        "type": "string",
-        "enum": [
-          "Geovision",
-          "Sparkle"
-        ],
-        "title": "ViewUI"
       },
       "Website": {
         "properties": {

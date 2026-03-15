@@ -2,7 +2,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ViewConfig } from './ViewConfig';
 export type OsintViewMainData = {
     /**
      * Name of the view
@@ -13,8 +12,8 @@ export type OsintViewMainData = {
      */
     description?: (string | null);
     /**
-     * List of view configurations
+     * Json based analysis report doc
      */
-    configs?: (Array<ViewConfig> | null);
+    analysis?: null;
 };
 

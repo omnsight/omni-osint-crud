@@ -16,7 +16,6 @@ import type { Relation } from '../models/Relation';
 import type { RelationMainData } from '../models/RelationMainData';
 import type { Source } from '../models/Source';
 import type { SourceMainData } from '../models/SourceMainData';
-import type { ViewConfig } from '../models/ViewConfig';
 import type { Website } from '../models/Website';
 import type { WebsiteMainData } from '../models/WebsiteMainData';
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -446,35 +445,6 @@ export class UpdateService {
         return __request(OpenAPI, {
             method: 'PUT',
             url: '/relation/{id}/permissions',
-            path: {
-                'id': id,
-            },
-            headers: {
-                'authorization': authorization,
-            },
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                422: `Validation Error`,
-            },
-        });
-    }
-    /**
-     * Add View Config
-     * @param id
-     * @param requestBody
-     * @param authorization
-     * @returns OsintView Successful Response
-     * @throws ApiError
-     */
-    public static addViewConfig(
-        id: string,
-        requestBody: ViewConfig,
-        authorization?: (string | null),
-    ): CancelablePromise<OsintView> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/view/{id}/configs',
             path: {
                 'id': id,
             },
