@@ -1436,30 +1436,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "anyOf": [
-                      {
-                        "$ref": "#/components/schemas/Relation"
-                      },
-                      {
-                        "$ref": "#/components/schemas/Event"
-                      },
-                      {
-                        "$ref": "#/components/schemas/Source"
-                      },
-                      {
-                        "$ref": "#/components/schemas/Person"
-                      },
-                      {
-                        "$ref": "#/components/schemas/Organization"
-                      },
-                      {
-                        "$ref": "#/components/schemas/Website"
-                      }
-                    ]
-                  },
-                  "title": "Response Get View Entities"
+                  "$ref": "#/components/schemas/Entities"
                 }
               }
             }
@@ -2359,6 +2336,60 @@
   },
   "components": {
     "schemas": {
+      "Entities": {
+        "properties": {
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/Event"
+            },
+            "type": "array",
+            "title": "Events",
+            "description": "A list of events related to the entity."
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/Source"
+            },
+            "type": "array",
+            "title": "Sources",
+            "description": "A list of sources related to the entity."
+          },
+          "persons": {
+            "items": {
+              "$ref": "#/components/schemas/Person"
+            },
+            "type": "array",
+            "title": "Persons",
+            "description": "A list of persons related to the entity."
+          },
+          "organizations": {
+            "items": {
+              "$ref": "#/components/schemas/Organization"
+            },
+            "type": "array",
+            "title": "Organizations",
+            "description": "A list of organizations related to the entity."
+          },
+          "websites": {
+            "items": {
+              "$ref": "#/components/schemas/Website"
+            },
+            "type": "array",
+            "title": "Websites",
+            "description": "A list of websites related to the entity."
+          },
+          "relations": {
+            "items": {
+              "$ref": "#/components/schemas/Relation"
+            },
+            "type": "array",
+            "title": "Relations",
+            "description": "A list of relations related to the entity."
+          }
+        },
+        "type": "object",
+        "title": "Entities"
+      },
       "EntityConnectionRequest": {
         "properties": {
           "entity_id": {
