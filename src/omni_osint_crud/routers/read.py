@@ -1,5 +1,6 @@
 import logging
 from typing import Dict, List, Union
+from pydantic import BaseModel, Field
 
 from fastapi import APIRouter, Depends, HTTPException
 from omni_python_library.dal import OsintDataAccessLayer, ViewDataAccessLayer
@@ -19,6 +20,17 @@ router = APIRouter(tags=["read"])
 logger = logging.getLogger(__name__)
 dal = OsintDataAccessLayer()
 view_dal = ViewDataAccessLayer()
+
+
+class Entities(BaseModel):
+    events: List[Event] = Field(default_factory=list, description="A list of events related to the entity.")
+    sources: List[Source] = Field(default_factory=list, description="A list of sources related to the entity.")
+    persons: List[Person] = Field(default_factory=list, description="A list of persons related to the entity.")
+    organizations: List[Organization] = Field(
+        default_factory=list, description="A list of organizations related to the entity."
+    )
+    websites: List[Website] = Field(default_factory=list, description="A list of websites related to the entity.")
+    relations: List[Relation] = Field(default_factory=list, description="A list of relations related to the entity.")
 
 
 @router.get("/person/{id:path}", response_model=Person, operation_id="get_person")
@@ -137,12 +149,20 @@ def get_relation(id: str, include_pending: bool = False, user_ctx: Dict = Depend
 
 @router.get(
     "/view/{id:path}/entities",
-    response_model=List[Union[Relation, Event, Source, Person, Organization, Website]],
+    response_model=Entities,
     operation_id="get_view_entities",
 )
 def get_view_entities(id: str, user_ctx: Dict = Depends(get_user_context)):
     try:
-        return view_dal.get_entities(id, user_ctx["user_id"], user_ctx["roles"])
+        results = view_dal.get_entities(id, user_ctx["user_id"], user_ctx["roles"])
+        return Entities(
+            events=[e for e in results if isinstance(e, Event)],
+            sources=[s for s in results if isinstance(s, Source)],
+            persons=[p for p in results if isinstance(p, Person)],
+            organizations=[o for o in results if isinstance(o, Organization)],
+            websites=[w for w in results if isinstance(w, Website)],
+            relations=[r for r in results if isinstance(r, Relation)],
+        )
     except NotFoundError:
         logger.exception(f"User {user_ctx['user_id']} failed to read entities for view {id} as it was not found")
         raise HTTPException(status_code=404, detail="Resource not found")

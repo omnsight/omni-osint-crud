@@ -7,6 +7,7 @@ export { CancelablePromise, CancelError } from './core/CancelablePromise';
 export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
+export type { Entities } from './models/Entities';
 export type { EntityConnectionRequest } from './models/EntityConnectionRequest';
 export type { Event } from './models/Event';
 export type { EventMainData } from './models/EventMainData';

@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { Entities } from '../models/Entities';
 import type { Event } from '../models/Event';
 import type { Organization } from '../models/Organization';
 import type { OsintView } from '../models/OsintView';
@@ -197,13 +198,13 @@ export class ReadService {
      * Get View Entities
      * @param id
      * @param authorization
-     * @returns any Successful Response
+     * @returns Entities Successful Response
      * @throws ApiError
      */
     public static getViewEntities(
         id: string,
         authorization?: (string | null),
-    ): CancelablePromise<Array<(Relation | Event | Source | Person | Organization | Website)>> {
+    ): CancelablePromise<Entities> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/view/{id}/entities',
