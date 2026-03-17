@@ -2354,12 +2354,12 @@
             "title": "Sources",
             "description": "A list of sources related to the entity."
           },
-          "persons": {
+          "people": {
             "items": {
               "$ref": "#/components/schemas/Person"
             },
             "type": "array",
-            "title": "Persons",
+            "title": "People",
             "description": "A list of persons related to the entity."
           },
           "organizations": {

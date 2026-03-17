@@ -25,7 +25,7 @@ view_dal = ViewDataAccessLayer()
 class Entities(BaseModel):
     events: List[Event] = Field(default_factory=list, description="A list of events related to the entity.")
     sources: List[Source] = Field(default_factory=list, description="A list of sources related to the entity.")
-    persons: List[Person] = Field(default_factory=list, description="A list of persons related to the entity.")
+    people: List[Person] = Field(default_factory=list, description="A list of persons related to the entity.")
     organizations: List[Organization] = Field(
         default_factory=list, description="A list of organizations related to the entity."
     )
@@ -158,7 +158,7 @@ def get_view_entities(id: str, user_ctx: Dict = Depends(get_user_context)):
         return Entities(
             events=[e for e in results if isinstance(e, Event)],
             sources=[s for s in results if isinstance(s, Source)],
-            persons=[p for p in results if isinstance(p, Person)],
+            people=[p for p in results if isinstance(p, Person)],
             organizations=[o for o in results if isinstance(o, Organization)],
             websites=[w for w in results if isinstance(w, Website)],
             relations=[r for r in results if isinstance(r, Relation)],

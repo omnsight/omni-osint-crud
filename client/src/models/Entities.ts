@@ -20,7 +20,7 @@ export type Entities = {
     /**
      * A list of persons related to the entity.
      */
-    persons?: Array<Person>;
+    people?: Array<Person>;
     /**
      * A list of organizations related to the entity.
      */
