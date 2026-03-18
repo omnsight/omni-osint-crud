@@ -735,7 +735,7 @@ provides-extras = ["dev"]
 [[package]]
 name = "omni-python-library"
 version = "0.1.0"
-source = { git = "https://github.com/omnsight/omni-python-library#9e65bb68f29f7c0a1d7cfe6888225a9b9942c515" }
+source = { git = "https://github.com/omnsight/omni-python-library#164db303d2c9fa284c78d7a76fd54a3dd45685f4" }
 dependencies = [
     { name = "cachetools" },
     { name = "fastapi" },
