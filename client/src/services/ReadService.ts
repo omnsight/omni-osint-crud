@@ -7,6 +7,7 @@ import type { Event } from '../models/Event';
 import type { Organization } from '../models/Organization';
 import type { OsintView } from '../models/OsintView';
 import type { Person } from '../models/Person';
+import type { QueryViewsResponse } from '../models/QueryViewsResponse';
 import type { Relation } from '../models/Relation';
 import type { Source } from '../models/Source';
 import type { Website } from '../models/Website';
@@ -250,7 +251,7 @@ export class ReadService {
      * @param limit
      * @param offset
      * @param authorization
-     * @returns OsintView Successful Response
+     * @returns QueryViewsResponse Successful Response
      * @throws ApiError
      */
     public static queryViews(
@@ -258,7 +259,7 @@ export class ReadService {
         limit: number = 100,
         offset?: number,
         authorization?: (string | null),
-    ): CancelablePromise<Array<OsintView>> {
+    ): CancelablePromise<QueryViewsResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/views',

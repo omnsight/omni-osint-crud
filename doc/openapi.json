@@ -1765,11 +1765,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/OsintView"
-                  },
-                  "title": "Response Query Views"
+                  "$ref": "#/components/schemas/QueryViewsResponse"
                 }
               }
             }
@@ -3515,6 +3511,26 @@
         },
         "type": "object",
         "title": "PersonMainData"
+      },
+      "QueryViewsResponse": {
+        "properties": {
+          "views": {
+            "items": {
+              "$ref": "#/components/schemas/OsintView"
+            },
+            "type": "array",
+            "title": "Views",
+            "description": "A list of views"
+          },
+          "offset": {
+            "type": "integer",
+            "title": "Offset",
+            "description": "The offset from which to start returning results.",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "title": "QueryViewsResponse"
       },
       "Relation": {
         "properties": {
