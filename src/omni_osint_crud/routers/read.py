@@ -1,6 +1,5 @@
 import logging
 from typing import Dict, List, Union
-from pydantic import BaseModel, Field
 
 from fastapi import APIRouter, Depends, HTTPException
 from omni_python_library.dal import OsintDataAccessLayer, ViewDataAccessLayer
@@ -15,6 +14,7 @@ from omni_python_library.models import (
     Website,
 )
 from omni_python_library.utils.errors import NotFoundError, PermissionDeniedError
+from pydantic import BaseModel, Field
 
 router = APIRouter(tags=["read"])
 logger = logging.getLogger(__name__)
@@ -196,7 +196,7 @@ def get_view(id: str, user_ctx: Dict = Depends(get_user_context)):
 
 
 @router.get("/views", response_model=List[OsintView], operation_id="query_views")
-def query_views(text: str, limit: int = 100, offset: int = 0, user_ctx: Dict = Depends(get_user_context)):
+def query_views(text: str | None = None, limit: int = 100, offset: int = 0, user_ctx: Dict = Depends(get_user_context)):
     try:
         return view_dal.query_views(text=text, owner=user_ctx["user_id"], limit=limit, offset=offset)
     except Exception:

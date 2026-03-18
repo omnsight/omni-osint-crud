@@ -254,7 +254,7 @@ export class ReadService {
      * @throws ApiError
      */
     public static queryViews(
-        text: string,
+        text?: (string | null),
         limit: number = 100,
         offset?: number,
         authorization?: (string | null),
