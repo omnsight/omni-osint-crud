@@ -92,12 +92,11 @@ class TestView:
         # Get view entities
         response = self.client.get(f"/view/{view_id}/entities")
         assert response.status_code == 200
-        # assert len(response.json()) > 0 # this is not working as expected
 
         # Query Views
         response = self.client.get(f"/views?text=Test")
         assert response.status_code == 200
-        assert len(response.json()) > 0
+        assert len(response.json()["views"]) > 0
 
         # Delete View
         response = self.client.delete(f"/view/{view_id}")

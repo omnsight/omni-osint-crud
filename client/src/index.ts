@@ -21,6 +21,7 @@ export type { OsintViewMainData } from './models/OsintViewMainData';
 export type { Permissive } from './models/Permissive';
 export type { Person } from './models/Person';
 export type { PersonMainData } from './models/PersonMainData';
+export type { QueryViewsResponse } from './models/QueryViewsResponse';
 export type { Relation } from './models/Relation';
 export type { RelationMainData } from './models/RelationMainData';
 export type { Source } from './models/Source';

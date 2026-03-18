@@ -33,6 +33,11 @@ class Entities(BaseModel):
     relations: List[Relation] = Field(default_factory=list, description="A list of relations related to the entity.")
 
 
+class QueryViewsResponse(BaseModel):
+    views: List[OsintView] = Field(default_factory=list, description="A list of views")
+    offset: int = Field(default=0, description="The offset from which to start returning results.")
+
+
 @router.get("/person/{id:path}", response_model=Person, operation_id="get_person")
 def get_person(id: str, include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)):
     try:
@@ -195,10 +200,11 @@ def get_view(id: str, user_ctx: Dict = Depends(get_user_context)):
     return result
 
 
-@router.get("/views", response_model=List[OsintView], operation_id="query_views")
+@router.get("/views", response_model=QueryViewsResponse, operation_id="query_views")
 def query_views(text: str | None = None, limit: int = 100, offset: int = 0, user_ctx: Dict = Depends(get_user_context)):
     try:
-        return view_dal.query_views(text=text, owner=user_ctx["user_id"], limit=limit, offset=offset)
+        results = view_dal.query_views(text=text, owner=user_ctx["user_id"], limit=limit, offset=offset)
+        return QueryViewsResponse(views=results, offset=offset + len(results))
     except Exception:
         logger.exception(f"User {user_ctx['user_id']} failed to query views with text '{text}'")
         raise HTTPException(status_code=500, detail="Internal service error")
