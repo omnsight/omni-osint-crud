@@ -17,20 +17,25 @@ To use the client in your Node.js project, you can install it directly from GitH
 After installation, you can use the client in your application as shown below:
 
 ```typescript
-import { OpenAPI, HealthService, HealthCheck } from 'omni-osint-crud-client';
+import { client } from 'omni-osint-crud-client/client';
+import { healthCheck } from 'omni-osint-crud-client';
 
-// Configure the API client
-OpenAPI.BASE = 'http://localhost:8000'; // Adjust if your server runs on a different host/port
-// Configure authentication (e.g., with a bearer token)
-OpenAPI.TOKEN = 'your-bearer-token';
+client.setConfig({
+  baseURL: "http://localhost:8000",
+  withCredentials: true,
+});
+client.instance.interceptors.request.use((config) => {
+  config.headers['Authorization'] = `Bearer ${token}`;
+  return config;
+});
 
 async function main() {
-  try {
-    console.log('Performing health check...');
-    const healthStatus: HealthCheck = await HealthService.healthCheck();
-    console.log('Health Check Status:', healthStatus);
-  } catch (error) {
-    console.error('Error during health check:', error);
+  console.log('Performing health check...');
+  const { data, error, status } = await healthCheck();
+  if (error) {
+    console.error(`Error [${status}] during health check:`, error);
+  } else {
+    console.log('Health Check Status:', data.status);
   }
 }
 
