@@ -1,5 +1,5 @@
 import { client } from '../src/client.gen';
-import { healthCheck } from '..';
+import { healthCheck } from '../src/sdk.gen';
 
 describe('HealthService', () => {
   beforeAll(() => {
@@ -22,8 +22,9 @@ describe('HealthService', () => {
   });
 
   it('should return a health check', async () => {
-    const {data, status} = await healthCheck();
+    const {data, error, status} = await healthCheck();
+    console.log(data, error, status);
     expect(data).toBeDefined();
-    expect(status).toEqual('ok');
+    expect(status).toEqual(200);
   });
 });
