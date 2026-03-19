@@ -1,14 +1,29 @@
 {
   "name": "omni-osint-crud-client",
-  "version": "1.0.8",
+  "version": "1.1.0",
   "description": "This directory contains the generated TypeScript client for the Omni Osint CRUD API.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
+  "exports": {
+    ".": "./dist/index.js",
+    "./client": {
+      "types": "./dist/client.gen.d.ts",
+      "default": "./dist/client.gen.js"
+    },
+    "./sdk": {
+      "types": "./dist/sdk.gen.d.ts",
+      "default": "./dist/sdk.gen.js"
+    },
+    "./types": {
+      "types": "./dist/types.gen.d.ts",
+      "default": "./dist/types.gen.js"
+    }
+  },
   "scripts": {
-    "generate": "rm -rf ./src && openapi --input ../doc/openapi.json --output ./src --client axios",
+    "generate": "rm -rf ./src && npx @hey-api/openapi-ts -i ../doc/openapi.json -o ./src -c @hey-api/client-axios",
     "test": "npm run build && NODE_TLS_REJECT_UNAUTHORIZED=0 jest",
     "prepare": "npm run build",
     "build": "tsc -p tsconfig.build.json"
@@ -18,9 +33,9 @@
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
+    "@hey-api/openapi-ts": "^0.94.3",
     "@types/jest": "^30.0.0",
     "jest": "^30.2.0",
-    "openapi-typescript-codegen": "^0.30.0",
     "ts-jest": "^29.4.6",
     "typescript": "^5.9.3"
   },

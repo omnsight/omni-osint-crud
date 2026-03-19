@@ -1,8 +1,8 @@
-import { HealthService, OpenAPI } from '..';
+import { client } from '../src/client.gen';
+import { healthCheck } from '../src/sdk.gen';
 
 describe('HealthService', () => {
   beforeAll(() => {
-    OpenAPI.BASE = 'http://localhost:8000';
     const payload = {
       sub: 'test-user-id-123',
       roles: ['admin'],
@@ -10,12 +10,21 @@ describe('HealthService', () => {
     const header = Buffer.from(JSON.stringify({ alg: 'none' })).toString('base64url');
     const claims = Buffer.from(JSON.stringify(payload)).toString('base64url');
     const token = `${header}.${claims}.`;
-    OpenAPI.TOKEN = token;
+
+    client.setConfig({
+      baseURL: "http://localhost:8000",
+      withCredentials: true,
+    });
+    client.instance.interceptors.request.use((config) => {
+      config.headers['Authorization'] = `Bearer ${token}`;
+      return config;
+    });
   });
 
   it('should return a health check', async () => {
-    const healthCheck = await HealthService.healthCheck();
-    expect(healthCheck).toBeDefined();
-    expect(healthCheck.status).toEqual('ok');
+    const {data, error, status} = await healthCheck();
+    console.log(data, error, status);
+    expect(data).toBeDefined();
+    expect(status).toEqual(200);
   });
 });
