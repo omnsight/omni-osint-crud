@@ -5,8 +5,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'client/package.json'
 
 permissions:
   id-token: write
@@ -15,16 +13,46 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     defaults:
       run:
         working-directory: ./client
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
-      - uses: actions/setup-node@v4
+      - name: Check if version changed
+        id: check_version
+        run: |
+          # Get the version from the previous commit
+          OLD_VER=$(git show HEAD~1:client/package.json | jq -r .version)
+          # Get the version from the current commit
+          NEW_VER=$(jq -r .version package.json)
+          
+          echo "Old version: $OLD_VER"
+          echo "New version: $NEW_VER"
+          
+          if [ "$OLD_VER" != "$NEW_VER" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup Node
+        if: steps.check_version.outputs.changed == 'true'
+        uses: actions/setup-node@v4
         with:
           node-version: '24'
           registry-url: 'https://registry.npmjs.org'
-      - run: npm ci
-      - run: npm run build --if-present
-      - run: npm publish
+
+      - name: Install and Build
+        if: steps.check_version.outputs.changed == 'true'
+        run: |
+          npm ci
+          npm run build --if-present
+
+      - name: Publish to NPM
+        if: steps.check_version.outputs.changed == 'true'
+        run: npm publish
