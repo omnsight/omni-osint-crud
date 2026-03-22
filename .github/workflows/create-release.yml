@@ -1,4 +1,4 @@
-name: Create Tag and Release
+name: Tag and Release
 
 on:
   push:
@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write  # Required to create tags and releases
+      actions: write
     
     steps:
       - name: Checkout Code
@@ -52,3 +53,9 @@ jobs:
           tag_name: v${{ steps.get_version.outputs.VERSION }}
           name: Release v${{ steps.get_version.outputs.VERSION }}
           generate_release_notes: true # Automatically generates "What's Changed"
+
+      - name: Trigger Release Workflow
+        run: |
+          gh workflow run docker-publish.yml --ref "v${{ steps.get_version.outputs.VERSION }}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
