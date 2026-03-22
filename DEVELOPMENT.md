@@ -53,3 +53,18 @@ Export the OpenAPI definition to `doc/openapi.json`:
 ```bash
 uv run python scripts/export_openapi.py
 ```
+
+### Full Workflow To Upgrade & Publish Client
+
+```bash
+npm login
+
+uv lock --upgrade
+uv sync --extra dev
+uv run black .
+uv run isort .
+uv run python scripts/export_openapi.py
+cd client
+npm publish
+cd ..
+```
