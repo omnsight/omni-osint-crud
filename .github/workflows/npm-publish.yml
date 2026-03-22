@@ -1,12 +1,12 @@
 name: Publish to NPM
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
     paths:
       - 'client/package.json'
-  workflow_dispatch:
 
 permissions:
   id-token: write
