@@ -12,6 +12,8 @@ jobs:
     permissions:
       contents: write  # Required to create tags and releases
       actions: write
+    outputs:
+      exists: ${{ steps.check_tag.outputs.exists }}
     
     steps:
       - name: Checkout Code
@@ -55,7 +57,7 @@ jobs:
 
   publish-docker-image:
     needs: tag-and-release
-    if: needs.tag-and-release.outputs.changed == 'true'
+    if: needs.tag-and-release.outputs.exists == 'false'
     runs-on: ubuntu-latest
     permissions:
       contents: read
