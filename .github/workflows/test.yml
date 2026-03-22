@@ -1,9 +1,6 @@
 name: Run Tests and Report Coverage
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
 
 jobs:
