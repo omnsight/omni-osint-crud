@@ -1,11 +1,10 @@
 name: Tag and Release
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
-    paths:
-      - 'pyproject.toml'
 
 jobs:
   tag-and-release:
