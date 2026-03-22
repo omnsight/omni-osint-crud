@@ -54,6 +54,7 @@ jobs:
           generate_release_notes: true # Automatically generates "What's Changed"
 
       - name: Trigger Release Workflow
+        if: steps.check_tag.outputs.exists == 'false'
         run: |
           gh workflow run docker-publish.yml --ref "v${{ steps.get_version.outputs.VERSION }}"
         env:
