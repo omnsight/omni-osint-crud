@@ -261,7 +261,7 @@ export type LocationData = {
      *
      * Sub-administrative area
      */
-    sub_administrative_area: string;
+    sub_administrative_area?: string;
     /**
      * Locality
      *
@@ -273,7 +273,7 @@ export type LocationData = {
      *
      * Sub-locality
      */
-    sub_locality: string;
+    sub_locality?: string;
     /**
      * Address
      *
