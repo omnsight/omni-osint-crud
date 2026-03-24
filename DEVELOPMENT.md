@@ -53,3 +53,14 @@ Export the OpenAPI definition to `doc/openapi.json`:
 ```bash
 uv run python scripts/export_openapi.py
 ```
+
+### Updage Release Version
+
+```bash
+# major
+uv run python scripts/update_version.py -r 1
+# minor
+uv run python scripts/update_version.py -r 2
+# patch
+uv run python scripts/update_version.py -r 3
+```
