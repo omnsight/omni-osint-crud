@@ -21,13 +21,14 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: 📦 Install dependencies
+      - name: 📦 Install dependencies & Update OpenAPI spec
         run: |
           pip install uv
           uv lock --upgrade
           uv sync --extra dev
           uv run black .
           uv run isort .
+          uv run python scripts/export_openapi.py
 
       - name: 🧪 Run python tests and generate coverage report
         env:
