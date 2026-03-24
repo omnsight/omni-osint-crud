@@ -34,7 +34,7 @@ docker logs <container name>
 
 ```bash
 # loading .env is necessary for local testing
-docker compose up -d --wait
+docker compose up -d --build --wait
 export $(cat .env | xargs) && uv run pytest
 docker compose down
 ```
