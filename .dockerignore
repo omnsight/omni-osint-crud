@@ -9,5 +9,4 @@ client
 tests
 doc
 scripts
-*.md
 *.env*
