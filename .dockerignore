@@ -5,6 +5,9 @@
 # Docker
 Dockerfile
 
-# Tests
-client/test
+client
 tests
+doc
+scripts
+*.md
+*.env*
