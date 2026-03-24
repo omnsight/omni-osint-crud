@@ -698,7 +698,7 @@ wheels = [
 
 [[package]]
 name = "omni-osint-crud"
-version = "0.2.3"
+version = "0.2.4"
 source = { editable = "." }
 dependencies = [
     { name = "omni-python-library" },
@@ -735,7 +735,7 @@ provides-extras = ["dev"]
 [[package]]
 name = "omni-python-library"
 version = "0.1.0"
-source = { git = "https://github.com/omnsight/omni-python-library#fb4aba046d2cf41588b6b7248a57e7f967683fff" }
+source = { git = "https://github.com/omnsight/omni-python-library#6dbc3afd0165d6ee518aaed454812054c7d7f28d" }
 dependencies = [
     { name = "cachetools" },
     { name = "fastapi" },
