@@ -57,6 +57,8 @@ uv run python scripts/export_openapi.py
 ### Updage Release Version
 
 ```bash
+uv lock --upgrade
+uv sync --extra dev
 # major
 uv run python scripts/update_version.py -r 1
 # minor
