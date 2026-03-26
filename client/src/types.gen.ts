@@ -571,6 +571,12 @@ export type Permissive = {
  */
 export type Person = {
     /**
+     * Type
+     *
+     * Role type of person
+     */
+    type?: string | null;
+    /**
      * Role
      *
      * Role
@@ -668,6 +674,12 @@ export type Person = {
  * PersonMainData
  */
 export type PersonMainData = {
+    /**
+     * Type
+     *
+     * Role type of person
+     */
+    type?: string | null;
     /**
      * Role
      *
@@ -1067,6 +1079,12 @@ export type ValidationError = {
  */
 export type Website = {
     /**
+     * Type
+     *
+     * Type of website
+     */
+    type?: string | null;
+    /**
      * Url
      *
      * URL
@@ -1170,6 +1188,12 @@ export type Website = {
  * WebsiteMainData
  */
 export type WebsiteMainData = {
+    /**
+     * Type
+     *
+     * Type of website
+     */
+    type?: string | null;
     /**
      * Url
      *
