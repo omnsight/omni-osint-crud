@@ -3238,6 +3238,18 @@
       },
       "Person": {
         "properties": {
+          "type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type",
+            "description": "Role type of person"
+          },
           "role": {
             "anyOf": [
               {
@@ -3417,6 +3429,18 @@
       },
       "PersonMainData": {
         "properties": {
+          "type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type",
+            "description": "Role type of person"
+          },
           "role": {
             "anyOf": [
               {
@@ -4108,6 +4132,18 @@
       },
       "Website": {
         "properties": {
+          "type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type",
+            "description": "Type of website"
+          },
           "url": {
             "anyOf": [
               {
@@ -4296,6 +4332,18 @@
       },
       "WebsiteMainData": {
         "properties": {
+          "type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type",
+            "description": "Type of website"
+          },
           "url": {
             "anyOf": [
               {
