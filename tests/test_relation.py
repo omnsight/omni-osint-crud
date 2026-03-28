@@ -191,7 +191,9 @@ class TestRelation:
 
     def test_update_relation_not_found(self):
         update_data = RelationMainData(from_id="a", to_id="b", name="c")
-        response = self.client.put("/relation/relations/non-existent-id", json=update_data.model_dump(exclude_unset=True))
+        response = self.client.put(
+            "/relation/relations/non-existent-id", json=update_data.model_dump(exclude_unset=True)
+        )
         assert response.status_code == 404
 
     def test_update_relation_invalid_name(self):

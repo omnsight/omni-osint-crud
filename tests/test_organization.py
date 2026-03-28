@@ -120,7 +120,9 @@ class TestOrganization:
 
     def test_update_organization_not_found(self):
         update_data = OrganizationMainData(name="Jane Doe")
-        response = self.client.put("/organization/organizations/non-existent-id", json=update_data.model_dump(exclude_unset=True))
+        response = self.client.put(
+            "/organization/organizations/non-existent-id", json=update_data.model_dump(exclude_unset=True)
+        )
         assert response.status_code == 404
 
     def test_update_organization_permission_denied(self):
@@ -140,7 +142,9 @@ class TestOrganization:
     def test_update_organization_internal_error(self, mock_update_organization):
         mock_update_organization.side_effect = Exception("DB error")
         update_data = OrganizationMainData(name="Jane Doe")
-        response = self.client.put("/organization/organizations/some-id", json=update_data.model_dump(exclude_unset=True))
+        response = self.client.put(
+            "/organization/organizations/some-id", json=update_data.model_dump(exclude_unset=True)
+        )
         assert response.status_code == 500
 
     # Test update_organization_permissions

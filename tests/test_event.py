@@ -64,7 +64,9 @@ class TestEvent:
         assert updated_event["title"] == "Test Event Updated"
 
         permission_patch = Permissive(read=["guest"])
-        response = self.client.put(f"/event/{event_id}/permissions", json=permission_patch.model_dump(exclude_unset=True))
+        response = self.client.put(
+            f"/event/{event_id}/permissions", json=permission_patch.model_dump(exclude_unset=True)
+        )
         assert response.status_code == 200
         updated_event = response.json()
         assert set(updated_event["read"]) == {"guest", "admin"}
