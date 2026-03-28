@@ -1,7 +1,7 @@
 import logging
 from typing import Dict
 
-from fastapi import APIRouter, Body, Depends, HTTPException
+from fastapi import APIRouter, Body, Depends, HTTPException, Path
 from omni_python_library.dal import OsintDataAccessLayer, ViewDataAccessLayer
 from omni_python_library.middleware import get_user_context
 from omni_python_library.models import (
@@ -35,7 +35,15 @@ class EntityConnectionRequest(BaseModel):
 
 
 @router.put("/person/{id:path}/permissions", response_model=Person, operation_id="update_person_permissions")
-def update_person_permissions(id: str, data: Permissive = Body(...), user_ctx: Dict = Depends(get_user_context)):
+def update_person_permissions(
+    id: str = Path(
+        pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
+    ),
+    data: Permissive = Body(...),
+    user_ctx: Dict = Depends(get_user_context),
+):
+    if not user_ctx["user_id"]:
+        raise HTTPException(status_code=401, detail="No permission")
     try:
         return dal.update_person(id, data, user_ctx["user_id"], [])
     except NotFoundError:
@@ -53,11 +61,15 @@ def update_person_permissions(id: str, data: Permissive = Body(...), user_ctx: D
 
 @router.put("/person/{id:path}", response_model=Person, operation_id="update_person")
 def update_person(
-    id: str,
+    id: str = Path(
+        pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
+    ),
     data: PersonMainData = Body(...),
     include_pending: bool = False,
     user_ctx: Dict = Depends(get_user_context),
 ):
+    if not user_ctx["user_id"]:
+        raise HTTPException(status_code=401, detail="No permission")
     try:
         return dal.update_person(id, data, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except NotFoundError:
@@ -74,7 +86,15 @@ def update_person(
 @router.put(
     "/organization/{id:path}/permissions", response_model=Organization, operation_id="update_organization_permissions"
 )
-def update_organization_permissions(id: str, data: Permissive = Body(...), user_ctx: Dict = Depends(get_user_context)):
+def update_organization_permissions(
+    id: str = Path(
+        pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
+    ),
+    data: Permissive = Body(...),
+    user_ctx: Dict = Depends(get_user_context),
+):
+    if not user_ctx["user_id"]:
+        raise HTTPException(status_code=401, detail="No permission")
     try:
         return dal.update_organization(id, data, user_ctx["user_id"], [])
     except NotFoundError:
@@ -94,11 +114,15 @@ def update_organization_permissions(id: str, data: Permissive = Body(...), user_
 
 @router.put("/organization/{id:path}", response_model=Organization, operation_id="update_organization")
 def update_organization(
-    id: str,
+    id: str = Path(
+        pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
+    ),
     data: OrganizationMainData = Body(...),
     include_pending: bool = False,
     user_ctx: Dict = Depends(get_user_context),
 ):
+    if not user_ctx["user_id"]:
+        raise HTTPException(status_code=401, detail="No permission")
     try:
         return dal.update_organization(id, data, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except NotFoundError:
@@ -115,7 +139,15 @@ def update_organization(
 
 
 @router.put("/event/{id:path}/permissions", response_model=Event, operation_id="update_event_permissions")
-def update_event_permissions(id: str, data: Permissive = Body(...), user_ctx: Dict = Depends(get_user_context)):
+def update_event_permissions(
+    id: str = Path(
+        pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
+    ),
+    data: Permissive = Body(...),
+    user_ctx: Dict = Depends(get_user_context),
+):
+    if not user_ctx["user_id"]:
+        raise HTTPException(status_code=401, detail="No permission")
     try:
         return dal.update_event(id, data, user_ctx["user_id"], [])
     except NotFoundError:
@@ -135,8 +167,15 @@ def update_event_permissions(id: str, data: Permissive = Body(...), user_ctx: Di
 
 @router.put("/event/{id:path}", response_model=Event, operation_id="update_event")
 def update_event(
-    id: str, data: EventMainData = Body(...), include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)
+    id: str = Path(
+        pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
+    ),
+    data: EventMainData = Body(...),
+    include_pending: bool = False,
+    user_ctx: Dict = Depends(get_user_context),
 ):
+    if not user_ctx["user_id"]:
+        raise HTTPException(status_code=401, detail="No permission")
     try:
         return dal.update_event(id, data, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except NotFoundError:
@@ -151,7 +190,15 @@ def update_event(
 
 
 @router.put("/website/{id:path}/permissions", response_model=Website, operation_id="update_website_permissions")
-def update_website_permissions(id: str, data: Permissive = Body(...), user_ctx: Dict = Depends(get_user_context)):
+def update_website_permissions(
+    id: str = Path(
+        pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
+    ),
+    data: Permissive = Body(...),
+    user_ctx: Dict = Depends(get_user_context),
+):
+    if not user_ctx["user_id"]:
+        raise HTTPException(status_code=401, detail="No permission")
     try:
         return dal.update_website(id, data, user_ctx["user_id"], [])
     except NotFoundError:
@@ -171,11 +218,15 @@ def update_website_permissions(id: str, data: Permissive = Body(...), user_ctx: 
 
 @router.put("/website/{id:path}", response_model=Website, operation_id="update_website")
 def update_website(
-    id: str,
+    id: str = Path(
+        pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
+    ),
     data: WebsiteMainData = Body(...),
     include_pending: bool = False,
     user_ctx: Dict = Depends(get_user_context),
 ):
+    if not user_ctx["user_id"]:
+        raise HTTPException(status_code=401, detail="No permission")
     try:
         return dal.update_website(id, data, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except NotFoundError:
@@ -190,7 +241,15 @@ def update_website(
 
 
 @router.put("/source/{id:path}/permissions", response_model=Source, operation_id="update_source_permissions")
-def update_source_permissions(id: str, data: Permissive = Body(...), user_ctx: Dict = Depends(get_user_context)):
+def update_source_permissions(
+    id: str = Path(
+        pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
+    ),
+    data: Permissive = Body(...),
+    user_ctx: Dict = Depends(get_user_context),
+):
+    if not user_ctx["user_id"]:
+        raise HTTPException(status_code=401, detail="No permission")
     try:
         return dal.update_source(id, data, user_ctx["user_id"], [])
     except NotFoundError:
@@ -210,11 +269,15 @@ def update_source_permissions(id: str, data: Permissive = Body(...), user_ctx: D
 
 @router.put("/source/{id:path}", response_model=Source, operation_id="update_source")
 def update_source(
-    id: str,
+    id: str = Path(
+        pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
+    ),
     data: SourceMainData = Body(...),
     include_pending: bool = False,
     user_ctx: Dict = Depends(get_user_context),
 ):
+    if not user_ctx["user_id"]:
+        raise HTTPException(status_code=401, detail="No permission")
     try:
         return dal.update_source(id, data, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except NotFoundError:
@@ -229,7 +292,15 @@ def update_source(
 
 
 @router.put("/relation/{id:path}/permissions", response_model=Relation, operation_id="update_relation_permissions")
-def update_relation_permissions(id: str, data: Permissive = Body(...), user_ctx: Dict = Depends(get_user_context)):
+def update_relation_permissions(
+    id: str = Path(
+        pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
+    ),
+    data: Permissive = Body(...),
+    user_ctx: Dict = Depends(get_user_context),
+):
+    if not user_ctx["user_id"]:
+        raise HTTPException(status_code=401, detail="No permission")
     try:
         return dal.update_relation(id, data, user_ctx["user_id"], [])
     except NotFoundError:
@@ -249,11 +320,15 @@ def update_relation_permissions(id: str, data: Permissive = Body(...), user_ctx:
 
 @router.put("/relation/{id:path}", response_model=Relation, operation_id="update_relation")
 def update_relation(
-    id: str,
+    id: str = Path(
+        pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
+    ),
     data: RelationMainData = Body(...),
     include_pending: bool = False,
     user_ctx: Dict = Depends(get_user_context),
 ):
+    if not user_ctx["user_id"]:
+        raise HTTPException(status_code=401, detail="No permission")
     if data.name is not None and (not data.name or not data.name.isascii()):
         raise HTTPException(status_code=400, detail="Relation name cannot be empty and must be ASCII")
 
@@ -272,8 +347,14 @@ def update_relation(
 
 @router.post("/view/{id:path}/entities", response_model=OsintView, operation_id="connect_entity_to_view")
 def connect_entity_to_view(
-    id: str, payload: EntityConnectionRequest = Body(...), user_ctx: Dict = Depends(get_user_context)
+    id: str = Path(
+        pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
+    ),
+    payload: EntityConnectionRequest = Body(...),
+    user_ctx: Dict = Depends(get_user_context),
 ):
+    if not user_ctx["user_id"]:
+        raise HTTPException(status_code=401, detail="No permission")
     try:
         return view_dal.connect_entity_to_view(
             id, payload.entity_id, owner=user_ctx["user_id"], roles=user_ctx["roles"]
@@ -294,7 +375,15 @@ def connect_entity_to_view(
 
 
 @router.put("/view/{id:path}/permissions", response_model=OsintView, operation_id="update_view_permissions")
-def update_view_permissions(id: str, data: Permissive = Body(...), user_ctx: Dict = Depends(get_user_context)):
+def update_view_permissions(
+    id: str = Path(
+        pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
+    ),
+    data: Permissive = Body(...),
+    user_ctx: Dict = Depends(get_user_context),
+):
+    if not user_ctx["user_id"]:
+        raise HTTPException(status_code=401, detail="No permission")
     try:
         return view_dal.update_view(id, data, user_ctx["user_id"], [])
     except NotFoundError:
@@ -312,10 +401,14 @@ def update_view_permissions(id: str, data: Permissive = Body(...), user_ctx: Dic
 
 @router.put("/view/{id:path}", response_model=OsintView, operation_id="update_view")
 def update_view(
-    id: str,
+    id: str = Path(
+        pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
+    ),
     data: OsintViewMainData = Body(...),
     user_ctx: Dict = Depends(get_user_context),
 ):
+    if not user_ctx["user_id"]:
+        raise HTTPException(status_code=401, detail="No permission")
     try:
         return view_dal.update_view(id, data, user_ctx["user_id"], user_ctx["roles"])
     except NotFoundError:

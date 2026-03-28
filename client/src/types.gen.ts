@@ -1504,6 +1504,8 @@ export type GetPersonData = {
     path: {
         /**
          * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
          */
         id: string;
     };
@@ -1545,6 +1547,8 @@ export type UpdatePersonData = {
     path: {
         /**
          * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
          */
         id: string;
     };
@@ -1586,6 +1590,8 @@ export type GetOrganizationData = {
     path: {
         /**
          * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
          */
         id: string;
     };
@@ -1627,6 +1633,8 @@ export type UpdateOrganizationData = {
     path: {
         /**
          * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
          */
         id: string;
     };
@@ -1668,6 +1676,8 @@ export type GetEventData = {
     path: {
         /**
          * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
          */
         id: string;
     };
@@ -1709,6 +1719,8 @@ export type UpdateEventData = {
     path: {
         /**
          * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
          */
         id: string;
     };
@@ -1750,6 +1762,8 @@ export type GetWebsiteData = {
     path: {
         /**
          * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
          */
         id: string;
     };
@@ -1791,6 +1805,8 @@ export type UpdateWebsiteData = {
     path: {
         /**
          * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
          */
         id: string;
     };
@@ -1832,6 +1848,8 @@ export type GetSourceData = {
     path: {
         /**
          * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
          */
         id: string;
     };
@@ -1873,6 +1891,8 @@ export type UpdateSourceData = {
     path: {
         /**
          * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
          */
         id: string;
     };
@@ -1914,6 +1934,8 @@ export type DeleteRelationData = {
     path: {
         /**
          * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
          */
         id: string;
     };
@@ -1948,6 +1970,8 @@ export type GetRelationData = {
     path: {
         /**
          * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
          */
         id: string;
     };
@@ -1989,6 +2013,8 @@ export type UpdateRelationData = {
     path: {
         /**
          * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
          */
         id: string;
     };
@@ -2030,6 +2056,8 @@ export type GetViewEntitiesData = {
     path: {
         /**
          * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
          */
         id: string;
     };
@@ -2066,6 +2094,8 @@ export type ConnectEntityToViewData = {
     path: {
         /**
          * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
          */
         id: string;
     };
@@ -2102,6 +2132,8 @@ export type DeleteViewData = {
     path: {
         /**
          * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
          */
         id: string;
     };
@@ -2136,6 +2168,8 @@ export type GetViewData = {
     path: {
         /**
          * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
          */
         id: string;
     };
@@ -2172,6 +2206,8 @@ export type UpdateViewData = {
     path: {
         /**
          * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
          */
         id: string;
     };
@@ -2252,6 +2288,8 @@ export type UpdatePersonPermissionsData = {
     path: {
         /**
          * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
          */
         id: string;
     };
@@ -2288,6 +2326,8 @@ export type UpdateOrganizationPermissionsData = {
     path: {
         /**
          * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
          */
         id: string;
     };
@@ -2324,6 +2364,8 @@ export type UpdateEventPermissionsData = {
     path: {
         /**
          * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
          */
         id: string;
     };
@@ -2360,6 +2402,8 @@ export type UpdateWebsitePermissionsData = {
     path: {
         /**
          * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
          */
         id: string;
     };
@@ -2396,6 +2440,8 @@ export type UpdateSourcePermissionsData = {
     path: {
         /**
          * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
          */
         id: string;
     };
@@ -2432,6 +2478,8 @@ export type UpdateRelationPermissionsData = {
     path: {
         /**
          * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
          */
         id: string;
     };
@@ -2468,6 +2516,8 @@ export type UpdateViewPermissionsData = {
     path: {
         /**
          * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
          */
         id: string;
     };
@@ -2504,6 +2554,8 @@ export type DeleteEntityData = {
     path: {
         /**
          * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
          */
         id: string;
     };

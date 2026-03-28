@@ -1,7 +1,7 @@
 import logging
 from typing import Dict
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Path
 from omni_python_library.dal import OsintDataAccessLayer, ViewDataAccessLayer
 from omni_python_library.middleware import get_user_context
 from omni_python_library.utils.errors import NotFoundError, PermissionDeniedError
@@ -13,7 +13,14 @@ view_dal = ViewDataAccessLayer()
 
 
 @router.delete("/entity/{id:path}", operation_id="delete_entity")
-def delete_entity(id: str, user_ctx: Dict = Depends(get_user_context)):
+def delete_entity(
+    id: str = Path(
+        pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
+    ),
+    user_ctx: Dict = Depends(get_user_context),
+):
+    if not user_ctx["user_id"]:
+        raise HTTPException(status_code=401, detail="No permission")
     try:
         dal.delete_entity(id, user_ctx["user_id"], user_ctx["roles"])
         return {"status": "success", "id": id}
@@ -29,7 +36,14 @@ def delete_entity(id: str, user_ctx: Dict = Depends(get_user_context)):
 
 
 @router.delete("/relation/{id:path}", operation_id="delete_relation")
-def delete_relation(id: str, user_ctx: Dict = Depends(get_user_context)):
+def delete_relation(
+    id: str = Path(
+        pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
+    ),
+    user_ctx: Dict = Depends(get_user_context),
+):
+    if not user_ctx["user_id"]:
+        raise HTTPException(status_code=401, detail="No permission")
     try:
         dal.delete_relation(id, user_ctx["user_id"], user_ctx["roles"])
         return {"status": "success", "id": id}
@@ -45,7 +59,14 @@ def delete_relation(id: str, user_ctx: Dict = Depends(get_user_context)):
 
 
 @router.delete("/view/{id:path}", operation_id="delete_view")
-def delete_view(id: str, user_ctx: Dict = Depends(get_user_context)):
+def delete_view(
+    id: str = Path(
+        pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
+    ),
+    user_ctx: Dict = Depends(get_user_context),
+):
+    if not user_ctx["user_id"]:
+        raise HTTPException(status_code=401, detail="No permission")
     try:
         view_dal.delete_view(id, user_ctx["user_id"], user_ctx["roles"])
         return {"status": "success", "id": id}
