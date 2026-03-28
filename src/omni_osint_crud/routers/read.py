@@ -1,7 +1,7 @@
 import logging
-from typing import Dict, List, Union
+from typing import Dict, List
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Path
 from omni_python_library.dal import OsintDataAccessLayer, ViewDataAccessLayer
 from omni_python_library.middleware import get_user_context
 from omni_python_library.models import (
@@ -39,7 +39,13 @@ class QueryViewsResponse(BaseModel):
 
 
 @router.get("/person/{id:path}", response_model=Person, operation_id="get_person")
-def get_person(id: str, include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)):
+def get_person(
+    id: str = Path(
+        pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
+    ),
+    include_pending: bool = False,
+    user_ctx: Dict = Depends(get_user_context),
+):
     try:
         result = dal.get_person(id, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except NotFoundError:
@@ -58,7 +64,13 @@ def get_person(id: str, include_pending: bool = False, user_ctx: Dict = Depends(
 
 
 @router.get("/organization/{id:path}", response_model=Organization, operation_id="get_organization")
-def get_organization(id: str, include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)):
+def get_organization(
+    id: str = Path(
+        pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
+    ),
+    include_pending: bool = False,
+    user_ctx: Dict = Depends(get_user_context),
+):
     try:
         result = dal.get_organization(id, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except NotFoundError:
@@ -77,7 +89,13 @@ def get_organization(id: str, include_pending: bool = False, user_ctx: Dict = De
 
 
 @router.get("/event/{id:path}", response_model=Event, operation_id="get_event")
-def get_event(id: str, include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)):
+def get_event(
+    id: str = Path(
+        pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
+    ),
+    include_pending: bool = False,
+    user_ctx: Dict = Depends(get_user_context),
+):
     try:
         result = dal.get_event(id, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except NotFoundError:
@@ -96,7 +114,13 @@ def get_event(id: str, include_pending: bool = False, user_ctx: Dict = Depends(g
 
 
 @router.get("/website/{id:path}", response_model=Website, operation_id="get_website")
-def get_website(id: str, include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)):
+def get_website(
+    id: str = Path(
+        pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
+    ),
+    include_pending: bool = False,
+    user_ctx: Dict = Depends(get_user_context),
+):
     try:
         result = dal.get_website(id, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except NotFoundError:
@@ -115,7 +139,13 @@ def get_website(id: str, include_pending: bool = False, user_ctx: Dict = Depends
 
 
 @router.get("/source/{id:path}", response_model=Source, operation_id="get_source")
-def get_source(id: str, include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)):
+def get_source(
+    id: str = Path(
+        pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
+    ),
+    include_pending: bool = False,
+    user_ctx: Dict = Depends(get_user_context),
+):
     try:
         result = dal.get_source(id, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except NotFoundError:
@@ -134,7 +164,13 @@ def get_source(id: str, include_pending: bool = False, user_ctx: Dict = Depends(
 
 
 @router.get("/relation/{id:path}", response_model=Relation, operation_id="get_relation")
-def get_relation(id: str, include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)):
+def get_relation(
+    id: str = Path(
+        pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
+    ),
+    include_pending: bool = False,
+    user_ctx: Dict = Depends(get_user_context),
+):
     try:
         result = dal.get_relation(id, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except NotFoundError:
@@ -157,7 +193,12 @@ def get_relation(id: str, include_pending: bool = False, user_ctx: Dict = Depend
     response_model=Entities,
     operation_id="get_view_entities",
 )
-def get_view_entities(id: str, user_ctx: Dict = Depends(get_user_context)):
+def get_view_entities(
+    id: str = Path(
+        pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
+    ),
+    user_ctx: Dict = Depends(get_user_context),
+):
     try:
         results = view_dal.get_entities(id, user_ctx["user_id"], user_ctx["roles"])
         return Entities(
@@ -182,7 +223,12 @@ def get_view_entities(id: str, user_ctx: Dict = Depends(get_user_context)):
 
 
 @router.get("/view/{id:path}", response_model=OsintView, operation_id="get_view")
-def get_view(id: str, user_ctx: Dict = Depends(get_user_context)):
+def get_view(
+    id: str = Path(
+        pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
+    ),
+    user_ctx: Dict = Depends(get_user_context),
+):
     try:
         result = view_dal.get_view(id, user_ctx["user_id"], user_ctx["roles"])
     except NotFoundError:

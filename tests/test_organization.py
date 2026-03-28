@@ -4,7 +4,7 @@ import jwt
 from fastapi.testclient import TestClient
 from omni_python_library import init_omni_library
 from omni_python_library.models.osint import OrganizationMainData
-from omni_python_library.utils.config import UserRole
+from omni_python_library.utils.config.user import UserRole
 
 from omni_osint_crud.main import app
 
@@ -89,7 +89,7 @@ class TestOrganization:
     ######################################################################################################
 
     def test_read_organization_not_found(self):
-        response = self.client.get("/organization/non-existent-id")
+        response = self.client.get("/organization/organizations/non-existent-id")
         assert response.status_code == 404
 
     def test_read_organization_not_found_bad_id(self):
@@ -109,7 +109,7 @@ class TestOrganization:
     @patch("omni_osint_crud.routers.read.dal.get_organization")
     def test_read_organization_internal_error(self, mock_read_organization):
         mock_read_organization.side_effect = Exception("DB error")
-        response = self.client.get("/organization/some-id")
+        response = self.client.get("/organization/organizations/some-id")
         assert response.status_code == 500
 
     ######################################################################################################
@@ -120,7 +120,7 @@ class TestOrganization:
 
     def test_update_organization_not_found(self):
         update_data = OrganizationMainData(name="Jane Doe")
-        response = self.client.put("/organization/non-existent-id", json=update_data.model_dump(exclude_unset=True))
+        response = self.client.put("/organization/organizations/non-existent-id", json=update_data.model_dump(exclude_unset=True))
         assert response.status_code == 404
 
     def test_update_organization_permission_denied(self):
@@ -140,14 +140,14 @@ class TestOrganization:
     def test_update_organization_internal_error(self, mock_update_organization):
         mock_update_organization.side_effect = Exception("DB error")
         update_data = OrganizationMainData(name="Jane Doe")
-        response = self.client.put("/organization/some-id", json=update_data.model_dump(exclude_unset=True))
+        response = self.client.put("/organization/organizations/some-id", json=update_data.model_dump(exclude_unset=True))
         assert response.status_code == 500
 
     # Test update_organization_permissions
 
     def test_update_organization_permissions_not_found(self):
         update_data = {"owner": "new-owner"}
-        response = self.client.put("/organization/non-existent-id/permissions", json=update_data)
+        response = self.client.put("/organization/organizations/non-existent-id/permissions", json=update_data)
         assert response.status_code == 404
 
     def test_update_organization_permissions_permission_denied(self):
@@ -172,7 +172,7 @@ class TestOrganization:
     def test_update_organization_permissions_internal_error(self, mock_update_organization):
         mock_update_organization.side_effect = Exception("DB error")
         update_data = {"owner": "new-owner"}
-        response = self.client.put("/organization/some-id/permissions", json=update_data)
+        response = self.client.put("/organization/organizations/some-id/permissions", json=update_data)
         assert response.status_code == 500
 
     ######################################################################################################
@@ -180,7 +180,7 @@ class TestOrganization:
     ######################################################################################################
 
     def test_delete_organization_not_found(self):
-        response = self.client.delete("/entity/non-existent-id")
+        response = self.client.delete("/entity/organizations/non-existent-id")
         assert response.status_code == 404
 
     def test_delete_organization_permission_denied(self):
@@ -196,5 +196,5 @@ class TestOrganization:
     @patch("omni_osint_crud.routers.delete.dal.delete_entity")
     def test_delete_organization_internal_error(self, mock_delete_entity):
         mock_delete_entity.side_effect = Exception("DB error")
-        response = self.client.delete("/entity/some-id")
+        response = self.client.delete("/entity/organizations/some-id")
         assert response.status_code == 500

@@ -8,7 +8,7 @@ from omni_python_library.models.osint import (
     PersonMainData,
     RelationMainData,
 )
-from omni_python_library.utils.config import UserRole
+from omni_python_library.utils.config.user import UserRole
 
 from omni_osint_crud.main import app
 
@@ -148,7 +148,7 @@ class TestRelation:
     ######################################################################################################
 
     def test_read_relation_not_found(self):
-        response = self.client.get("/relation/non-existent-id")
+        response = self.client.get("/relation/relations/non-existent-id")
         assert response.status_code == 404
 
     def test_read_relation_not_found_bad_id(self):
@@ -180,7 +180,7 @@ class TestRelation:
     @patch("omni_osint_crud.routers.read.dal.get_relation")
     def test_read_relation_internal_error(self, mock_read_relation):
         mock_read_relation.side_effect = Exception("DB error")
-        response = self.client.get("/relation/some-id")
+        response = self.client.get("/relation/relations/some-id")
         assert response.status_code == 500
 
     ######################################################################################################
@@ -191,7 +191,7 @@ class TestRelation:
 
     def test_update_relation_not_found(self):
         update_data = RelationMainData(from_id="a", to_id="b", name="c")
-        response = self.client.put("/relation/non-existent-id", json=update_data.model_dump(exclude_unset=True))
+        response = self.client.put("/relation/relations/non-existent-id", json=update_data.model_dump(exclude_unset=True))
         assert response.status_code == 404
 
     def test_update_relation_invalid_name(self):
@@ -257,14 +257,14 @@ class TestRelation:
     def test_update_relation_internal_error(self, mock_update_relation):
         mock_update_relation.side_effect = Exception("DB error")
         update_data = RelationMainData(from_id="a", to_id="b", name="c")
-        response = self.client.put("/relation/some-id", json=update_data.model_dump(exclude_unset=True))
+        response = self.client.put("/relation/relations/some-id", json=update_data.model_dump(exclude_unset=True))
         assert response.status_code == 500
 
     # Test update_relation_permissions
 
     def test_update_relation_permissions_not_found(self):
         update_data = {"owner": "new-owner"}
-        response = self.client.put("/relation/non-existent-id/permissions", json=update_data)
+        response = self.client.put("/relation/relations/non-existent-id/permissions", json=update_data)
         assert response.status_code == 404
 
     def test_update_relation_permissions_permission_denied(self):
@@ -299,7 +299,7 @@ class TestRelation:
     def test_update_relation_permissions_internal_error(self, mock_update_relation):
         mock_update_relation.side_effect = Exception("DB error")
         update_data = {"owner": "new-owner"}
-        response = self.client.put("/relation/some-id/permissions", json=update_data)
+        response = self.client.put("/relation/relations/some-id/permissions", json=update_data)
         assert response.status_code == 500
 
     ######################################################################################################
@@ -307,7 +307,7 @@ class TestRelation:
     ######################################################################################################
 
     def test_delete_relation_not_found(self):
-        response = self.client.delete("/relation/non-existent-id")
+        response = self.client.delete("/relation/relations/non-existent-id")
         assert response.status_code == 404
 
     def test_delete_relation_permission_denied(self):
@@ -335,5 +335,5 @@ class TestRelation:
     @patch("omni_osint_crud.routers.delete.dal.delete_relation")
     def test_delete_relation_internal_error(self, mock_delete_relation):
         mock_delete_relation.side_effect = Exception("DB error")
-        response = self.client.delete("/relation/some-id")
+        response = self.client.delete("/relation/relations/some-id")
         assert response.status_code == 500

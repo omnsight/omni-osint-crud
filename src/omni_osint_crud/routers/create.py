@@ -32,6 +32,8 @@ view_dal = ViewDataAccessLayer()
 
 @router.post("/person", response_model=Person, operation_id="create_person")
 def create_person(person: PersonMainData, include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)):
+    if not user_ctx["user_id"]:
+        raise HTTPException(status_code=401, detail="No permission")
     try:
         return dal.create_person(person, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except PermissionDeniedError:
@@ -46,6 +48,8 @@ def create_person(person: PersonMainData, include_pending: bool = False, user_ct
 def create_organization(
     organization: OrganizationMainData, include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)
 ):
+    if not user_ctx["user_id"]:
+        raise HTTPException(status_code=401, detail="No permission")
     try:
         return dal.create_organization(organization, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except PermissionDeniedError:
@@ -60,6 +64,8 @@ def create_organization(
 
 @router.post("/event", response_model=Event, operation_id="create_event")
 def create_event(event: EventMainData, include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)):
+    if not user_ctx["user_id"]:
+        raise HTTPException(status_code=401, detail="No permission")
     try:
         return dal.create_event(event, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except PermissionDeniedError:
@@ -72,6 +78,8 @@ def create_event(event: EventMainData, include_pending: bool = False, user_ctx: 
 
 @router.post("/website", response_model=Website, operation_id="create_website")
 def create_website(website: WebsiteMainData, include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)):
+    if not user_ctx["user_id"]:
+        raise HTTPException(status_code=401, detail="No permission")
     try:
         return dal.create_website(website, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except PermissionDeniedError:
@@ -100,6 +108,8 @@ def create_source(source: SourceMainData, include_pending: bool = False, user_ct
 def create_relation(
     relation: RelationMainData, include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)
 ):
+    if not user_ctx["user_id"]:
+        raise HTTPException(status_code=401, detail="No permission")
     if not relation.from_id or not relation.to_id:
         raise HTTPException(status_code=400, detail="Source and target document IDs are required")
 
@@ -120,6 +130,8 @@ def create_relation(
 
 @router.post("/view", response_model=OsintView, operation_id="create_view")
 def create_view(view: OsintViewMainData, user_ctx: Dict = Depends(get_user_context)):
+    if not user_ctx["user_id"]:
+        raise HTTPException(status_code=401, detail="No permission")
     if not view.name:
         raise HTTPException(status_code=400, detail="View name is required")
 

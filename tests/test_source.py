@@ -4,7 +4,7 @@ import jwt
 from fastapi.testclient import TestClient
 from omni_python_library import init_omni_library
 from omni_python_library.models.osint import SourceMainData
-from omni_python_library.utils.config import UserRole
+from omni_python_library.utils.config.user import UserRole
 
 from omni_osint_crud.main import app
 
@@ -94,7 +94,7 @@ class TestSource:
         assert response.status_code == 404
 
     def test_read_source_not_found(self):
-        response = self.client.get("/source/non-existent-id")
+        response = self.client.get("/source/sources/non-existent-id")
         assert response.status_code == 404
 
     def test_read_source_permission_denied(self):
@@ -110,7 +110,7 @@ class TestSource:
     @patch("omni_osint_crud.routers.read.dal.get_source")
     def test_read_source_internal_error(self, mock_read_source):
         mock_read_source.side_effect = Exception("DB error")
-        response = self.client.get("/source/some-id")
+        response = self.client.get("/source/sources/some-id")
         assert response.status_code == 500
 
     ######################################################################################################
@@ -121,7 +121,7 @@ class TestSource:
 
     def test_update_source_not_found(self):
         update_data = SourceMainData(name="Jane Doe", url="http://jane.com")
-        response = self.client.put("/source/non-existent-id", json=update_data.model_dump(exclude_unset=True))
+        response = self.client.put("/source/sources/non-existent-id", json=update_data.model_dump(exclude_unset=True))
         assert response.status_code == 404
 
     def test_update_source_permission_denied(self):
@@ -139,14 +139,14 @@ class TestSource:
     def test_update_source_internal_error(self, mock_update_source):
         mock_update_source.side_effect = Exception("DB error")
         update_data = SourceMainData(name="Jane Doe", url="http://jane.com")
-        response = self.client.put("/source/some-id", json=update_data.model_dump(exclude_unset=True))
+        response = self.client.put("/source/sources/some-id", json=update_data.model_dump(exclude_unset=True))
         assert response.status_code == 500
 
     # Test update_source_permissions
 
     def test_update_source_permissions_not_found(self):
         update_data = {"owner": "new-owner"}
-        response = self.client.put("/source/non-existent-id/permissions", json=update_data)
+        response = self.client.put("/source/sources/non-existent-id/permissions", json=update_data)
         assert response.status_code == 404
 
     def test_update_source_permissions_permission_denied(self):
@@ -171,7 +171,7 @@ class TestSource:
     def test_update_source_permissions_internal_error(self, mock_update_source):
         mock_update_source.side_effect = Exception("DB error")
         update_data = {"owner": "new-owner"}
-        response = self.client.put("/source/some-id/permissions", json=update_data)
+        response = self.client.put("/source/sources/some-id/permissions", json=update_data)
         assert response.status_code == 500
 
     ######################################################################################################
@@ -179,7 +179,7 @@ class TestSource:
     ######################################################################################################
 
     def test_delete_source_not_found(self):
-        response = self.client.delete("/entity/non-existent-id")
+        response = self.client.delete("/entity/sources/non-existent-id")
         assert response.status_code == 404
 
     def test_delete_source_permission_denied(self):
@@ -195,5 +195,5 @@ class TestSource:
     @patch("omni_osint_crud.routers.delete.dal.delete_entity")
     def test_delete_source_internal_error(self, mock_delete_entity):
         mock_delete_entity.side_effect = Exception("DB error")
-        response = self.client.delete("/entity/some-id")
+        response = self.client.delete("/entity/sources/some-id")
         assert response.status_code == 500

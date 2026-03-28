@@ -7,7 +7,7 @@ from omni_python_library.models import (
     OsintViewMainData,
     PersonMainData,
 )
-from omni_python_library.utils.config import UserRole
+from omni_python_library.utils.config.user import UserRole
 
 from omni_osint_crud.main import app
 
@@ -161,13 +161,13 @@ class TestView:
     @patch("omni_osint_crud.routers.read.view_dal.get_view")
     def test_read_view_internal_error(self, mock_read_view):
         mock_read_view.side_effect = Exception("DB error")
-        response = self.client.get("/view/some-id")
+        response = self.client.get("/view/views/some-id")
         assert response.status_code == 500
 
     # Test get_view_entities
 
     def test_get_view_entities_not_found(self):
-        response = self.client.get("/view/non-existent-id/entities")
+        response = self.client.get("/view/views/non-existent-id/entities")
         assert response.status_code == 404
 
     def test_get_view_entities_no_permission(self):
@@ -227,14 +227,14 @@ class TestView:
     def test_update_view_internal_error(self, mock_update_view):
         mock_update_view.side_effect = Exception("DB error")
         update_data = OsintViewMainData(name="Test View Updated")
-        response = self.client.put("/view/some-id", json=update_data.model_dump(exclude_unset=True))
+        response = self.client.put("/view/views/some-id", json=update_data.model_dump(exclude_unset=True))
         assert response.status_code == 500
 
     # Test update_view_permissions
 
     def test_update_view_permissions_not_found(self):
         update_data = {"owner": "new-owner"}
-        response = self.client.put("/view/non-existent-id/permissions", json=update_data)
+        response = self.client.put("/view/views/non-existent-id/permissions", json=update_data)
         assert response.status_code == 404
 
     def test_update_view_permissions_permission_denied(self):
@@ -259,13 +259,13 @@ class TestView:
     def test_update_view_permissions_internal_error(self, mock_update_view):
         mock_update_view.side_effect = Exception("DB error")
         update_data = {"owner": "new-owner"}
-        response = self.client.put("/view/some-id/permissions", json=update_data)
+        response = self.client.put("/view/views/some-id/permissions", json=update_data)
         assert response.status_code == 500
 
     # Test connect_entity_to_view
 
     def test_connect_entity_to_view_not_found(self):
-        response = self.client.post("/view/non-existent-id/entities", json={"entity_id": "person/123"})
+        response = self.client.post("/view/views/non-existent-id/entities", json={"entity_id": "person/123"})
         assert response.status_code == 404
 
     def test_connect_entity_to_view_permission_denied(self):
@@ -285,7 +285,7 @@ class TestView:
     @patch("omni_osint_crud.routers.update.view_dal.connect_entity_to_view")
     def test_connect_entity_to_view_internal_error(self, mock_connect_entity_to_view):
         mock_connect_entity_to_view.side_effect = Exception("DB error")
-        response = self.client.post("/view/some-id/entities", json={"entity_id": "person/123"})
+        response = self.client.post("/view/views/some-id/entities", json={"entity_id": "person/123"})
         assert response.status_code == 500
 
     ######################################################################################################
@@ -311,5 +311,5 @@ class TestView:
     @patch("omni_osint_crud.routers.delete.view_dal.delete_view")
     def test_delete_view_internal_error(self, mock_delete_view):
         mock_delete_view.side_effect = Exception("DB error")
-        response = self.client.delete("/view/some-id")
+        response = self.client.delete("/view/views/some-id")
         assert response.status_code == 500
