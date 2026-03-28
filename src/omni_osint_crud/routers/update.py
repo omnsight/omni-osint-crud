@@ -45,6 +45,7 @@ def update_person_permissions(
     if not user_ctx["user_id"]:
         raise HTTPException(status_code=401, detail="No permission")
     try:
+        logger.info(f"User {user_ctx['user_id']} is updating person permissions for {id} with data {data}")
         return dal.update_person(id, data, user_ctx["user_id"], [])
     except NotFoundError:
         logger.exception(f"User {user_ctx['user_id']} failed to update person permissions for {id} due to not found")
@@ -71,6 +72,7 @@ def update_person(
     if not user_ctx["user_id"]:
         raise HTTPException(status_code=401, detail="No permission")
     try:
+        logger.info(f"User {user_ctx['user_id']} is updating person {id} with data {data}")
         return dal.update_person(id, data, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except NotFoundError:
         logger.exception(f"User {user_ctx['user_id']} failed to update person {id} due to not found")
@@ -96,6 +98,7 @@ def update_organization_permissions(
     if not user_ctx["user_id"]:
         raise HTTPException(status_code=401, detail="No permission")
     try:
+        logger.info(f"User {user_ctx['user_id']} is updating organization permissions for {id} with data {data}")
         return dal.update_organization(id, data, user_ctx["user_id"], [])
     except NotFoundError:
         logger.exception(
@@ -124,6 +127,7 @@ def update_organization(
     if not user_ctx["user_id"]:
         raise HTTPException(status_code=401, detail="No permission")
     try:
+        logger.info(f"User {user_ctx['user_id']} is updating organization {id} with data {data}")
         return dal.update_organization(id, data, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except NotFoundError:
         logger.exception(f"User {user_ctx['user_id']} failed to update organization {id} due to not found")
@@ -149,6 +153,7 @@ def update_event_permissions(
     if not user_ctx["user_id"]:
         raise HTTPException(status_code=401, detail="No permission")
     try:
+        logger.info(f"User {user_ctx['user_id']} is updating event permissions for event {id} with data {data}")
         return dal.update_event(id, data, user_ctx["user_id"], [])
     except NotFoundError:
         logger.exception(
@@ -177,6 +182,7 @@ def update_event(
     if not user_ctx["user_id"]:
         raise HTTPException(status_code=401, detail="No permission")
     try:
+        logger.info(f"User {user_ctx['user_id']} is updating event {id} with data {data}")
         return dal.update_event(id, data, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except NotFoundError:
         logger.exception(f"User {user_ctx['user_id']} failed to update event {id} due to not found")
@@ -200,6 +206,7 @@ def update_website_permissions(
     if not user_ctx["user_id"]:
         raise HTTPException(status_code=401, detail="No permission")
     try:
+        logger.info(f"User {user_ctx['user_id']} is updating website permissions for website {id} with data {data}")
         return dal.update_website(id, data, user_ctx["user_id"], [])
     except NotFoundError:
         logger.exception(
@@ -228,6 +235,7 @@ def update_website(
     if not user_ctx["user_id"]:
         raise HTTPException(status_code=401, detail="No permission")
     try:
+        logger.info(f"User {user_ctx['user_id']} is updating website {id} with data {data}")
         return dal.update_website(id, data, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except NotFoundError:
         logger.exception(f"User {user_ctx['user_id']} failed to update website {id} due to not found")
@@ -251,6 +259,7 @@ def update_source_permissions(
     if not user_ctx["user_id"]:
         raise HTTPException(status_code=401, detail="No permission")
     try:
+        logger.info(f"User {user_ctx['user_id']} is updating source permissions for source {id} with data {data}")
         return dal.update_source(id, data, user_ctx["user_id"], [])
     except NotFoundError:
         logger.exception(
@@ -279,6 +288,7 @@ def update_source(
     if not user_ctx["user_id"]:
         raise HTTPException(status_code=401, detail="No permission")
     try:
+        logger.info(f"User {user_ctx['user_id']} is updating source {id} with data {data}")
         return dal.update_source(id, data, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except NotFoundError:
         logger.exception(f"User {user_ctx['user_id']} failed to update source {id} due to not found")
@@ -302,6 +312,7 @@ def update_relation_permissions(
     if not user_ctx["user_id"]:
         raise HTTPException(status_code=401, detail="No permission")
     try:
+        logger.info(f"User {user_ctx['user_id']} is updating relation permissions for relation {id} with data {data}")
         return dal.update_relation(id, data, user_ctx["user_id"], [])
     except NotFoundError:
         logger.exception(
@@ -333,6 +344,7 @@ def update_relation(
         raise HTTPException(status_code=400, detail="Relation name cannot be empty and must be ASCII")
 
     try:
+        logger.info(f"User {user_ctx['user_id']} is updating relation {id} with data {data}")
         return dal.update_relation(id, data, user_ctx["user_id"], user_ctx["roles"], include_pending)
     except NotFoundError:
         logger.exception(f"User {user_ctx['user_id']} failed to update relation {id} due to not found")
