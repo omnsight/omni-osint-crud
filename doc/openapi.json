@@ -2392,27 +2392,6 @@
           }
         }
       }
-    },
-    "/health/osint/crud": {
-      "get": {
-        "tags": [
-          "health"
-        ],
-        "summary": "Health Check",
-        "operationId": "health_check",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HealthCheck"
-                }
-              }
-            }
-          }
-        }
-      }
     }
   },
   "components": {
@@ -2782,20 +2761,6 @@
         },
         "type": "object",
         "title": "HTTPValidationError"
-      },
-      "HealthCheck": {
-        "properties": {
-          "status": {
-            "type": "string",
-            "title": "Status",
-            "description": "The health status of the service."
-          }
-        },
-        "type": "object",
-        "required": [
-          "status"
-        ],
-        "title": "HealthCheck"
       },
       "LocationData": {
         "properties": {
