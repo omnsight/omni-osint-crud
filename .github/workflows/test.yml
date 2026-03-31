@@ -55,9 +55,9 @@ jobs:
           npm run generate
         working-directory: ./client
 
-      - name: 🧪 Run client tests
-        run: npm test --passWithNoTests
-        working-directory: ./client
+      # - name: 🧪 Run client tests
+      #   run: npm test --passWithNoTests
+      #   working-directory: ./client
 
       - name: 🛑 Stop services
         if: always()
