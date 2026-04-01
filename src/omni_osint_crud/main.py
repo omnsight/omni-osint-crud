@@ -4,6 +4,7 @@ import sys
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException, Request
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from omni_python_library import init_omni_library
 
@@ -29,6 +30,15 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="Omni OSINT CRUD", lifespan=lifespan)
+raw_origins = os.getenv("ALLOWED_ORIGINS", "")
+origins = [origin.strip() for origin in raw_origins.split(",") if origin.strip()]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.exception_handler(HTTPException)
