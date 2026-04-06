@@ -36,7 +36,7 @@ async def lifespan(app: FastAPI):
     logger.info("Service - Osint Crud - starting up...")
     init_omni_library()
 
-    loggers = ["uvicorn", "uvicorn.access", "uvicorn.error", "fastapi"]
+    loggers = ["uvicorn.access"]
     for logger_name in loggers:
         logging_logger = logging.getLogger(logger_name)
         logging_logger.handlers = []
@@ -67,6 +67,15 @@ async def http_exception_handler(request: Request, exc: HTTPException):
     return JSONResponse(
         status_code=exc.status_code,
         content={"detail": exc.detail},
+    )
+
+
+@app.exception_handler(Exception)
+async def exception_handler(request: Request, exc: Exception):
+    logger.error(f"Exception: {exc}", exc_info=True)
+    return JSONResponse(
+        status_code=500,
+        content={"detail": "Internal Server Error"},
     )
 
 
