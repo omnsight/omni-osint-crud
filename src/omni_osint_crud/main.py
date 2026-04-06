@@ -1,6 +1,7 @@
 import logging
 import os
 import sys
+from pythonjsonlogger import jsonlogger
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException, Request
@@ -8,7 +9,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from omni_python_library import init_omni_library
 from omni_python_library.middleware import RawASGILoggingMiddleware
-from pythonjsonlogger import jsonlogger
 
 from omni_osint_crud.routers import (
     create_router,
