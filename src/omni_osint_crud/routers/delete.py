@@ -12,7 +12,7 @@ dal = OsintDataAccessLayer()
 view_dal = ViewDataAccessLayer()
 
 
-@router.delete("/entity/{id:path}", operation_id="delete_entity")
+@router.delete("/entities/{id:path}", operation_id="delete_entity")
 def delete_entity(
     id: str = Path(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
@@ -35,7 +35,7 @@ def delete_entity(
         raise HTTPException(status_code=500, detail="Internal service error")
 
 
-@router.delete("/relation/{id:path}", operation_id="delete_relation")
+@router.delete("/relations/{id:path}", operation_id="delete_relation")
 def delete_relation(
     id: str = Path(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
@@ -58,7 +58,7 @@ def delete_relation(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.delete("/view/{id:path}", operation_id="delete_view")
+@router.delete("/views/{id:path}", operation_id="delete_view")
 def delete_view(
     id: str = Path(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"

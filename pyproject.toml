@@ -4,12 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "omni-osint-crud"
-version = "1.0.2"
+version = "1.1.0"
 description = "Omni OSINT CRUD Service"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "omni-python-library @ git+https://github.com/omnsight/omni-python-library",
+    "python-json-logger",
 ]
 
 [project.optional-dependencies]

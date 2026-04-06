@@ -38,7 +38,7 @@ class QueryViewsResponse(BaseModel):
     offset: int = Field(default=0, description="The offset from which to start returning results.")
 
 
-@router.get("/person/{id:path}", response_model=Person, operation_id="get_person")
+@router.get("/persons/{id:path}", response_model=Person, operation_id="get_person")
 def get_person(
     id: str = Path(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
@@ -63,7 +63,7 @@ def get_person(
     return result
 
 
-@router.get("/organization/{id:path}", response_model=Organization, operation_id="get_organization")
+@router.get("/organizations/{id:path}", response_model=Organization, operation_id="get_organization")
 def get_organization(
     id: str = Path(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
@@ -88,7 +88,7 @@ def get_organization(
     return result
 
 
-@router.get("/event/{id:path}", response_model=Event, operation_id="get_event")
+@router.get("/events/{id:path}", response_model=Event, operation_id="get_event")
 def get_event(
     id: str = Path(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
@@ -113,7 +113,7 @@ def get_event(
     return result
 
 
-@router.get("/website/{id:path}", response_model=Website, operation_id="get_website")
+@router.get("/websites/{id:path}", response_model=Website, operation_id="get_website")
 def get_website(
     id: str = Path(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
@@ -138,7 +138,7 @@ def get_website(
     return result
 
 
-@router.get("/source/{id:path}", response_model=Source, operation_id="get_source")
+@router.get("/sources/{id:path}", response_model=Source, operation_id="get_source")
 def get_source(
     id: str = Path(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
@@ -163,7 +163,7 @@ def get_source(
     return result
 
 
-@router.get("/relation/{id:path}", response_model=Relation, operation_id="get_relation")
+@router.get("/relations/{id:path}", response_model=Relation, operation_id="get_relation")
 def get_relation(
     id: str = Path(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
@@ -189,7 +189,7 @@ def get_relation(
 
 
 @router.get(
-    "/view/{id:path}/entities",
+    "/views/{id:path}/entities",
     response_model=Entities,
     operation_id="get_view_entities",
 )
@@ -222,7 +222,7 @@ def get_view_entities(
         raise HTTPException(status_code=500, detail="Internal service error")
 
 
-@router.get("/view/{id:path}", response_model=OsintView, operation_id="get_view")
+@router.get("/views/{id:path}", response_model=OsintView, operation_id="get_view")
 def get_view(
     id: str = Path(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"

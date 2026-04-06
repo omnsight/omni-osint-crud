@@ -34,7 +34,7 @@ class EntityConnectionRequest(BaseModel):
     entity_id: str = Field(..., description="The ID of the entity to connect to the view.")
 
 
-@router.put("/person/{id:path}/permissions", response_model=Person, operation_id="update_person_permissions")
+@router.put("/persons/{id:path}/permissions", response_model=Person, operation_id="update_person_permissions")
 def update_person_permissions(
     id: str = Path(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
@@ -60,7 +60,7 @@ def update_person_permissions(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.put("/person/{id:path}", response_model=Person, operation_id="update_person")
+@router.put("/persons/{id:path}", response_model=Person, operation_id="update_person")
 def update_person(
     id: str = Path(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
@@ -86,7 +86,7 @@ def update_person(
 
 
 @router.put(
-    "/organization/{id:path}/permissions", response_model=Organization, operation_id="update_organization_permissions"
+    "/organizations/{id:path}/permissions", response_model=Organization, operation_id="update_organization_permissions"
 )
 def update_organization_permissions(
     id: str = Path(
@@ -115,7 +115,7 @@ def update_organization_permissions(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.put("/organization/{id:path}", response_model=Organization, operation_id="update_organization")
+@router.put("/organizations/{id:path}", response_model=Organization, operation_id="update_organization")
 def update_organization(
     id: str = Path(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
@@ -142,7 +142,7 @@ def update_organization(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.put("/event/{id:path}/permissions", response_model=Event, operation_id="update_event_permissions")
+@router.put("/events/{id:path}/permissions", response_model=Event, operation_id="update_event_permissions")
 def update_event_permissions(
     id: str = Path(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
@@ -170,7 +170,7 @@ def update_event_permissions(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.put("/event/{id:path}", response_model=Event, operation_id="update_event")
+@router.put("/events/{id:path}", response_model=Event, operation_id="update_event")
 def update_event(
     id: str = Path(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
@@ -195,7 +195,7 @@ def update_event(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.put("/website/{id:path}/permissions", response_model=Website, operation_id="update_website_permissions")
+@router.put("/websites/{id:path}/permissions", response_model=Website, operation_id="update_website_permissions")
 def update_website_permissions(
     id: str = Path(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
@@ -223,7 +223,7 @@ def update_website_permissions(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.put("/website/{id:path}", response_model=Website, operation_id="update_website")
+@router.put("/websites/{id:path}", response_model=Website, operation_id="update_website")
 def update_website(
     id: str = Path(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
@@ -248,7 +248,7 @@ def update_website(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.put("/source/{id:path}/permissions", response_model=Source, operation_id="update_source_permissions")
+@router.put("/sources/{id:path}/permissions", response_model=Source, operation_id="update_source_permissions")
 def update_source_permissions(
     id: str = Path(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
@@ -276,7 +276,7 @@ def update_source_permissions(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.put("/source/{id:path}", response_model=Source, operation_id="update_source")
+@router.put("/sources/{id:path}", response_model=Source, operation_id="update_source")
 def update_source(
     id: str = Path(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
@@ -301,7 +301,7 @@ def update_source(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.put("/relation/{id:path}/permissions", response_model=Relation, operation_id="update_relation_permissions")
+@router.put("/relations/{id:path}/permissions", response_model=Relation, operation_id="update_relation_permissions")
 def update_relation_permissions(
     id: str = Path(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
@@ -329,7 +329,7 @@ def update_relation_permissions(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.put("/relation/{id:path}", response_model=Relation, operation_id="update_relation")
+@router.put("/relations/{id:path}", response_model=Relation, operation_id="update_relation")
 def update_relation(
     id: str = Path(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
@@ -357,7 +357,7 @@ def update_relation(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.post("/view/{id:path}/entities", response_model=OsintView, operation_id="connect_entity_to_view")
+@router.post("/views/{id:path}/entities", response_model=OsintView, operation_id="connect_entity_to_view")
 def connect_entity_to_view(
     id: str = Path(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
@@ -386,7 +386,7 @@ def connect_entity_to_view(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.put("/view/{id:path}/permissions", response_model=OsintView, operation_id="update_view_permissions")
+@router.put("/views/{id:path}/permissions", response_model=OsintView, operation_id="update_view_permissions")
 def update_view_permissions(
     id: str = Path(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
@@ -411,7 +411,7 @@ def update_view_permissions(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.put("/view/{id:path}", response_model=OsintView, operation_id="update_view")
+@router.put("/views/{id:path}", response_model=OsintView, operation_id="update_view")
 def update_view(
     id: str = Path(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"

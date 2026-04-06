@@ -5,7 +5,7 @@
     "version": "0.1.0"
   },
   "paths": {
-    "/person": {
+    "/persons": {
       "post": {
         "tags": [
           "create"
@@ -74,7 +74,7 @@
         }
       }
     },
-    "/organization": {
+    "/organizations": {
       "post": {
         "tags": [
           "create"
@@ -143,7 +143,7 @@
         }
       }
     },
-    "/event": {
+    "/events": {
       "post": {
         "tags": [
           "create"
@@ -212,7 +212,7 @@
         }
       }
     },
-    "/website": {
+    "/websites": {
       "post": {
         "tags": [
           "create"
@@ -281,7 +281,7 @@
         }
       }
     },
-    "/source": {
+    "/sources": {
       "post": {
         "tags": [
           "create"
@@ -350,7 +350,7 @@
         }
       }
     },
-    "/relation": {
+    "/relations": {
       "post": {
         "tags": [
           "create"
@@ -419,7 +419,7 @@
         }
       }
     },
-    "/view": {
+    "/views": {
       "post": {
         "tags": [
           "create"
@@ -476,9 +476,92 @@
             }
           }
         }
+      },
+      "get": {
+        "tags": [
+          "read"
+        ],
+        "summary": "Query Views",
+        "operationId": "query_views",
+        "parameters": [
+          {
+            "name": "text",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Text"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryViewsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
       }
     },
-    "/person/{id}": {
+    "/persons/{id}": {
       "get": {
         "tags": [
           "read"
@@ -628,7 +711,7 @@
         }
       }
     },
-    "/organization/{id}": {
+    "/organizations/{id}": {
       "get": {
         "tags": [
           "read"
@@ -778,7 +861,7 @@
         }
       }
     },
-    "/event/{id}": {
+    "/events/{id}": {
       "get": {
         "tags": [
           "read"
@@ -928,7 +1011,7 @@
         }
       }
     },
-    "/website/{id}": {
+    "/websites/{id}": {
       "get": {
         "tags": [
           "read"
@@ -1078,7 +1161,7 @@
         }
       }
     },
-    "/source/{id}": {
+    "/sources/{id}": {
       "get": {
         "tags": [
           "read"
@@ -1228,7 +1311,7 @@
         }
       }
     },
-    "/relation/{id}": {
+    "/relations/{id}": {
       "get": {
         "tags": [
           "read"
@@ -1435,7 +1518,7 @@
         }
       }
     },
-    "/view/{id}/entities": {
+    "/views/{id}/entities": {
       "get": {
         "tags": [
           "read"
@@ -1565,7 +1648,7 @@
         }
       }
     },
-    "/view/{id}": {
+    "/views/{id}": {
       "get": {
         "tags": [
           "read"
@@ -1752,92 +1835,7 @@
         }
       }
     },
-    "/views": {
-      "get": {
-        "tags": [
-          "read"
-        ],
-        "summary": "Query Views",
-        "operationId": "query_views",
-        "parameters": [
-          {
-            "name": "text",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Text"
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "default": 100,
-              "title": "Limit"
-            }
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "default": 0,
-              "title": "Offset"
-            }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/QueryViewsResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/person/{id}/permissions": {
+    "/persons/{id}/permissions": {
       "put": {
         "tags": [
           "update"
@@ -1908,7 +1906,7 @@
         }
       }
     },
-    "/organization/{id}/permissions": {
+    "/organizations/{id}/permissions": {
       "put": {
         "tags": [
           "update"
@@ -1979,7 +1977,7 @@
         }
       }
     },
-    "/event/{id}/permissions": {
+    "/events/{id}/permissions": {
       "put": {
         "tags": [
           "update"
@@ -2050,7 +2048,7 @@
         }
       }
     },
-    "/website/{id}/permissions": {
+    "/websites/{id}/permissions": {
       "put": {
         "tags": [
           "update"
@@ -2121,7 +2119,7 @@
         }
       }
     },
-    "/source/{id}/permissions": {
+    "/sources/{id}/permissions": {
       "put": {
         "tags": [
           "update"
@@ -2192,7 +2190,7 @@
         }
       }
     },
-    "/relation/{id}/permissions": {
+    "/relations/{id}/permissions": {
       "put": {
         "tags": [
           "update"
@@ -2263,7 +2261,7 @@
         }
       }
     },
-    "/view/{id}/permissions": {
+    "/views/{id}/permissions": {
       "put": {
         "tags": [
           "update"
@@ -2334,7 +2332,7 @@
         }
       }
     },
-    "/entity/{id}": {
+    "/entities/{id}": {
       "delete": {
         "tags": [
           "delete"
