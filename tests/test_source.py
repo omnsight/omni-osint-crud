@@ -50,23 +50,23 @@ class TestSource:
         assert created_source["name"] == "Test Source"
 
         # 2. Read Source
-        response = self.client.get(f"/sources/{source_id}")
+        response = self.client.get(f"/sources?id={source_id}")
         assert response.status_code == 200
         assert response.json() == created_source
 
         # 3. Update Source
         update_data = SourceMainData(name="Test Source Updated", url="http://source-updated.com")
-        response = self.client.put(f"/sources/{source_id}", json=update_data.model_dump(exclude_unset=True))
+        response = self.client.put(f"/sources?id={source_id}", json=update_data.model_dump(exclude_unset=True))
         assert response.status_code == 200
         updated_source = response.json()
         assert updated_source["name"] == "Test Source Updated"
 
         # 4. Delete Source
-        response = self.client.delete(f"/entities/{source_id}")
+        response = self.client.delete(f"/entities?id={source_id}")
         assert response.status_code == 200
 
         # 5. Verify Deletion
-        response = self.client.get(f"/sources/{source_id}")
+        response = self.client.get(f"/sources?id={source_id}")
         assert response.status_code == 404
 
     ######################################################################################################
@@ -90,11 +90,11 @@ class TestSource:
     ######################################################################################################
 
     def test_read_source_not_found_bad_id(self):
-        response = self.client.get("/sources/bad_collection/bad_key")
+        response = self.client.get("/sources?id=bad_collection/bad_key")
         assert response.status_code == 404
 
     def test_read_source_not_found(self):
-        response = self.client.get("/sources/source/non-existent-id")
+        response = self.client.get("/sources?id=source/non-existent-id")
         assert response.status_code == 404
 
     def test_read_source_permission_denied(self):
@@ -104,13 +104,13 @@ class TestSource:
         created_source = response.json()
         source_id = created_source["_id"]
 
-        response = self.no_roles_client.get(f"/sources/{source_id}")
+        response = self.no_roles_client.get(f"/sources?id={source_id}")
         assert response.status_code == 403
 
     @patch("omni_osint_crud.routers.read.dal.get_source")
     def test_read_source_internal_error(self, mock_read_source):
         mock_read_source.side_effect = Exception("DB error")
-        response = self.client.get("/sources/source/some-id")
+        response = self.client.get("/sources?id=source/some-id")
         assert response.status_code == 500
 
     ######################################################################################################
@@ -121,7 +121,7 @@ class TestSource:
 
     def test_update_source_not_found(self):
         update_data = SourceMainData(name="Jane Doe", url="http://jane.com")
-        response = self.client.put("/sources/source/non-existent-id", json=update_data.model_dump(exclude_unset=True))
+        response = self.client.put("/sources?id=source/non-existent-id", json=update_data.model_dump(exclude_unset=True))
         assert response.status_code == 404
 
     def test_update_source_permission_denied(self):
@@ -132,21 +132,21 @@ class TestSource:
         source_id = created_source["_id"]
 
         update_data = SourceMainData(name="Jane Doe", url="http://jane.com")
-        response = self.no_roles_client.put(f"/sources/{source_id}", json=update_data.model_dump(exclude_unset=True))
+        response = self.no_roles_client.put(f"/sources?id={source_id}", json=update_data.model_dump(exclude_unset=True))
         assert response.status_code == 403
 
     @patch("omni_osint_crud.routers.update.dal.update_source")
     def test_update_source_internal_error(self, mock_update_source):
         mock_update_source.side_effect = Exception("DB error")
         update_data = SourceMainData(name="Jane Doe", url="http://jane.com")
-        response = self.client.put("/sources/source/some-id", json=update_data.model_dump(exclude_unset=True))
+        response = self.client.put("/sources?id=source/some-id", json=update_data.model_dump(exclude_unset=True))
         assert response.status_code == 500
 
     # Test update_source_permissions
 
     def test_update_source_permissions_not_found(self):
         update_data = {"owner": "new-owner"}
-        response = self.client.put("/sources/source/non-existent-id/permissions", json=update_data)
+        response = self.client.put("/sources/permissions?id=source/non-existent-id", json=update_data)
         assert response.status_code == 404
 
     def test_update_source_permissions_permission_denied(self):
@@ -159,19 +159,19 @@ class TestSource:
 
         # 2. Grant the user_client read access
         permission_data = {"read": ["test-user-id-789"]}
-        response = self.client.put(f"/sources/{source_id}/permissions", json=permission_data)
+        response = self.client.put(f"/sources/permissions?id={source_id}", json=permission_data)
         assert response.status_code == 200
 
         # 3. Attempt to update permissions with the user_client (non-owner)
         update_data = {"owner": "new-owner"}
-        response = self.user_client.put(f"/sources/{source_id}/permissions", json=update_data)
+        response = self.user_client.put(f"/sources/permissions?id={source_id}", json=update_data)
         assert response.status_code == 403
 
     @patch("omni_osint_crud.routers.update.dal.update_source")
     def test_update_source_permissions_internal_error(self, mock_update_source):
         mock_update_source.side_effect = Exception("DB error")
         update_data = {"owner": "new-owner"}
-        response = self.client.put("/sources/source/some-id/permissions", json=update_data)
+        response = self.client.put("/sources/permissions?id=source/some-id", json=update_data)
         assert response.status_code == 500
 
     ######################################################################################################
@@ -179,7 +179,7 @@ class TestSource:
     ######################################################################################################
 
     def test_delete_source_not_found(self):
-        response = self.client.delete("/entities/sources/non-existent-id")
+        response = self.client.delete("/entities?id=sources/non-existent-id")
         assert response.status_code == 404
 
     def test_delete_source_permission_denied(self):
@@ -189,11 +189,11 @@ class TestSource:
         created_source = response.json()
         source_id = created_source["_id"]
 
-        response = self.no_roles_client.delete(f"/entities/{source_id}")
+        response = self.no_roles_client.delete(f"/entities?id={source_id}")
         assert response.status_code == 403
 
     @patch("omni_osint_crud.routers.delete.dal.delete_entity")
     def test_delete_source_internal_error(self, mock_delete_entity):
         mock_delete_entity.side_effect = Exception("DB error")
-        response = self.client.delete("/entities/sources/some-id")
+        response = self.client.delete("/entities?id=sources/some-id")
         assert response.status_code == 500

@@ -1,7 +1,7 @@
 import logging
 from typing import Dict
 
-from fastapi import APIRouter, Depends, HTTPException, Path
+from fastapi import APIRouter, Depends, HTTPException, Path, Query
 from omni_python_library.dal import OsintDataAccessLayer, ViewDataAccessLayer
 from omni_python_library.middleware import get_user_context
 from omni_python_library.utils.errors import NotFoundError, PermissionDeniedError
@@ -12,9 +12,9 @@ dal = OsintDataAccessLayer()
 view_dal = ViewDataAccessLayer()
 
 
-@router.delete("/entities/{id:path}", operation_id="delete_entity")
+@router.delete("/entities", operation_id="delete_entity")
 def delete_entity(
-    id: str = Path(
+    id: str = Query(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
     ),
     user_ctx: Dict = Depends(get_user_context),
@@ -35,9 +35,9 @@ def delete_entity(
         raise HTTPException(status_code=500, detail="Internal service error")
 
 
-@router.delete("/relations/{id:path}", operation_id="delete_relation")
+@router.delete("/relations", operation_id="delete_relation")
 def delete_relation(
-    id: str = Path(
+    id: str = Query(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
     ),
     user_ctx: Dict = Depends(get_user_context),
@@ -58,9 +58,9 @@ def delete_relation(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.delete("/views/{id:path}", operation_id="delete_view")
+@router.delete("/views", operation_id="delete_view")
 def delete_view(
-    id: str = Path(
+    id: str = Query(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
     ),
     user_ctx: Dict = Depends(get_user_context),
