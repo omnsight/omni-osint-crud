@@ -7,7 +7,8 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from omni_python_library import init_omni_library
-from omni_python_library.middleware import LoggingMiddleware
+from omni_python_library.middleware import RawASGILoggingMiddleware
+from pythonjsonlogger import jsonlogger
 
 from omni_osint_crud.routers import (
     create_router,
@@ -20,13 +21,22 @@ from omni_osint_crud.routers import (
 # Configure logging
 DEBUG = os.getenv("DEBUG", "false").lower() == "true"
 log_level = logging.DEBUG if DEBUG else logging.INFO
-logging.basicConfig(stream=sys.stdout, level=log_level, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+log_handler = logging.StreamHandler(sys.stdout)
+formatter = jsonlogger.JsonFormatter(
+    fmt="%(asctime)s %(levelname)s %(name)s %(message)s",
+    datefmt="%Y-%m-%dT%H:%M:%SZ"
+)
+log_handler.setFormatter(formatter)
+root_logger = logging.getLogger()
+root_logger.handlers = []
+root_logger.addHandler(log_handler)
+root_logger.setLevel(log_level)
 logger = logging.getLogger(__name__)
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    logger.info("Application startup")
+    logger.info("Service - Osint Crud - starting up...")
     init_omni_library()
 
     loggers = ["uvicorn", "uvicorn.access", "uvicorn.error", "fastapi"]
@@ -38,10 +48,11 @@ async def lifespan(app: FastAPI):
     logger.info(f"Stopped default logging for {loggers}")
 
     yield
-    logger.info("Application shutdown")
+    logger.info("Service - Osint Crud - shut down")
 
 
 app = FastAPI(title="Omni OSINT CRUD", lifespan=lifespan)
+app.add_middleware(RawASGILoggingMiddleware)
 raw_origins = os.getenv("ALLOWED_ORIGINS", "")
 origins = [origin.strip() for origin in raw_origins.split(",") if origin.strip()]
 app.add_middleware(
@@ -51,7 +62,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-app.add_middleware(LoggingMiddleware)
 
 
 @app.exception_handler(HTTPException)

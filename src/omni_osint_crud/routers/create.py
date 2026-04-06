@@ -30,7 +30,7 @@ dal = OsintDataAccessLayer()
 view_dal = ViewDataAccessLayer()
 
 
-@router.post("/person", response_model=Person, operation_id="create_person")
+@router.post("/persons", response_model=Person, operation_id="create_person")
 def create_person(person: PersonMainData, include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)):
     if not user_ctx["user_id"]:
         raise HTTPException(status_code=401, detail="No permission")
@@ -44,7 +44,7 @@ def create_person(person: PersonMainData, include_pending: bool = False, user_ct
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.post("/organization", response_model=Organization, operation_id="create_organization")
+@router.post("/organizations", response_model=Organization, operation_id="create_organization")
 def create_organization(
     organization: OrganizationMainData, include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)
 ):
@@ -62,7 +62,7 @@ def create_organization(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.post("/event", response_model=Event, operation_id="create_event")
+@router.post("/events", response_model=Event, operation_id="create_event")
 def create_event(event: EventMainData, include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)):
     if not user_ctx["user_id"]:
         raise HTTPException(status_code=401, detail="No permission")
@@ -76,7 +76,7 @@ def create_event(event: EventMainData, include_pending: bool = False, user_ctx: 
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.post("/website", response_model=Website, operation_id="create_website")
+@router.post("/websites", response_model=Website, operation_id="create_website")
 def create_website(website: WebsiteMainData, include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)):
     if not user_ctx["user_id"]:
         raise HTTPException(status_code=401, detail="No permission")
@@ -92,7 +92,7 @@ def create_website(website: WebsiteMainData, include_pending: bool = False, user
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.post("/source", response_model=Source, operation_id="create_source")
+@router.post("/sources", response_model=Source, operation_id="create_source")
 def create_source(source: SourceMainData, include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)):
     try:
         return dal.create_source(source, user_ctx["user_id"], user_ctx["roles"], include_pending)
@@ -104,7 +104,7 @@ def create_source(source: SourceMainData, include_pending: bool = False, user_ct
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.post("/relation", response_model=Relation, operation_id="create_relation")
+@router.post("/relations", response_model=Relation, operation_id="create_relation")
 def create_relation(
     relation: RelationMainData, include_pending: bool = False, user_ctx: Dict = Depends(get_user_context)
 ):
@@ -128,7 +128,7 @@ def create_relation(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.post("/view", response_model=OsintView, operation_id="create_view")
+@router.post("/views", response_model=OsintView, operation_id="create_view")
 def create_view(view: OsintViewMainData, user_ctx: Dict = Depends(get_user_context)):
     if not user_ctx["user_id"]:
         raise HTTPException(status_code=401, detail="No permission")

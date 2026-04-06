@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 2
 requires-python = ">=3.10"
 
 [[package]]
@@ -714,6 +714,7 @@ version = "1.0.2"
 source = { editable = "." }
 dependencies = [
     { name = "omni-python-library" },
+    { name = "python-json-logger" },
 ]
 
 [package.optional-dependencies]
@@ -741,13 +742,14 @@ requires-dist = [
     { name = "pytest-asyncio", marker = "extra == 'dev'" },
     { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=5.0.0" },
     { name = "pytest-mock", marker = "extra == 'dev'", specifier = ">=3.10.0" },
+    { name = "python-json-logger" },
 ]
 provides-extras = ["dev"]
 
 [[package]]
 name = "omni-python-library"
 version = "0.2.0"
-source = { git = "https://github.com/omnsight/omni-python-library#b1c49e2fc1feb8e932c110b54298e57cc0deecf5" }
+source = { git = "https://github.com/omnsight/omni-python-library#cb32efa1e30f2598e63c6416e50690a88d87b2e1" }
 dependencies = [
     { name = "cachetools" },
     { name = "fastapi" },
@@ -1062,6 +1064,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/e4/7a/e5a09446f8e0ca69269bbb5ddefcdfbdcfc8cfb019de382f70e4ca899170/python_arango-8.3.1.tar.gz", hash = "sha256:38d3c1f5173c99fe3c17b386963d441c96b0d38dc111353eebddbf9088459cdd", size = 154810, upload-time = "2026-03-23T06:01:11.472Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/20/78/e60b1b8bc8d78908c849dd320d683be3d92bf3eb7f3396a7ffd53ba9ea71/python_arango-8.3.1-py3-none-any.whl", hash = "sha256:964012b3a239bddaa6ca9851659bf74817128fdeab6fcb6e5abef0f6b817a536", size = 116245, upload-time = "2026-03-23T06:01:10.072Z" },
+]
+
+[[package]]
+name = "python-json-logger"
+version = "4.1.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/f7/ff/3cc9165fd44106973cd7ac9facb674a65ed853494592541d339bdc9a30eb/python_json_logger-4.1.0.tar.gz", hash = "sha256:b396b9e3ed782b09ff9d6e4f1683d46c83ad0d35d2e407c09a9ebbf038f88195", size = 17573, upload-time = "2026-03-29T04:39:56.805Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/27/be/0631a861af4d1c875f096c07d34e9a63639560a717130e7a87cbc82b7e3f/python_json_logger-4.1.0-py3-none-any.whl", hash = "sha256:132994765cf75bf44554be9aa49b06ef2345d23661a96720262716438141b6b2", size = 15021, upload-time = "2026-03-29T04:39:55.266Z" },
 ]
 
 [[package]]
