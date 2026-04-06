@@ -252,7 +252,9 @@ class TestRelation:
         relation_id = created_relation["_id"]
 
         update_data = RelationMainData(from_id="a", to_id="b", name="c")
-        response = self.no_roles_client.put(f"/relations/{relation_id}", json=update_data.model_dump(exclude_unset=True))
+        response = self.no_roles_client.put(
+            f"/relations/{relation_id}", json=update_data.model_dump(exclude_unset=True)
+        )
         assert response.status_code == 403
 
     @patch("omni_osint_crud.routers.update.dal.update_relation")
