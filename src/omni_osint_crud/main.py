@@ -7,7 +7,7 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from omni_python_library import init_omni_library
-from omni_python_library.middleware import AuthHeaderLoggingMiddleware
+from omni_python_library.middleware import LoggingMiddleware
 
 from omni_osint_crud.routers import (
     create_router,
@@ -26,8 +26,19 @@ logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    logger.info("Application startup")
     init_omni_library()
+
+    loggers = ["uvicorn", "uvicorn.access", "uvicorn.error", "fastapi"]
+    for logger_name in loggers:
+        logging_logger = logging.getLogger(logger_name)
+        logging_logger.handlers = []
+        # Optional: Prevent propagation to the root logger
+        logging_logger.propagate = False
+    logger.info(f"Stopped default logging for {loggers}")
+
     yield
+    logger.info("Application shutdown")
 
 
 app = FastAPI(title="Omni OSINT CRUD", lifespan=lifespan)
@@ -40,7 +51,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-app.add_middleware(AuthHeaderLoggingMiddleware)
+app.add_middleware(LoggingMiddleware)
 
 
 @app.exception_handler(HTTPException)
