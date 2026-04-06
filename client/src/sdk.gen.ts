@@ -19,6 +19,15 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
 };
 
 /**
+ * Get Person
+ */
+export const getPerson = <ThrowOnError extends boolean = false>(options: Options<GetPersonData, ThrowOnError>) => (options.client ?? client).get<GetPersonResponses, GetPersonErrors, ThrowOnError>({
+    responseType: 'json',
+    url: '/persons',
+    ...options
+});
+
+/**
  * Create Person
  */
 export const createPerson = <ThrowOnError extends boolean = false>(options: Options<CreatePersonData, ThrowOnError>) => (options.client ?? client).post<CreatePersonResponses, CreatePersonErrors, ThrowOnError>({
@@ -29,6 +38,28 @@ export const createPerson = <ThrowOnError extends boolean = false>(options: Opti
         'Content-Type': 'application/json',
         ...options.headers
     }
+});
+
+/**
+ * Update Person
+ */
+export const updatePerson = <ThrowOnError extends boolean = false>(options: Options<UpdatePersonData, ThrowOnError>) => (options.client ?? client).put<UpdatePersonResponses, UpdatePersonErrors, ThrowOnError>({
+    responseType: 'json',
+    url: '/persons',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Get Organization
+ */
+export const getOrganization = <ThrowOnError extends boolean = false>(options: Options<GetOrganizationData, ThrowOnError>) => (options.client ?? client).get<GetOrganizationResponses, GetOrganizationErrors, ThrowOnError>({
+    responseType: 'json',
+    url: '/organizations',
+    ...options
 });
 
 /**
@@ -45,6 +76,28 @@ export const createOrganization = <ThrowOnError extends boolean = false>(options
 });
 
 /**
+ * Update Organization
+ */
+export const updateOrganization = <ThrowOnError extends boolean = false>(options: Options<UpdateOrganizationData, ThrowOnError>) => (options.client ?? client).put<UpdateOrganizationResponses, UpdateOrganizationErrors, ThrowOnError>({
+    responseType: 'json',
+    url: '/organizations',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Get Event
+ */
+export const getEvent = <ThrowOnError extends boolean = false>(options: Options<GetEventData, ThrowOnError>) => (options.client ?? client).get<GetEventResponses, GetEventErrors, ThrowOnError>({
+    responseType: 'json',
+    url: '/events',
+    ...options
+});
+
+/**
  * Create Event
  */
 export const createEvent = <ThrowOnError extends boolean = false>(options: Options<CreateEventData, ThrowOnError>) => (options.client ?? client).post<CreateEventResponses, CreateEventErrors, ThrowOnError>({
@@ -55,6 +108,28 @@ export const createEvent = <ThrowOnError extends boolean = false>(options: Optio
         'Content-Type': 'application/json',
         ...options.headers
     }
+});
+
+/**
+ * Update Event
+ */
+export const updateEvent = <ThrowOnError extends boolean = false>(options: Options<UpdateEventData, ThrowOnError>) => (options.client ?? client).put<UpdateEventResponses, UpdateEventErrors, ThrowOnError>({
+    responseType: 'json',
+    url: '/events',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Get Website
+ */
+export const getWebsite = <ThrowOnError extends boolean = false>(options: Options<GetWebsiteData, ThrowOnError>) => (options.client ?? client).get<GetWebsiteResponses, GetWebsiteErrors, ThrowOnError>({
+    responseType: 'json',
+    url: '/websites',
+    ...options
 });
 
 /**
@@ -71,6 +146,28 @@ export const createWebsite = <ThrowOnError extends boolean = false>(options: Opt
 });
 
 /**
+ * Update Website
+ */
+export const updateWebsite = <ThrowOnError extends boolean = false>(options: Options<UpdateWebsiteData, ThrowOnError>) => (options.client ?? client).put<UpdateWebsiteResponses, UpdateWebsiteErrors, ThrowOnError>({
+    responseType: 'json',
+    url: '/websites',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Get Source
+ */
+export const getSource = <ThrowOnError extends boolean = false>(options: Options<GetSourceData, ThrowOnError>) => (options.client ?? client).get<GetSourceResponses, GetSourceErrors, ThrowOnError>({
+    responseType: 'json',
+    url: '/sources',
+    ...options
+});
+
+/**
  * Create Source
  */
 export const createSource = <ThrowOnError extends boolean = false>(options: Options<CreateSourceData, ThrowOnError>) => (options.client ?? client).post<CreateSourceResponses, CreateSourceErrors, ThrowOnError>({
@@ -81,6 +178,37 @@ export const createSource = <ThrowOnError extends boolean = false>(options: Opti
         'Content-Type': 'application/json',
         ...options.headers
     }
+});
+
+/**
+ * Update Source
+ */
+export const updateSource = <ThrowOnError extends boolean = false>(options: Options<UpdateSourceData, ThrowOnError>) => (options.client ?? client).put<UpdateSourceResponses, UpdateSourceErrors, ThrowOnError>({
+    responseType: 'json',
+    url: '/sources',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Delete Relation
+ */
+export const deleteRelation = <ThrowOnError extends boolean = false>(options: Options<DeleteRelationData, ThrowOnError>) => (options.client ?? client).delete<DeleteRelationResponses, DeleteRelationErrors, ThrowOnError>({
+    responseType: 'json',
+    url: '/relations',
+    ...options
+});
+
+/**
+ * Get Relation
+ */
+export const getRelation = <ThrowOnError extends boolean = false>(options: Options<GetRelationData, ThrowOnError>) => (options.client ?? client).get<GetRelationResponses, GetRelationErrors, ThrowOnError>({
+    responseType: 'json',
+    url: '/relations',
+    ...options
 });
 
 /**
@@ -97,9 +225,31 @@ export const createRelation = <ThrowOnError extends boolean = false>(options: Op
 });
 
 /**
- * Query Views
+ * Update Relation
  */
-export const queryViews = <ThrowOnError extends boolean = false>(options?: Options<QueryViewsData, ThrowOnError>) => (options?.client ?? client).get<QueryViewsResponses, QueryViewsErrors, ThrowOnError>({
+export const updateRelation = <ThrowOnError extends boolean = false>(options: Options<UpdateRelationData, ThrowOnError>) => (options.client ?? client).put<UpdateRelationResponses, UpdateRelationErrors, ThrowOnError>({
+    responseType: 'json',
+    url: '/relations',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Delete View
+ */
+export const deleteView = <ThrowOnError extends boolean = false>(options: Options<DeleteViewData, ThrowOnError>) => (options.client ?? client).delete<DeleteViewResponses, DeleteViewErrors, ThrowOnError>({
+    responseType: 'json',
+    url: '/views',
+    ...options
+});
+
+/**
+ * Get View
+ */
+export const getView = <ThrowOnError extends boolean = false>(options: Options<GetViewData, ThrowOnError>) => (options.client ?? client).get<GetViewResponses, GetViewErrors, ThrowOnError>({
     responseType: 'json',
     url: '/views',
     ...options
@@ -119,139 +269,11 @@ export const createView = <ThrowOnError extends boolean = false>(options: Option
 });
 
 /**
- * Get Person
+ * Update View
  */
-export const getPerson = <ThrowOnError extends boolean = false>(options: Options<GetPersonData, ThrowOnError>) => (options.client ?? client).get<GetPersonResponses, GetPersonErrors, ThrowOnError>({
+export const updateView = <ThrowOnError extends boolean = false>(options: Options<UpdateViewData, ThrowOnError>) => (options.client ?? client).put<UpdateViewResponses, UpdateViewErrors, ThrowOnError>({
     responseType: 'json',
-    url: '/persons/{id}',
-    ...options
-});
-
-/**
- * Update Person
- */
-export const updatePerson = <ThrowOnError extends boolean = false>(options: Options<UpdatePersonData, ThrowOnError>) => (options.client ?? client).put<UpdatePersonResponses, UpdatePersonErrors, ThrowOnError>({
-    responseType: 'json',
-    url: '/persons/{id}',
-    ...options,
-    headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-    }
-});
-
-/**
- * Get Organization
- */
-export const getOrganization = <ThrowOnError extends boolean = false>(options: Options<GetOrganizationData, ThrowOnError>) => (options.client ?? client).get<GetOrganizationResponses, GetOrganizationErrors, ThrowOnError>({
-    responseType: 'json',
-    url: '/organizations/{id}',
-    ...options
-});
-
-/**
- * Update Organization
- */
-export const updateOrganization = <ThrowOnError extends boolean = false>(options: Options<UpdateOrganizationData, ThrowOnError>) => (options.client ?? client).put<UpdateOrganizationResponses, UpdateOrganizationErrors, ThrowOnError>({
-    responseType: 'json',
-    url: '/organizations/{id}',
-    ...options,
-    headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-    }
-});
-
-/**
- * Get Event
- */
-export const getEvent = <ThrowOnError extends boolean = false>(options: Options<GetEventData, ThrowOnError>) => (options.client ?? client).get<GetEventResponses, GetEventErrors, ThrowOnError>({
-    responseType: 'json',
-    url: '/events/{id}',
-    ...options
-});
-
-/**
- * Update Event
- */
-export const updateEvent = <ThrowOnError extends boolean = false>(options: Options<UpdateEventData, ThrowOnError>) => (options.client ?? client).put<UpdateEventResponses, UpdateEventErrors, ThrowOnError>({
-    responseType: 'json',
-    url: '/events/{id}',
-    ...options,
-    headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-    }
-});
-
-/**
- * Get Website
- */
-export const getWebsite = <ThrowOnError extends boolean = false>(options: Options<GetWebsiteData, ThrowOnError>) => (options.client ?? client).get<GetWebsiteResponses, GetWebsiteErrors, ThrowOnError>({
-    responseType: 'json',
-    url: '/websites/{id}',
-    ...options
-});
-
-/**
- * Update Website
- */
-export const updateWebsite = <ThrowOnError extends boolean = false>(options: Options<UpdateWebsiteData, ThrowOnError>) => (options.client ?? client).put<UpdateWebsiteResponses, UpdateWebsiteErrors, ThrowOnError>({
-    responseType: 'json',
-    url: '/websites/{id}',
-    ...options,
-    headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-    }
-});
-
-/**
- * Get Source
- */
-export const getSource = <ThrowOnError extends boolean = false>(options: Options<GetSourceData, ThrowOnError>) => (options.client ?? client).get<GetSourceResponses, GetSourceErrors, ThrowOnError>({
-    responseType: 'json',
-    url: '/sources/{id}',
-    ...options
-});
-
-/**
- * Update Source
- */
-export const updateSource = <ThrowOnError extends boolean = false>(options: Options<UpdateSourceData, ThrowOnError>) => (options.client ?? client).put<UpdateSourceResponses, UpdateSourceErrors, ThrowOnError>({
-    responseType: 'json',
-    url: '/sources/{id}',
-    ...options,
-    headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-    }
-});
-
-/**
- * Delete Relation
- */
-export const deleteRelation = <ThrowOnError extends boolean = false>(options: Options<DeleteRelationData, ThrowOnError>) => (options.client ?? client).delete<DeleteRelationResponses, DeleteRelationErrors, ThrowOnError>({
-    responseType: 'json',
-    url: '/relations/{id}',
-    ...options
-});
-
-/**
- * Get Relation
- */
-export const getRelation = <ThrowOnError extends boolean = false>(options: Options<GetRelationData, ThrowOnError>) => (options.client ?? client).get<GetRelationResponses, GetRelationErrors, ThrowOnError>({
-    responseType: 'json',
-    url: '/relations/{id}',
-    ...options
-});
-
-/**
- * Update Relation
- */
-export const updateRelation = <ThrowOnError extends boolean = false>(options: Options<UpdateRelationData, ThrowOnError>) => (options.client ?? client).put<UpdateRelationResponses, UpdateRelationErrors, ThrowOnError>({
-    responseType: 'json',
-    url: '/relations/{id}',
+    url: '/views',
     ...options,
     headers: {
         'Content-Type': 'application/json',
@@ -264,7 +286,7 @@ export const updateRelation = <ThrowOnError extends boolean = false>(options: Op
  */
 export const getViewEntities = <ThrowOnError extends boolean = false>(options: Options<GetViewEntitiesData, ThrowOnError>) => (options.client ?? client).get<GetViewEntitiesResponses, GetViewEntitiesErrors, ThrowOnError>({
     responseType: 'json',
-    url: '/views/{id}/entities',
+    url: '/views/entities',
     ...options
 });
 
@@ -273,7 +295,7 @@ export const getViewEntities = <ThrowOnError extends boolean = false>(options: O
  */
 export const connectEntityToView = <ThrowOnError extends boolean = false>(options: Options<ConnectEntityToViewData, ThrowOnError>) => (options.client ?? client).post<ConnectEntityToViewResponses, ConnectEntityToViewErrors, ThrowOnError>({
     responseType: 'json',
-    url: '/views/{id}/entities',
+    url: '/views/entities',
     ...options,
     headers: {
         'Content-Type': 'application/json',
@@ -282,34 +304,12 @@ export const connectEntityToView = <ThrowOnError extends boolean = false>(option
 });
 
 /**
- * Delete View
+ * Query Views
  */
-export const deleteView = <ThrowOnError extends boolean = false>(options: Options<DeleteViewData, ThrowOnError>) => (options.client ?? client).delete<DeleteViewResponses, DeleteViewErrors, ThrowOnError>({
+export const queryViews = <ThrowOnError extends boolean = false>(options?: Options<QueryViewsData, ThrowOnError>) => (options?.client ?? client).get<QueryViewsResponses, QueryViewsErrors, ThrowOnError>({
     responseType: 'json',
-    url: '/views/{id}',
+    url: '/views/query',
     ...options
-});
-
-/**
- * Get View
- */
-export const getView = <ThrowOnError extends boolean = false>(options: Options<GetViewData, ThrowOnError>) => (options.client ?? client).get<GetViewResponses, GetViewErrors, ThrowOnError>({
-    responseType: 'json',
-    url: '/views/{id}',
-    ...options
-});
-
-/**
- * Update View
- */
-export const updateView = <ThrowOnError extends boolean = false>(options: Options<UpdateViewData, ThrowOnError>) => (options.client ?? client).put<UpdateViewResponses, UpdateViewErrors, ThrowOnError>({
-    responseType: 'json',
-    url: '/views/{id}',
-    ...options,
-    headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-    }
 });
 
 /**
@@ -317,7 +317,7 @@ export const updateView = <ThrowOnError extends boolean = false>(options: Option
  */
 export const updatePersonPermissions = <ThrowOnError extends boolean = false>(options: Options<UpdatePersonPermissionsData, ThrowOnError>) => (options.client ?? client).put<UpdatePersonPermissionsResponses, UpdatePersonPermissionsErrors, ThrowOnError>({
     responseType: 'json',
-    url: '/persons/{id}/permissions',
+    url: '/persons/permissions',
     ...options,
     headers: {
         'Content-Type': 'application/json',
@@ -330,7 +330,7 @@ export const updatePersonPermissions = <ThrowOnError extends boolean = false>(op
  */
 export const updateOrganizationPermissions = <ThrowOnError extends boolean = false>(options: Options<UpdateOrganizationPermissionsData, ThrowOnError>) => (options.client ?? client).put<UpdateOrganizationPermissionsResponses, UpdateOrganizationPermissionsErrors, ThrowOnError>({
     responseType: 'json',
-    url: '/organizations/{id}/permissions',
+    url: '/organizations/permissions',
     ...options,
     headers: {
         'Content-Type': 'application/json',
@@ -343,7 +343,7 @@ export const updateOrganizationPermissions = <ThrowOnError extends boolean = fal
  */
 export const updateEventPermissions = <ThrowOnError extends boolean = false>(options: Options<UpdateEventPermissionsData, ThrowOnError>) => (options.client ?? client).put<UpdateEventPermissionsResponses, UpdateEventPermissionsErrors, ThrowOnError>({
     responseType: 'json',
-    url: '/events/{id}/permissions',
+    url: '/events/permissions',
     ...options,
     headers: {
         'Content-Type': 'application/json',
@@ -356,7 +356,7 @@ export const updateEventPermissions = <ThrowOnError extends boolean = false>(opt
  */
 export const updateWebsitePermissions = <ThrowOnError extends boolean = false>(options: Options<UpdateWebsitePermissionsData, ThrowOnError>) => (options.client ?? client).put<UpdateWebsitePermissionsResponses, UpdateWebsitePermissionsErrors, ThrowOnError>({
     responseType: 'json',
-    url: '/websites/{id}/permissions',
+    url: '/websites/permissions',
     ...options,
     headers: {
         'Content-Type': 'application/json',
@@ -369,7 +369,7 @@ export const updateWebsitePermissions = <ThrowOnError extends boolean = false>(o
  */
 export const updateSourcePermissions = <ThrowOnError extends boolean = false>(options: Options<UpdateSourcePermissionsData, ThrowOnError>) => (options.client ?? client).put<UpdateSourcePermissionsResponses, UpdateSourcePermissionsErrors, ThrowOnError>({
     responseType: 'json',
-    url: '/sources/{id}/permissions',
+    url: '/sources/permissions',
     ...options,
     headers: {
         'Content-Type': 'application/json',
@@ -382,7 +382,7 @@ export const updateSourcePermissions = <ThrowOnError extends boolean = false>(op
  */
 export const updateRelationPermissions = <ThrowOnError extends boolean = false>(options: Options<UpdateRelationPermissionsData, ThrowOnError>) => (options.client ?? client).put<UpdateRelationPermissionsResponses, UpdateRelationPermissionsErrors, ThrowOnError>({
     responseType: 'json',
-    url: '/relations/{id}/permissions',
+    url: '/relations/permissions',
     ...options,
     headers: {
         'Content-Type': 'application/json',
@@ -395,7 +395,7 @@ export const updateRelationPermissions = <ThrowOnError extends boolean = false>(
  */
 export const updateViewPermissions = <ThrowOnError extends boolean = false>(options: Options<UpdateViewPermissionsData, ThrowOnError>) => (options.client ?? client).put<UpdateViewPermissionsResponses, UpdateViewPermissionsErrors, ThrowOnError>({
     responseType: 'json',
-    url: '/views/{id}/permissions',
+    url: '/views/permissions',
     ...options,
     headers: {
         'Content-Type': 'application/json',
@@ -408,6 +408,6 @@ export const updateViewPermissions = <ThrowOnError extends boolean = false>(opti
  */
 export const deleteEntity = <ThrowOnError extends boolean = false>(options: Options<DeleteEntityData, ThrowOnError>) => (options.client ?? client).delete<DeleteEntityResponses, DeleteEntityErrors, ThrowOnError>({
     responseType: 'json',
-    url: '/entities/{id}',
+    url: '/entities',
     ...options
 });

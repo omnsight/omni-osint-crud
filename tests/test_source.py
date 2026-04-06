@@ -121,7 +121,9 @@ class TestSource:
 
     def test_update_source_not_found(self):
         update_data = SourceMainData(name="Jane Doe", url="http://jane.com")
-        response = self.client.put("/sources?id=source/non-existent-id", json=update_data.model_dump(exclude_unset=True))
+        response = self.client.put(
+            "/sources?id=source/non-existent-id", json=update_data.model_dump(exclude_unset=True)
+        )
         assert response.status_code == 404
 
     def test_update_source_permission_denied(self):

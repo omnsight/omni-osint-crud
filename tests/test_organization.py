@@ -55,7 +55,9 @@ class TestOrganization:
 
         # 3. Update Organization
         update_data = OrganizationMainData(name="Test Corp Updated")
-        response = self.client.put(f"/organizations?id={organization_id}", json=update_data.model_dump(exclude_unset=True))
+        response = self.client.put(
+            f"/organizations?id={organization_id}", json=update_data.model_dump(exclude_unset=True)
+        )
         assert response.status_code == 200
         updated_organization = response.json()
         assert updated_organization["name"] == "Test Corp Updated"

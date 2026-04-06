@@ -85,9 +85,7 @@ def update_person(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.put(
-    "/organizations/permissions", response_model=Organization, operation_id="update_organization_permissions"
-)
+@router.put("/organizations/permissions", response_model=Organization, operation_id="update_organization_permissions")
 def update_organization_permissions(
     id: str = Query(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"

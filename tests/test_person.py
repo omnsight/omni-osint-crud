@@ -120,7 +120,9 @@ class TestPerson:
 
     def test_update_person_not_found(self):
         update_data = PersonMainData(name="Jane Doe")
-        response = self.client.put("/persons?id=person/non-existent-id", json=update_data.model_dump(exclude_unset=True))
+        response = self.client.put(
+            "/persons?id=person/non-existent-id", json=update_data.model_dump(exclude_unset=True)
+        )
         assert response.status_code == 404
 
     def test_update_person_permission_denied(self):

@@ -710,7 +710,7 @@ wheels = [
 
 [[package]]
 name = "omni-osint-crud"
-version = "1.1.5"
+version = "1.2.0"
 source = { editable = "." }
 dependencies = [
     { name = "omni-python-library" },
