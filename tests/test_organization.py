@@ -49,23 +49,25 @@ class TestOrganization:
         assert created_organization["name"] == "Test Corp"
 
         # 2. Read Organization
-        response = self.client.get(f"/organizations/{organization_id}")
+        response = self.client.get(f"/organizations?id={organization_id}")
         assert response.status_code == 200
         assert response.json() == created_organization
 
         # 3. Update Organization
         update_data = OrganizationMainData(name="Test Corp Updated")
-        response = self.client.put(f"/organizations/{organization_id}", json=update_data.model_dump(exclude_unset=True))
+        response = self.client.put(
+            f"/organizations?id={organization_id}", json=update_data.model_dump(exclude_unset=True)
+        )
         assert response.status_code == 200
         updated_organization = response.json()
         assert updated_organization["name"] == "Test Corp Updated"
 
         # 4. Delete Organization
-        response = self.client.delete(f"/entities/{organization_id}")
+        response = self.client.delete(f"/entities?id={organization_id}")
         assert response.status_code == 200
 
         # 5. Verify Deletion
-        response = self.client.get(f"/organizations/{organization_id}")
+        response = self.client.get(f"/organizations?id={organization_id}")
         assert response.status_code == 404
 
     ######################################################################################################
@@ -89,11 +91,11 @@ class TestOrganization:
     ######################################################################################################
 
     def test_read_organization_not_found(self):
-        response = self.client.get("/organizations/organization/non-existent-id")
+        response = self.client.get("/organizations?id=organization/non-existent-id")
         assert response.status_code == 404
 
     def test_read_organization_not_found_bad_id(self):
-        response = self.client.get("/organizations/bad_collection/bad_key")
+        response = self.client.get("/organizations?id=bad_collection/bad_key")
         assert response.status_code == 404
 
     def test_read_organization_permission_denied(self):
@@ -103,13 +105,13 @@ class TestOrganization:
         created_organization = response.json()
         organization_id = created_organization["_id"]
 
-        response = self.no_roles_client.get(f"/organizations/{organization_id}")
+        response = self.no_roles_client.get(f"/organizations?id={organization_id}")
         assert response.status_code == 403
 
     @patch("omni_osint_crud.routers.read.dal.get_organization")
     def test_read_organization_internal_error(self, mock_read_organization):
         mock_read_organization.side_effect = Exception("DB error")
-        response = self.client.get("/organizations/organization/some-id")
+        response = self.client.get("/organizations?id=organization/some-id")
         assert response.status_code == 500
 
     ######################################################################################################
@@ -121,7 +123,7 @@ class TestOrganization:
     def test_update_organization_not_found(self):
         update_data = OrganizationMainData(name="Jane Doe")
         response = self.client.put(
-            "/organizations/organization/non-existent-id", json=update_data.model_dump(exclude_unset=True)
+            "/organizations?id=organization/non-existent-id", json=update_data.model_dump(exclude_unset=True)
         )
         assert response.status_code == 404
 
@@ -134,7 +136,7 @@ class TestOrganization:
 
         update_data = OrganizationMainData(name="Jane Doe")
         response = self.no_roles_client.put(
-            f"/organizations/{organization_id}", json=update_data.model_dump(exclude_unset=True)
+            f"/organizations?id={organization_id}", json=update_data.model_dump(exclude_unset=True)
         )
         assert response.status_code == 403
 
@@ -143,7 +145,7 @@ class TestOrganization:
         mock_update_organization.side_effect = Exception("DB error")
         update_data = OrganizationMainData(name="Jane Doe")
         response = self.client.put(
-            "/organizations/organization/some-id", json=update_data.model_dump(exclude_unset=True)
+            "/organizations?id=organization/some-id", json=update_data.model_dump(exclude_unset=True)
         )
         assert response.status_code == 500
 
@@ -151,7 +153,7 @@ class TestOrganization:
 
     def test_update_organization_permissions_not_found(self):
         update_data = {"owner": "new-owner"}
-        response = self.client.put("/organizations/organization/non-existent-id/permissions", json=update_data)
+        response = self.client.put("/organizations/permissions?id=organization/non-existent-id", json=update_data)
         assert response.status_code == 404
 
     def test_update_organization_permissions_permission_denied(self):
@@ -164,19 +166,19 @@ class TestOrganization:
 
         # 2. Grant the user_client read access
         permission_data = {"read": ["test-user-id-789"]}
-        response = self.client.put(f"/organizations/{organization_id}/permissions", json=permission_data)
+        response = self.client.put(f"/organizations/permissions?id={organization_id}", json=permission_data)
         assert response.status_code == 200
 
         # 3. Attempt to update permissions with the user_client (non-owner)
         update_data = {"owner": "new-owner"}
-        response = self.user_client.put(f"/organizations/{organization_id}/permissions", json=update_data)
+        response = self.user_client.put(f"/organizations/permissions?id={organization_id}", json=update_data)
         assert response.status_code == 403
 
     @patch("omni_osint_crud.routers.update.dal.update_organization")
     def test_update_organization_permissions_internal_error(self, mock_update_organization):
         mock_update_organization.side_effect = Exception("DB error")
         update_data = {"owner": "new-owner"}
-        response = self.client.put("/organizations/organizations/some-id/permissions", json=update_data)
+        response = self.client.put("/organizations/permissions?id=organizations/some-id", json=update_data)
         assert response.status_code == 500
 
     ######################################################################################################
@@ -184,7 +186,7 @@ class TestOrganization:
     ######################################################################################################
 
     def test_delete_organization_not_found(self):
-        response = self.client.delete("/entities/organization/non-existent-id")
+        response = self.client.delete("/entities?id=organization/non-existent-id")
         assert response.status_code == 404
 
     def test_delete_organization_permission_denied(self):
@@ -194,11 +196,11 @@ class TestOrganization:
         created_organization = response.json()
         organization_id = created_organization["_id"]
 
-        response = self.no_roles_client.delete(f"/entities/{organization_id}")
+        response = self.no_roles_client.delete(f"/entities?id={organization_id}")
         assert response.status_code == 403
 
     @patch("omni_osint_crud.routers.delete.dal.delete_entity")
     def test_delete_organization_internal_error(self, mock_delete_entity):
         mock_delete_entity.side_effect = Exception("DB error")
-        response = self.client.delete("/entities/organizations/some-id")
+        response = self.client.delete("/entities?id=organizations/some-id")
         assert response.status_code == 500

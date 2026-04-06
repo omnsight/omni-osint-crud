@@ -1,7 +1,7 @@
 import logging
 from typing import Dict, List
 
-from fastapi import APIRouter, Depends, HTTPException, Path
+from fastapi import APIRouter, Depends, HTTPException, Path, Query
 from omni_python_library.dal import OsintDataAccessLayer, ViewDataAccessLayer
 from omni_python_library.middleware import get_user_context
 from omni_python_library.models import (
@@ -38,9 +38,9 @@ class QueryViewsResponse(BaseModel):
     offset: int = Field(default=0, description="The offset from which to start returning results.")
 
 
-@router.get("/persons/{id:path}", response_model=Person, operation_id="get_person")
+@router.get("/persons", response_model=Person, operation_id="get_person")
 def get_person(
-    id: str = Path(
+    id: str = Query(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
     ),
     include_pending: bool = False,
@@ -63,9 +63,9 @@ def get_person(
     return result
 
 
-@router.get("/organizations/{id:path}", response_model=Organization, operation_id="get_organization")
+@router.get("/organizations", response_model=Organization, operation_id="get_organization")
 def get_organization(
-    id: str = Path(
+    id: str = Query(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
     ),
     include_pending: bool = False,
@@ -88,9 +88,9 @@ def get_organization(
     return result
 
 
-@router.get("/events/{id:path}", response_model=Event, operation_id="get_event")
+@router.get("/events", response_model=Event, operation_id="get_event")
 def get_event(
-    id: str = Path(
+    id: str = Query(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
     ),
     include_pending: bool = False,
@@ -113,9 +113,9 @@ def get_event(
     return result
 
 
-@router.get("/websites/{id:path}", response_model=Website, operation_id="get_website")
+@router.get("/websites", response_model=Website, operation_id="get_website")
 def get_website(
-    id: str = Path(
+    id: str = Query(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
     ),
     include_pending: bool = False,
@@ -138,9 +138,9 @@ def get_website(
     return result
 
 
-@router.get("/sources/{id:path}", response_model=Source, operation_id="get_source")
+@router.get("/sources", response_model=Source, operation_id="get_source")
 def get_source(
-    id: str = Path(
+    id: str = Query(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
     ),
     include_pending: bool = False,
@@ -163,9 +163,9 @@ def get_source(
     return result
 
 
-@router.get("/relations/{id:path}", response_model=Relation, operation_id="get_relation")
+@router.get("/relations", response_model=Relation, operation_id="get_relation")
 def get_relation(
-    id: str = Path(
+    id: str = Query(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
     ),
     include_pending: bool = False,
@@ -189,12 +189,12 @@ def get_relation(
 
 
 @router.get(
-    "/views/{id:path}/entities",
+    "/views/entities",
     response_model=Entities,
     operation_id="get_view_entities",
 )
 def get_view_entities(
-    id: str = Path(
+    id: str = Query(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
     ),
     user_ctx: Dict = Depends(get_user_context),
@@ -222,9 +222,9 @@ def get_view_entities(
         raise HTTPException(status_code=500, detail="Internal service error")
 
 
-@router.get("/views/{id:path}", response_model=OsintView, operation_id="get_view")
+@router.get("/views", response_model=OsintView, operation_id="get_view")
 def get_view(
-    id: str = Path(
+    id: str = Query(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
     ),
     user_ctx: Dict = Depends(get_user_context),
@@ -246,7 +246,7 @@ def get_view(
     return result
 
 
-@router.get("/views", response_model=QueryViewsResponse, operation_id="query_views")
+@router.get("/views/query", response_model=QueryViewsResponse, operation_id="query_views")
 def query_views(text: str | None = None, limit: int = 100, offset: int = 0, user_ctx: Dict = Depends(get_user_context)):
     try:
         results = view_dal.query_views(text=text, owner=user_ctx["user_id"], limit=limit, offset=offset)

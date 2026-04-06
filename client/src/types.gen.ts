@@ -1234,6 +1234,48 @@ export type WebsiteMainData = {
     } | null;
 };
 
+export type GetPersonData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        authorization?: string | null;
+    };
+    path?: never;
+    query: {
+        /**
+         * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
+         */
+        id: string;
+        /**
+         * Include Pending
+         */
+        include_pending?: boolean;
+    };
+    url: '/persons';
+};
+
+export type GetPersonErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetPersonError = GetPersonErrors[keyof GetPersonErrors];
+
+export type GetPersonResponses = {
+    /**
+     * Successful Response
+     */
+    200: Person;
+};
+
+export type GetPersonResponse = GetPersonResponses[keyof GetPersonResponses];
+
 export type CreatePersonData = {
     body: PersonMainData;
     headers?: {
@@ -1269,6 +1311,90 @@ export type CreatePersonResponses = {
 };
 
 export type CreatePersonResponse = CreatePersonResponses[keyof CreatePersonResponses];
+
+export type UpdatePersonData = {
+    body: PersonMainData;
+    headers?: {
+        /**
+         * Authorization
+         */
+        authorization?: string | null;
+    };
+    path?: never;
+    query: {
+        /**
+         * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
+         */
+        id: string;
+        /**
+         * Include Pending
+         */
+        include_pending?: boolean;
+    };
+    url: '/persons';
+};
+
+export type UpdatePersonErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type UpdatePersonError = UpdatePersonErrors[keyof UpdatePersonErrors];
+
+export type UpdatePersonResponses = {
+    /**
+     * Successful Response
+     */
+    200: Person;
+};
+
+export type UpdatePersonResponse = UpdatePersonResponses[keyof UpdatePersonResponses];
+
+export type GetOrganizationData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        authorization?: string | null;
+    };
+    path?: never;
+    query: {
+        /**
+         * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
+         */
+        id: string;
+        /**
+         * Include Pending
+         */
+        include_pending?: boolean;
+    };
+    url: '/organizations';
+};
+
+export type GetOrganizationErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetOrganizationError = GetOrganizationErrors[keyof GetOrganizationErrors];
+
+export type GetOrganizationResponses = {
+    /**
+     * Successful Response
+     */
+    200: Organization;
+};
+
+export type GetOrganizationResponse = GetOrganizationResponses[keyof GetOrganizationResponses];
 
 export type CreateOrganizationData = {
     body: OrganizationMainData;
@@ -1306,6 +1432,90 @@ export type CreateOrganizationResponses = {
 
 export type CreateOrganizationResponse = CreateOrganizationResponses[keyof CreateOrganizationResponses];
 
+export type UpdateOrganizationData = {
+    body: OrganizationMainData;
+    headers?: {
+        /**
+         * Authorization
+         */
+        authorization?: string | null;
+    };
+    path?: never;
+    query: {
+        /**
+         * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
+         */
+        id: string;
+        /**
+         * Include Pending
+         */
+        include_pending?: boolean;
+    };
+    url: '/organizations';
+};
+
+export type UpdateOrganizationErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type UpdateOrganizationError = UpdateOrganizationErrors[keyof UpdateOrganizationErrors];
+
+export type UpdateOrganizationResponses = {
+    /**
+     * Successful Response
+     */
+    200: Organization;
+};
+
+export type UpdateOrganizationResponse = UpdateOrganizationResponses[keyof UpdateOrganizationResponses];
+
+export type GetEventData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        authorization?: string | null;
+    };
+    path?: never;
+    query: {
+        /**
+         * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
+         */
+        id: string;
+        /**
+         * Include Pending
+         */
+        include_pending?: boolean;
+    };
+    url: '/events';
+};
+
+export type GetEventErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetEventError = GetEventErrors[keyof GetEventErrors];
+
+export type GetEventResponses = {
+    /**
+     * Successful Response
+     */
+    200: Event;
+};
+
+export type GetEventResponse = GetEventResponses[keyof GetEventResponses];
+
 export type CreateEventData = {
     body: EventMainData;
     headers?: {
@@ -1341,6 +1551,90 @@ export type CreateEventResponses = {
 };
 
 export type CreateEventResponse = CreateEventResponses[keyof CreateEventResponses];
+
+export type UpdateEventData = {
+    body: EventMainData;
+    headers?: {
+        /**
+         * Authorization
+         */
+        authorization?: string | null;
+    };
+    path?: never;
+    query: {
+        /**
+         * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
+         */
+        id: string;
+        /**
+         * Include Pending
+         */
+        include_pending?: boolean;
+    };
+    url: '/events';
+};
+
+export type UpdateEventErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type UpdateEventError = UpdateEventErrors[keyof UpdateEventErrors];
+
+export type UpdateEventResponses = {
+    /**
+     * Successful Response
+     */
+    200: Event;
+};
+
+export type UpdateEventResponse = UpdateEventResponses[keyof UpdateEventResponses];
+
+export type GetWebsiteData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        authorization?: string | null;
+    };
+    path?: never;
+    query: {
+        /**
+         * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
+         */
+        id: string;
+        /**
+         * Include Pending
+         */
+        include_pending?: boolean;
+    };
+    url: '/websites';
+};
+
+export type GetWebsiteErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetWebsiteError = GetWebsiteErrors[keyof GetWebsiteErrors];
+
+export type GetWebsiteResponses = {
+    /**
+     * Successful Response
+     */
+    200: Website;
+};
+
+export type GetWebsiteResponse = GetWebsiteResponses[keyof GetWebsiteResponses];
 
 export type CreateWebsiteData = {
     body: WebsiteMainData;
@@ -1378,6 +1672,90 @@ export type CreateWebsiteResponses = {
 
 export type CreateWebsiteResponse = CreateWebsiteResponses[keyof CreateWebsiteResponses];
 
+export type UpdateWebsiteData = {
+    body: WebsiteMainData;
+    headers?: {
+        /**
+         * Authorization
+         */
+        authorization?: string | null;
+    };
+    path?: never;
+    query: {
+        /**
+         * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
+         */
+        id: string;
+        /**
+         * Include Pending
+         */
+        include_pending?: boolean;
+    };
+    url: '/websites';
+};
+
+export type UpdateWebsiteErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type UpdateWebsiteError = UpdateWebsiteErrors[keyof UpdateWebsiteErrors];
+
+export type UpdateWebsiteResponses = {
+    /**
+     * Successful Response
+     */
+    200: Website;
+};
+
+export type UpdateWebsiteResponse = UpdateWebsiteResponses[keyof UpdateWebsiteResponses];
+
+export type GetSourceData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        authorization?: string | null;
+    };
+    path?: never;
+    query: {
+        /**
+         * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
+         */
+        id: string;
+        /**
+         * Include Pending
+         */
+        include_pending?: boolean;
+    };
+    url: '/sources';
+};
+
+export type GetSourceErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetSourceError = GetSourceErrors[keyof GetSourceErrors];
+
+export type GetSourceResponses = {
+    /**
+     * Successful Response
+     */
+    200: Source;
+};
+
+export type GetSourceResponse = GetSourceResponses[keyof GetSourceResponses];
+
 export type CreateSourceData = {
     body: SourceMainData;
     headers?: {
@@ -1413,6 +1791,126 @@ export type CreateSourceResponses = {
 };
 
 export type CreateSourceResponse = CreateSourceResponses[keyof CreateSourceResponses];
+
+export type UpdateSourceData = {
+    body: SourceMainData;
+    headers?: {
+        /**
+         * Authorization
+         */
+        authorization?: string | null;
+    };
+    path?: never;
+    query: {
+        /**
+         * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
+         */
+        id: string;
+        /**
+         * Include Pending
+         */
+        include_pending?: boolean;
+    };
+    url: '/sources';
+};
+
+export type UpdateSourceErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type UpdateSourceError = UpdateSourceErrors[keyof UpdateSourceErrors];
+
+export type UpdateSourceResponses = {
+    /**
+     * Successful Response
+     */
+    200: Source;
+};
+
+export type UpdateSourceResponse = UpdateSourceResponses[keyof UpdateSourceResponses];
+
+export type DeleteRelationData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        authorization?: string | null;
+    };
+    path?: never;
+    query: {
+        /**
+         * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
+         */
+        id: string;
+    };
+    url: '/relations';
+};
+
+export type DeleteRelationErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type DeleteRelationError = DeleteRelationErrors[keyof DeleteRelationErrors];
+
+export type DeleteRelationResponses = {
+    /**
+     * Successful Response
+     */
+    200: unknown;
+};
+
+export type GetRelationData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        authorization?: string | null;
+    };
+    path?: never;
+    query: {
+        /**
+         * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
+         */
+        id: string;
+        /**
+         * Include Pending
+         */
+        include_pending?: boolean;
+    };
+    url: '/relations';
+};
+
+export type GetRelationErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetRelationError = GetRelationErrors[keyof GetRelationErrors];
+
+export type GetRelationResponses = {
+    /**
+     * Successful Response
+     */
+    200: Relation;
+};
+
+export type GetRelationResponse = GetRelationResponses[keyof GetRelationResponses];
 
 export type CreateRelationData = {
     body: RelationMainData;
@@ -1450,7 +1948,49 @@ export type CreateRelationResponses = {
 
 export type CreateRelationResponse = CreateRelationResponses[keyof CreateRelationResponses];
 
-export type QueryViewsData = {
+export type UpdateRelationData = {
+    body: RelationMainData;
+    headers?: {
+        /**
+         * Authorization
+         */
+        authorization?: string | null;
+    };
+    path?: never;
+    query: {
+        /**
+         * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
+         */
+        id: string;
+        /**
+         * Include Pending
+         */
+        include_pending?: boolean;
+    };
+    url: '/relations';
+};
+
+export type UpdateRelationErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type UpdateRelationError = UpdateRelationErrors[keyof UpdateRelationErrors];
+
+export type UpdateRelationResponses = {
+    /**
+     * Successful Response
+     */
+    200: Relation;
+};
+
+export type UpdateRelationResponse = UpdateRelationResponses[keyof UpdateRelationResponses];
+
+export type DeleteViewData = {
     body?: never;
     headers?: {
         /**
@@ -1459,40 +1999,70 @@ export type QueryViewsData = {
         authorization?: string | null;
     };
     path?: never;
-    query?: {
+    query: {
         /**
-         * Text
+         * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
          */
-        text?: string | null;
-        /**
-         * Limit
-         */
-        limit?: number;
-        /**
-         * Offset
-         */
-        offset?: number;
+        id: string;
     };
     url: '/views';
 };
 
-export type QueryViewsErrors = {
+export type DeleteViewErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type QueryViewsError = QueryViewsErrors[keyof QueryViewsErrors];
+export type DeleteViewError = DeleteViewErrors[keyof DeleteViewErrors];
 
-export type QueryViewsResponses = {
+export type DeleteViewResponses = {
     /**
      * Successful Response
      */
-    200: QueryViewsResponse;
+    200: unknown;
 };
 
-export type QueryViewsResponse2 = QueryViewsResponses[keyof QueryViewsResponses];
+export type GetViewData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        authorization?: string | null;
+    };
+    path?: never;
+    query: {
+        /**
+         * Id
+         *
+         * The ArangoDB Document ID (e.g., collection/123)
+         */
+        id: string;
+    };
+    url: '/views';
+};
+
+export type GetViewErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetViewError = GetViewErrors[keyof GetViewErrors];
+
+export type GetViewResponses = {
+    /**
+     * Successful Response
+     */
+    200: OsintView;
+};
+
+export type GetViewResponse = GetViewResponses[keyof GetViewResponses];
 
 export type CreateViewData = {
     body: OsintViewMainData;
@@ -1525,15 +2095,16 @@ export type CreateViewResponses = {
 
 export type CreateViewResponse = CreateViewResponses[keyof CreateViewResponses];
 
-export type GetPersonData = {
-    body?: never;
+export type UpdateViewData = {
+    body: OsintViewMainData;
     headers?: {
         /**
          * Authorization
          */
         authorization?: string | null;
     };
-    path: {
+    path?: never;
+    query: {
         /**
          * Id
          *
@@ -1541,541 +2112,26 @@ export type GetPersonData = {
          */
         id: string;
     };
-    query?: {
-        /**
-         * Include Pending
-         */
-        include_pending?: boolean;
-    };
-    url: '/persons/{id}';
+    url: '/views';
 };
 
-export type GetPersonErrors = {
+export type UpdateViewErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type GetPersonError = GetPersonErrors[keyof GetPersonErrors];
+export type UpdateViewError = UpdateViewErrors[keyof UpdateViewErrors];
 
-export type GetPersonResponses = {
+export type UpdateViewResponses = {
     /**
      * Successful Response
      */
-    200: Person;
+    200: OsintView;
 };
 
-export type GetPersonResponse = GetPersonResponses[keyof GetPersonResponses];
-
-export type UpdatePersonData = {
-    body: PersonMainData;
-    headers?: {
-        /**
-         * Authorization
-         */
-        authorization?: string | null;
-    };
-    path: {
-        /**
-         * Id
-         *
-         * The ArangoDB Document ID (e.g., collection/123)
-         */
-        id: string;
-    };
-    query?: {
-        /**
-         * Include Pending
-         */
-        include_pending?: boolean;
-    };
-    url: '/persons/{id}';
-};
-
-export type UpdatePersonErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type UpdatePersonError = UpdatePersonErrors[keyof UpdatePersonErrors];
-
-export type UpdatePersonResponses = {
-    /**
-     * Successful Response
-     */
-    200: Person;
-};
-
-export type UpdatePersonResponse = UpdatePersonResponses[keyof UpdatePersonResponses];
-
-export type GetOrganizationData = {
-    body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        authorization?: string | null;
-    };
-    path: {
-        /**
-         * Id
-         *
-         * The ArangoDB Document ID (e.g., collection/123)
-         */
-        id: string;
-    };
-    query?: {
-        /**
-         * Include Pending
-         */
-        include_pending?: boolean;
-    };
-    url: '/organizations/{id}';
-};
-
-export type GetOrganizationErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetOrganizationError = GetOrganizationErrors[keyof GetOrganizationErrors];
-
-export type GetOrganizationResponses = {
-    /**
-     * Successful Response
-     */
-    200: Organization;
-};
-
-export type GetOrganizationResponse = GetOrganizationResponses[keyof GetOrganizationResponses];
-
-export type UpdateOrganizationData = {
-    body: OrganizationMainData;
-    headers?: {
-        /**
-         * Authorization
-         */
-        authorization?: string | null;
-    };
-    path: {
-        /**
-         * Id
-         *
-         * The ArangoDB Document ID (e.g., collection/123)
-         */
-        id: string;
-    };
-    query?: {
-        /**
-         * Include Pending
-         */
-        include_pending?: boolean;
-    };
-    url: '/organizations/{id}';
-};
-
-export type UpdateOrganizationErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type UpdateOrganizationError = UpdateOrganizationErrors[keyof UpdateOrganizationErrors];
-
-export type UpdateOrganizationResponses = {
-    /**
-     * Successful Response
-     */
-    200: Organization;
-};
-
-export type UpdateOrganizationResponse = UpdateOrganizationResponses[keyof UpdateOrganizationResponses];
-
-export type GetEventData = {
-    body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        authorization?: string | null;
-    };
-    path: {
-        /**
-         * Id
-         *
-         * The ArangoDB Document ID (e.g., collection/123)
-         */
-        id: string;
-    };
-    query?: {
-        /**
-         * Include Pending
-         */
-        include_pending?: boolean;
-    };
-    url: '/events/{id}';
-};
-
-export type GetEventErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetEventError = GetEventErrors[keyof GetEventErrors];
-
-export type GetEventResponses = {
-    /**
-     * Successful Response
-     */
-    200: Event;
-};
-
-export type GetEventResponse = GetEventResponses[keyof GetEventResponses];
-
-export type UpdateEventData = {
-    body: EventMainData;
-    headers?: {
-        /**
-         * Authorization
-         */
-        authorization?: string | null;
-    };
-    path: {
-        /**
-         * Id
-         *
-         * The ArangoDB Document ID (e.g., collection/123)
-         */
-        id: string;
-    };
-    query?: {
-        /**
-         * Include Pending
-         */
-        include_pending?: boolean;
-    };
-    url: '/events/{id}';
-};
-
-export type UpdateEventErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type UpdateEventError = UpdateEventErrors[keyof UpdateEventErrors];
-
-export type UpdateEventResponses = {
-    /**
-     * Successful Response
-     */
-    200: Event;
-};
-
-export type UpdateEventResponse = UpdateEventResponses[keyof UpdateEventResponses];
-
-export type GetWebsiteData = {
-    body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        authorization?: string | null;
-    };
-    path: {
-        /**
-         * Id
-         *
-         * The ArangoDB Document ID (e.g., collection/123)
-         */
-        id: string;
-    };
-    query?: {
-        /**
-         * Include Pending
-         */
-        include_pending?: boolean;
-    };
-    url: '/websites/{id}';
-};
-
-export type GetWebsiteErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetWebsiteError = GetWebsiteErrors[keyof GetWebsiteErrors];
-
-export type GetWebsiteResponses = {
-    /**
-     * Successful Response
-     */
-    200: Website;
-};
-
-export type GetWebsiteResponse = GetWebsiteResponses[keyof GetWebsiteResponses];
-
-export type UpdateWebsiteData = {
-    body: WebsiteMainData;
-    headers?: {
-        /**
-         * Authorization
-         */
-        authorization?: string | null;
-    };
-    path: {
-        /**
-         * Id
-         *
-         * The ArangoDB Document ID (e.g., collection/123)
-         */
-        id: string;
-    };
-    query?: {
-        /**
-         * Include Pending
-         */
-        include_pending?: boolean;
-    };
-    url: '/websites/{id}';
-};
-
-export type UpdateWebsiteErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type UpdateWebsiteError = UpdateWebsiteErrors[keyof UpdateWebsiteErrors];
-
-export type UpdateWebsiteResponses = {
-    /**
-     * Successful Response
-     */
-    200: Website;
-};
-
-export type UpdateWebsiteResponse = UpdateWebsiteResponses[keyof UpdateWebsiteResponses];
-
-export type GetSourceData = {
-    body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        authorization?: string | null;
-    };
-    path: {
-        /**
-         * Id
-         *
-         * The ArangoDB Document ID (e.g., collection/123)
-         */
-        id: string;
-    };
-    query?: {
-        /**
-         * Include Pending
-         */
-        include_pending?: boolean;
-    };
-    url: '/sources/{id}';
-};
-
-export type GetSourceErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetSourceError = GetSourceErrors[keyof GetSourceErrors];
-
-export type GetSourceResponses = {
-    /**
-     * Successful Response
-     */
-    200: Source;
-};
-
-export type GetSourceResponse = GetSourceResponses[keyof GetSourceResponses];
-
-export type UpdateSourceData = {
-    body: SourceMainData;
-    headers?: {
-        /**
-         * Authorization
-         */
-        authorization?: string | null;
-    };
-    path: {
-        /**
-         * Id
-         *
-         * The ArangoDB Document ID (e.g., collection/123)
-         */
-        id: string;
-    };
-    query?: {
-        /**
-         * Include Pending
-         */
-        include_pending?: boolean;
-    };
-    url: '/sources/{id}';
-};
-
-export type UpdateSourceErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type UpdateSourceError = UpdateSourceErrors[keyof UpdateSourceErrors];
-
-export type UpdateSourceResponses = {
-    /**
-     * Successful Response
-     */
-    200: Source;
-};
-
-export type UpdateSourceResponse = UpdateSourceResponses[keyof UpdateSourceResponses];
-
-export type DeleteRelationData = {
-    body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        authorization?: string | null;
-    };
-    path: {
-        /**
-         * Id
-         *
-         * The ArangoDB Document ID (e.g., collection/123)
-         */
-        id: string;
-    };
-    query?: never;
-    url: '/relations/{id}';
-};
-
-export type DeleteRelationErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type DeleteRelationError = DeleteRelationErrors[keyof DeleteRelationErrors];
-
-export type DeleteRelationResponses = {
-    /**
-     * Successful Response
-     */
-    200: unknown;
-};
-
-export type GetRelationData = {
-    body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        authorization?: string | null;
-    };
-    path: {
-        /**
-         * Id
-         *
-         * The ArangoDB Document ID (e.g., collection/123)
-         */
-        id: string;
-    };
-    query?: {
-        /**
-         * Include Pending
-         */
-        include_pending?: boolean;
-    };
-    url: '/relations/{id}';
-};
-
-export type GetRelationErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetRelationError = GetRelationErrors[keyof GetRelationErrors];
-
-export type GetRelationResponses = {
-    /**
-     * Successful Response
-     */
-    200: Relation;
-};
-
-export type GetRelationResponse = GetRelationResponses[keyof GetRelationResponses];
-
-export type UpdateRelationData = {
-    body: RelationMainData;
-    headers?: {
-        /**
-         * Authorization
-         */
-        authorization?: string | null;
-    };
-    path: {
-        /**
-         * Id
-         *
-         * The ArangoDB Document ID (e.g., collection/123)
-         */
-        id: string;
-    };
-    query?: {
-        /**
-         * Include Pending
-         */
-        include_pending?: boolean;
-    };
-    url: '/relations/{id}';
-};
-
-export type UpdateRelationErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type UpdateRelationError = UpdateRelationErrors[keyof UpdateRelationErrors];
-
-export type UpdateRelationResponses = {
-    /**
-     * Successful Response
-     */
-    200: Relation;
-};
-
-export type UpdateRelationResponse = UpdateRelationResponses[keyof UpdateRelationResponses];
+export type UpdateViewResponse = UpdateViewResponses[keyof UpdateViewResponses];
 
 export type GetViewEntitiesData = {
     body?: never;
@@ -2085,7 +2141,8 @@ export type GetViewEntitiesData = {
          */
         authorization?: string | null;
     };
-    path: {
+    path?: never;
+    query: {
         /**
          * Id
          *
@@ -2093,8 +2150,7 @@ export type GetViewEntitiesData = {
          */
         id: string;
     };
-    query?: never;
-    url: '/views/{id}/entities';
+    url: '/views/entities';
 };
 
 export type GetViewEntitiesErrors = {
@@ -2123,7 +2179,8 @@ export type ConnectEntityToViewData = {
          */
         authorization?: string | null;
     };
-    path: {
+    path?: never;
+    query: {
         /**
          * Id
          *
@@ -2131,8 +2188,7 @@ export type ConnectEntityToViewData = {
          */
         id: string;
     };
-    query?: never;
-    url: '/views/{id}/entities';
+    url: '/views/entities';
 };
 
 export type ConnectEntityToViewErrors = {
@@ -2153,7 +2209,7 @@ export type ConnectEntityToViewResponses = {
 
 export type ConnectEntityToViewResponse = ConnectEntityToViewResponses[keyof ConnectEntityToViewResponses];
 
-export type DeleteViewData = {
+export type QueryViewsData = {
     body?: never;
     headers?: {
         /**
@@ -2161,109 +2217,41 @@ export type DeleteViewData = {
          */
         authorization?: string | null;
     };
-    path: {
+    path?: never;
+    query?: {
         /**
-         * Id
-         *
-         * The ArangoDB Document ID (e.g., collection/123)
+         * Text
          */
-        id: string;
+        text?: string | null;
+        /**
+         * Limit
+         */
+        limit?: number;
+        /**
+         * Offset
+         */
+        offset?: number;
     };
-    query?: never;
-    url: '/views/{id}';
+    url: '/views/query';
 };
 
-export type DeleteViewErrors = {
+export type QueryViewsErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type DeleteViewError = DeleteViewErrors[keyof DeleteViewErrors];
+export type QueryViewsError = QueryViewsErrors[keyof QueryViewsErrors];
 
-export type DeleteViewResponses = {
+export type QueryViewsResponses = {
     /**
      * Successful Response
      */
-    200: unknown;
+    200: QueryViewsResponse;
 };
 
-export type GetViewData = {
-    body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        authorization?: string | null;
-    };
-    path: {
-        /**
-         * Id
-         *
-         * The ArangoDB Document ID (e.g., collection/123)
-         */
-        id: string;
-    };
-    query?: never;
-    url: '/views/{id}';
-};
-
-export type GetViewErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetViewError = GetViewErrors[keyof GetViewErrors];
-
-export type GetViewResponses = {
-    /**
-     * Successful Response
-     */
-    200: OsintView;
-};
-
-export type GetViewResponse = GetViewResponses[keyof GetViewResponses];
-
-export type UpdateViewData = {
-    body: OsintViewMainData;
-    headers?: {
-        /**
-         * Authorization
-         */
-        authorization?: string | null;
-    };
-    path: {
-        /**
-         * Id
-         *
-         * The ArangoDB Document ID (e.g., collection/123)
-         */
-        id: string;
-    };
-    query?: never;
-    url: '/views/{id}';
-};
-
-export type UpdateViewErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type UpdateViewError = UpdateViewErrors[keyof UpdateViewErrors];
-
-export type UpdateViewResponses = {
-    /**
-     * Successful Response
-     */
-    200: OsintView;
-};
-
-export type UpdateViewResponse = UpdateViewResponses[keyof UpdateViewResponses];
+export type QueryViewsResponse2 = QueryViewsResponses[keyof QueryViewsResponses];
 
 export type UpdatePersonPermissionsData = {
     body: Permissive;
@@ -2273,7 +2261,8 @@ export type UpdatePersonPermissionsData = {
          */
         authorization?: string | null;
     };
-    path: {
+    path?: never;
+    query: {
         /**
          * Id
          *
@@ -2281,8 +2270,7 @@ export type UpdatePersonPermissionsData = {
          */
         id: string;
     };
-    query?: never;
-    url: '/persons/{id}/permissions';
+    url: '/persons/permissions';
 };
 
 export type UpdatePersonPermissionsErrors = {
@@ -2311,7 +2299,8 @@ export type UpdateOrganizationPermissionsData = {
          */
         authorization?: string | null;
     };
-    path: {
+    path?: never;
+    query: {
         /**
          * Id
          *
@@ -2319,8 +2308,7 @@ export type UpdateOrganizationPermissionsData = {
          */
         id: string;
     };
-    query?: never;
-    url: '/organizations/{id}/permissions';
+    url: '/organizations/permissions';
 };
 
 export type UpdateOrganizationPermissionsErrors = {
@@ -2349,7 +2337,8 @@ export type UpdateEventPermissionsData = {
          */
         authorization?: string | null;
     };
-    path: {
+    path?: never;
+    query: {
         /**
          * Id
          *
@@ -2357,8 +2346,7 @@ export type UpdateEventPermissionsData = {
          */
         id: string;
     };
-    query?: never;
-    url: '/events/{id}/permissions';
+    url: '/events/permissions';
 };
 
 export type UpdateEventPermissionsErrors = {
@@ -2387,7 +2375,8 @@ export type UpdateWebsitePermissionsData = {
          */
         authorization?: string | null;
     };
-    path: {
+    path?: never;
+    query: {
         /**
          * Id
          *
@@ -2395,8 +2384,7 @@ export type UpdateWebsitePermissionsData = {
          */
         id: string;
     };
-    query?: never;
-    url: '/websites/{id}/permissions';
+    url: '/websites/permissions';
 };
 
 export type UpdateWebsitePermissionsErrors = {
@@ -2425,7 +2413,8 @@ export type UpdateSourcePermissionsData = {
          */
         authorization?: string | null;
     };
-    path: {
+    path?: never;
+    query: {
         /**
          * Id
          *
@@ -2433,8 +2422,7 @@ export type UpdateSourcePermissionsData = {
          */
         id: string;
     };
-    query?: never;
-    url: '/sources/{id}/permissions';
+    url: '/sources/permissions';
 };
 
 export type UpdateSourcePermissionsErrors = {
@@ -2463,7 +2451,8 @@ export type UpdateRelationPermissionsData = {
          */
         authorization?: string | null;
     };
-    path: {
+    path?: never;
+    query: {
         /**
          * Id
          *
@@ -2471,8 +2460,7 @@ export type UpdateRelationPermissionsData = {
          */
         id: string;
     };
-    query?: never;
-    url: '/relations/{id}/permissions';
+    url: '/relations/permissions';
 };
 
 export type UpdateRelationPermissionsErrors = {
@@ -2501,7 +2489,8 @@ export type UpdateViewPermissionsData = {
          */
         authorization?: string | null;
     };
-    path: {
+    path?: never;
+    query: {
         /**
          * Id
          *
@@ -2509,8 +2498,7 @@ export type UpdateViewPermissionsData = {
          */
         id: string;
     };
-    query?: never;
-    url: '/views/{id}/permissions';
+    url: '/views/permissions';
 };
 
 export type UpdateViewPermissionsErrors = {
@@ -2539,7 +2527,8 @@ export type DeleteEntityData = {
          */
         authorization?: string | null;
     };
-    path: {
+    path?: never;
+    query: {
         /**
          * Id
          *
@@ -2547,8 +2536,7 @@ export type DeleteEntityData = {
          */
         id: string;
     };
-    query?: never;
-    url: '/entities/{id}';
+    url: '/entities';
 };
 
 export type DeleteEntityErrors = {

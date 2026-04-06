@@ -1,7 +1,7 @@
 import logging
 from typing import Dict
 
-from fastapi import APIRouter, Body, Depends, HTTPException, Path
+from fastapi import APIRouter, Body, Depends, HTTPException, Path, Query
 from omni_python_library.dal import OsintDataAccessLayer, ViewDataAccessLayer
 from omni_python_library.middleware import get_user_context
 from omni_python_library.models import (
@@ -34,9 +34,9 @@ class EntityConnectionRequest(BaseModel):
     entity_id: str = Field(..., description="The ID of the entity to connect to the view.")
 
 
-@router.put("/persons/{id:path}/permissions", response_model=Person, operation_id="update_person_permissions")
+@router.put("/persons/permissions", response_model=Person, operation_id="update_person_permissions")
 def update_person_permissions(
-    id: str = Path(
+    id: str = Query(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
     ),
     data: Permissive = Body(...),
@@ -60,9 +60,9 @@ def update_person_permissions(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.put("/persons/{id:path}", response_model=Person, operation_id="update_person")
+@router.put("/persons", response_model=Person, operation_id="update_person")
 def update_person(
-    id: str = Path(
+    id: str = Query(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
     ),
     data: PersonMainData = Body(...),
@@ -85,11 +85,9 @@ def update_person(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.put(
-    "/organizations/{id:path}/permissions", response_model=Organization, operation_id="update_organization_permissions"
-)
+@router.put("/organizations/permissions", response_model=Organization, operation_id="update_organization_permissions")
 def update_organization_permissions(
-    id: str = Path(
+    id: str = Query(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
     ),
     data: Permissive = Body(...),
@@ -115,9 +113,9 @@ def update_organization_permissions(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.put("/organizations/{id:path}", response_model=Organization, operation_id="update_organization")
+@router.put("/organizations", response_model=Organization, operation_id="update_organization")
 def update_organization(
-    id: str = Path(
+    id: str = Query(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
     ),
     data: OrganizationMainData = Body(...),
@@ -142,9 +140,9 @@ def update_organization(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.put("/events/{id:path}/permissions", response_model=Event, operation_id="update_event_permissions")
+@router.put("/events/permissions", response_model=Event, operation_id="update_event_permissions")
 def update_event_permissions(
-    id: str = Path(
+    id: str = Query(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
     ),
     data: Permissive = Body(...),
@@ -170,9 +168,9 @@ def update_event_permissions(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.put("/events/{id:path}", response_model=Event, operation_id="update_event")
+@router.put("/events", response_model=Event, operation_id="update_event")
 def update_event(
-    id: str = Path(
+    id: str = Query(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
     ),
     data: EventMainData = Body(...),
@@ -195,9 +193,9 @@ def update_event(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.put("/websites/{id:path}/permissions", response_model=Website, operation_id="update_website_permissions")
+@router.put("/websites/permissions", response_model=Website, operation_id="update_website_permissions")
 def update_website_permissions(
-    id: str = Path(
+    id: str = Query(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
     ),
     data: Permissive = Body(...),
@@ -223,9 +221,9 @@ def update_website_permissions(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.put("/websites/{id:path}", response_model=Website, operation_id="update_website")
+@router.put("/websites", response_model=Website, operation_id="update_website")
 def update_website(
-    id: str = Path(
+    id: str = Query(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
     ),
     data: WebsiteMainData = Body(...),
@@ -248,9 +246,9 @@ def update_website(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.put("/sources/{id:path}/permissions", response_model=Source, operation_id="update_source_permissions")
+@router.put("/sources/permissions", response_model=Source, operation_id="update_source_permissions")
 def update_source_permissions(
-    id: str = Path(
+    id: str = Query(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
     ),
     data: Permissive = Body(...),
@@ -276,9 +274,9 @@ def update_source_permissions(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.put("/sources/{id:path}", response_model=Source, operation_id="update_source")
+@router.put("/sources", response_model=Source, operation_id="update_source")
 def update_source(
-    id: str = Path(
+    id: str = Query(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
     ),
     data: SourceMainData = Body(...),
@@ -301,9 +299,9 @@ def update_source(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.put("/relations/{id:path}/permissions", response_model=Relation, operation_id="update_relation_permissions")
+@router.put("/relations/permissions", response_model=Relation, operation_id="update_relation_permissions")
 def update_relation_permissions(
-    id: str = Path(
+    id: str = Query(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
     ),
     data: Permissive = Body(...),
@@ -329,9 +327,9 @@ def update_relation_permissions(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.put("/relations/{id:path}", response_model=Relation, operation_id="update_relation")
+@router.put("/relations", response_model=Relation, operation_id="update_relation")
 def update_relation(
-    id: str = Path(
+    id: str = Query(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
     ),
     data: RelationMainData = Body(...),
@@ -357,9 +355,9 @@ def update_relation(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.post("/views/{id:path}/entities", response_model=OsintView, operation_id="connect_entity_to_view")
+@router.post("/views/entities", response_model=OsintView, operation_id="connect_entity_to_view")
 def connect_entity_to_view(
-    id: str = Path(
+    id: str = Query(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
     ),
     payload: EntityConnectionRequest = Body(...),
@@ -386,9 +384,9 @@ def connect_entity_to_view(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.put("/views/{id:path}/permissions", response_model=OsintView, operation_id="update_view_permissions")
+@router.put("/views/permissions", response_model=OsintView, operation_id="update_view_permissions")
 def update_view_permissions(
-    id: str = Path(
+    id: str = Query(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
     ),
     data: Permissive = Body(...),
@@ -411,9 +409,9 @@ def update_view_permissions(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.put("/views/{id:path}", response_model=OsintView, operation_id="update_view")
+@router.put("/views", response_model=OsintView, operation_id="update_view")
 def update_view(
-    id: str = Path(
+    id: str = Query(
         pattern=r"^[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$", description="The ArangoDB Document ID (e.g., collection/123)"
     ),
     data: OsintViewMainData = Body(...),
